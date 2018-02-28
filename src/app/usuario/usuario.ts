@@ -4,6 +4,9 @@ export class Usuario {
     _id?: string;
     nombre: string;
     tipo: string;
+    carnet: string;
+    password: string;
+    email: string;
     institucion: {
         nombre: string;
         sede: string;

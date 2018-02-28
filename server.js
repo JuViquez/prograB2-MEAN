@@ -97,7 +97,7 @@ app.post('/api/escuelas', function(req, res){
         }
     });
 
-});
+0});
 
 app.put('/api/escuelas/:id', function(req, res){
     var updateDoc = req.body;

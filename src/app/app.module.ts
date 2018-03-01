@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
-import { InstitucionesComponent } from './instituciones/instituciones.component';
 import { InstitucionesListComponent } from './instituciones/instituciones-list/instituciones-list.component';
 
 const appRoutes: Routes = [
@@ -23,7 +22,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    InstitucionesComponent,
     InstitucionesListComponent
   ],
   imports: [

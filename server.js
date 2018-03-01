@@ -6,7 +6,7 @@ const INSTITUCIONES_COLLECTION = 'instituciones';
 const ESCUELAS_COLLECTION = 'escuelas';
 
 mongodb.connectToServer( function( err ) {
-    app.listen(3000, function() {
+    app.listen(46357, function() {
        console.log('Node server listening on ' + 3000);
        db = mongodb.getDb();
  })
@@ -24,6 +24,7 @@ function handleError(res, reason, message, code) {
 //INSTITUCIONES
 
 app.get('/api/instituciones', function(req, res){
+    console.log("entro al api");
     db.collection(INSTITUCIONES_COLLECTION).find().toArray(function(err, docs) {
         if (err) {
             handleError(res, err.message, "No se pudo obtener Instituciones.");

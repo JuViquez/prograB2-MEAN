@@ -6,14 +6,14 @@ const INSTITUCIONES_COLLECTION = 'instituciones';
 const ESCUELAS_COLLECTION = 'escuelas';
 
 mongodb.connectToServer( function( err ) {
-    app.listen(46357, function() {
+    app.listen(3000, function() {
        console.log('Node server listening on ' + 3000);
        db = mongodb.getDb();
  })
 });
 
- 
-app.use(express.static(__dirname + '/public'));
+var distDir = __dirname + "/dist/";
+app.use(express.static(distDir)); 
 
 function handleError(res, reason, message, code) {
     console.log("ERROR: " + reason);

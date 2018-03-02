@@ -12,6 +12,12 @@ export class InstitucionesListComponent implements OnInit {
 
   instituciones: Institucion[];
 
+  seleccionado: string
+
+  selectChangeHandler (event: any){
+    this.seleccionado = event.target.value;
+  }
+
   constructor(private institucionService: InstitucionesService) {}
 
   ngOnInit() {
@@ -19,5 +25,4 @@ export class InstitucionesListComponent implements OnInit {
       this.instituciones = data;
     })
   }
-
 }

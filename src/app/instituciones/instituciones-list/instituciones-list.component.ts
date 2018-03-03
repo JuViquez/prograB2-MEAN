@@ -15,7 +15,10 @@ export class InstitucionesListComponent implements OnInit {
   seleccionado: string
 
   selectChangeHandler (event: any){
-    this.seleccionado = event.target.value;
+    
+    this.seleccionado = event.target.value.nombre;
+    console.log("Value: "+JSON.stringify(event.target.value));
+    console.log("seleccionado: "+this.seleccionado);
   }
 
   constructor(private institucionService: InstitucionesService) {}

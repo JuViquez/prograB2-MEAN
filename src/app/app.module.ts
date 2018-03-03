@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { InstitucionesListComponent } from './instituciones/instituciones-list/instituciones-list.component';
+import { CrearProfesorComponent } from './usuario/crear-profesor/crear-profesor.component';
 
 const appRoutes: Routes = [
   {
@@ -13,20 +14,27 @@ const appRoutes: Routes = [
     component: InstitucionesListComponent,
     data: { title: 'Instituciones' }
   },
+  {
+    path: 'crearprofesor',
+    component: CrearProfesorComponent,
+    data: { title: 'Formulario para Profesores' }
+  },
   { path: '',
     redirectTo: 'instituciones',
-    pathMatch: 'full'
+    pathMatch: 'prefix'
   }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    InstitucionesListComponent
+    InstitucionesListComponent,
+    CrearProfesorComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
     HttpModule,
     HttpClientModule,
     RouterModule.forRoot(

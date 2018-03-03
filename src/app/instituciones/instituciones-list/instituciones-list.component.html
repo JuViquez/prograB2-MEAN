@@ -21,7 +21,7 @@
       
       </div>
       <select (change)="selectChangeHandler($event)">
-        <option *ngFor="let Institucion of instituciones" value={{Institucion.nombre}}>{{Institucion.nombre}}</option>
+        <option *ngFor="let Institucion of instituciones" value={Institucion}>{{Institucion.nombre}}</option>
 
       </select> 
 <div class="container">                                    

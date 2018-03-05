@@ -1,3 +1,3 @@
 {
-   "connectionString" : "mongodb://localhost:27017/test"
+   "connectionString" : "mongodb://julito:123@ds046357.mlab.com:46357/excusiones_turisticas"
 }

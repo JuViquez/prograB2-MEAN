@@ -11,14 +11,16 @@ import { InstitucionesService } from '../instituciones.service';
 export class InstitucionesListComponent implements OnInit {
 
   instituciones: Institucion[];
-
-  seleccionado: string
+  selectedValue: Institucion;
+  seleccionado: string;
 
   selectChangeHandler (event: any){
-    
+    /*/
     this.seleccionado = event.target.value.nombre;
     console.log("Value: "+JSON.stringify(event.target.value));
     console.log("seleccionado: "+this.seleccionado);
+    */
+   console.log(this.selectedValue.nombre);
   }
 
   constructor(private institucionService: InstitucionesService) {}

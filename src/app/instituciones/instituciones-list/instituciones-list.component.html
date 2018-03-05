@@ -20,8 +20,9 @@
         </table>
       
       </div>
-      <select (change)="selectChangeHandler($event)">
-        <option *ngFor="let Institucion of instituciones" value={Institucion}>{{Institucion.nombre}}</option>
+      <!--<select (change)="selectChangeHandler($event)">-->
+     <select [(ngModel)]="selectedValue" (change)="selectChangeHandler($event)" >
+        <option *ngFor="let Institucion of instituciones" [ngValue]="Institucion">{{Institucion.nombre}}</option>
 
       </select> 
 <div class="container">                                    

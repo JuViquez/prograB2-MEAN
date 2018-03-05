@@ -5,26 +5,32 @@
 <meta charset="utf-8" />
 </head>
 <body>
-  <h1>{{seleccionado}}</h1>
-    <div class="container">
-        <table class = "table">
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-          </tr>
-          <tr *ngFor="let Institucion of instituciones">
-
-              <th>1</th>
-              <th> {{Institucion.nombre}}</th>
-          </tr>
-        </table>
-      
-      </div>
-     <select [(ngModel)]="selectedValue" (change)="selectChangeHandler($event)" >
-        <option [ngValue]="">No se encuentra mi Institucion</option>
-        <option *ngFor="let Institucion of instituciones" [ngValue]="Institucion">{{Institucion.nombre}}</option>
-      </select> 
-<div class="container">                                    
+      <div class="container">
+          <div class="input-group">
+            <span class="input-group-addon" title="* Institucion" id="InstitucionLabel">Institucion</span>
+            <select name="institucion" [(ngModel)]="selectedInstitucion" (change)="selectInstitucion($event)" class="form-control" >
+              <option [ngValue]="">No se encuentra mi Institucion</option>
+              <option *ngFor="let Institucion of instituciones" [ngValue]="Institucion">{{Institucion.nombre}}</option>
+            </select> 
+            <div [hidden]="!noInstitucion">
+              <span class="input-group-addon" title="* NuevaInstitucion" id="NuevaInstitucionLabel">Nueva Institucion</span>
+              <input type="text" required="required" class="form-control">
+            </div>
+        </div>
+        <div class="input-group" >
+            <span class="input-group-addon" title="* Sede" id="SedeLabel">Sede:</span>
+            <select name="sedelist" (change)="selectSede($event)" class="form-control" >
+              <option value="">No se encuentra mi Sede</option>
+              <option *ngFor="let Sede of sedes" value={{Sede}}>{{Sede}}</option>
+            </select> 
+            <div [hidden]="!noSede">
+              <span class="input-group-addon" title="* NuevaSede" id="NuevaSedeLabel">Nueva Sede       </span>
+              <input type="text" required="required" class="form-control">
+            </div>
+        </div>
+    </div>
+<!--
+      <div class="container">                                    
   <div class="dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Instituciones
     <span class="caret"></span></button>
@@ -35,7 +41,7 @@
       </li>
     </ul>
   </div>
-</div>
+</div> -->
 </body>
 </html>
 

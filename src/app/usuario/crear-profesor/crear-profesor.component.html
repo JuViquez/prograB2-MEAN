@@ -27,13 +27,6 @@
           <label class="" for="password">Contraseña:</label>
           <input class="form-control" id="password" type="text" [(ngModel)]="profesor.password" name="password"  placeholder="Contraseña">
       </div>
-      <div class="from-group">
-          <label class="" for="institucion">Seleccione la Institucion:</label>
-          <select [(ngModel)]="institucionSeleccionada" name="instituciones" (change)="selectInstitucion($event)" >
-              <option [ngValue]="">No se encuentra mi Institucion</option>
-              <option *ngFor="let Institucion of instituciones" [ngValue]="Institucion">{{Institucion.nombre}}</option>
-            </select> 
-      </div>
     </form>
     <h1>{{profesor.nombre}}</h1>
     <app-instituciones-list></app-instituciones-list>

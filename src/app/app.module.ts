@@ -7,6 +7,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { InstitucionesListComponent } from './instituciones/instituciones-list/instituciones-list.component';
 import { CrearProfesorComponent } from './usuario/crear-profesor/crear-profesor.component';
+import { CrearEscuelaComponent } from './escuela/crear-escuela/crear-escuela.component';
 
 const appRoutes: Routes = [
   {
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     InstitucionesListComponent,
-    CrearProfesorComponent
+    CrearProfesorComponent,
+    CrearEscuelaComponent
   ],
   imports: [
     BrowserModule,

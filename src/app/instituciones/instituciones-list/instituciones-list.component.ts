@@ -15,12 +15,11 @@ export class InstitucionesListComponent implements OnInit {
   seleccionado: string;
 
   selectChangeHandler (event: any){
-    /*/
-    this.seleccionado = event.target.value.nombre;
-    console.log("Value: "+JSON.stringify(event.target.value));
-    console.log("seleccionado: "+this.seleccionado);
-    */
-   console.log(this.selectedValue.nombre);
+    if(typeof(this.selectedValue.nombre) == 'undefined'){
+      console.log("NULO")
+    }else{
+      console.log(this.selectedValue.nombre);
+    }
   }
 
   constructor(private institucionService: InstitucionesService) {}

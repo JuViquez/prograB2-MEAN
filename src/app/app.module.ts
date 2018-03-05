@@ -20,7 +20,7 @@ const appRoutes: Routes = [
     data: { title: 'Formulario para Profesores' }
   },
   { path: '',
-    redirectTo: 'instituciones',
+    redirectTo: 'crearprofesor',
     pathMatch: 'prefix'
   }
 ];

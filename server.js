@@ -24,7 +24,6 @@ function handleError(res, reason, message, code) {
 //INSTITUCIONES
 
 app.get('/api/instituciones', function(req, res){
-    console.log("entro al api");
     db.collection(INSTITUCIONES_COLLECTION).find().toArray(function(err, docs) {
         if (err) {
             handleError(res, err.message, "No se pudo obtener Instituciones.");
@@ -78,7 +77,11 @@ app.delete('/api/instituciones/:id', function(req, res){
 //ESCUELAS
 
 app.get('/api/escuelas', function(req, res){
-    db.collection(ESCUELAS_COLLECTION).find().toArray(function(err, docs) {
+var parsed = JSON.parse(req.query);
+var arr = [];
+for(var x in parsed){arr.push(parsed[x]);}
+console.log(arr);
+    db.collection(ESCUELAS_COLLECTION).find({ _id: {$in: arr}}).toArray(function(err, docs) {
         if (err) {
             handleError(res, err.message, "No se pudo obtener escuelas.");
           } else {

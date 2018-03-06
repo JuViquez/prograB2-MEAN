@@ -19,9 +19,9 @@
         </div>
         <div class="input-group" >
             <span class="input-group-addon" title="* Sede" id="SedeLabel">Sede:</span>
-            <select name="sedelist" (change)="selectSede($event)" class="form-control" >
+            <select name="sedelist" [(ngModel)]="selectedSede" (change)="selectSede($event)" class="form-control" >
               <option value="">No se encuentra mi Sede</option>
-              <option *ngFor="let Sede of sedes" value={{Sede}}>{{Sede}}</option>
+              <option *ngFor="let Sede of sedes" [ngValue]="Sede">{{Sede.nombre}}</option>
             </select> 
             <div [hidden]="!noSede">
               <span class="input-group-addon" title="* NuevaSede" id="NuevaSedeLabel">Nueva Sede       </span>

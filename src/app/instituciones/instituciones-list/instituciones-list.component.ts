@@ -58,7 +58,6 @@ export class InstitucionesListComponent implements OnInit {
     }
   }
 
-<<<<<<< HEAD
   selectEscuela(event: any){
     if(typeof(this.selectedEscuela.nombre) == 'undefined'){
       //No se encuentra escuela, se habilita la opción de crear nueva
@@ -86,16 +85,6 @@ export class InstitucionesListComponent implements OnInit {
     }
   }
   
-=======
-  getNombreEscuelas(arreglo: string[]){
-    this.escuelasService.getEscuelas(arreglo).then((data: Escuela[]) => { 
-      this.escuelas = data;
-      console.log("arreglo: "+this.escuelas);
-    })
-    
-  }
-
->>>>>>> origin/master
   constructor(private institucionService: InstitucionService,private escuelasService: EscuelaService) {}
 
   ngOnInit() {
@@ -103,14 +92,6 @@ export class InstitucionesListComponent implements OnInit {
     this.noInstitucion = false;
     this.noSede = false;
     this.institucionService.getInstituciones().then((data: Institucion[]) => { 
-<<<<<<< HEAD
-=======
-      this.instituciones = data;
-    })/*
-    this.selectedInstitucion.nombre="UNED";
-    this.selectedInstitucion.sedes.push({nombre:"Guadalupe",id_escuelas:[]});
-    this.institucionService.getUsers().then((data: Institucion[]) => { 
->>>>>>> origin/master
       this.instituciones = data;
     })
   }

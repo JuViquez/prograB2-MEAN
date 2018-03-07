@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const mongodb = require('./mongodb.js');
+var varmongodb = require("mongodb");
+var ObjectID = varmongodb.ObjectID;
 var db;
 const INSTITUCIONES_COLLECTION = 'instituciones';
 const ESCUELAS_COLLECTION = 'escuelas';
@@ -77,9 +79,9 @@ app.delete('/api/instituciones/:id', function(req, res){
 //ESCUELAS
 
 app.get('/api/escuelas', function(req, res){
-var parsed = JSON.parse(req.query);
+    console.log(req.query);
 var arr = [];
-for(var x in parsed){arr.push(parsed[x]);}
+for(var x in req.query){arr.push(new ObjectID(req.query[x]));};
 console.log(arr);
     db.collection(ESCUELAS_COLLECTION).find({ _id: {$in: arr}}).toArray(function(err, docs) {
         if (err) {

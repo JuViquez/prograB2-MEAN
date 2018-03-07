@@ -53,7 +53,7 @@ export class InstitucionesListComponent implements OnInit {
   getNombreEscuelas(arreglo: string[]){
     this.escuelasService.getEscuelas(arreglo).then((data: Escuela[]) => { 
       this.escuelas = data;})
-    console.log(this.escuelas);
+    console.log("arreglo: "+this.escuelas);
   }
 
   constructor(private institucionService: InstitucionesService,private escuelasService: EscuelaService) {}
@@ -64,6 +64,12 @@ export class InstitucionesListComponent implements OnInit {
     this.noSede = false;
     this.institucionService.getUsers().then((data: Institucion[]) => { 
       this.instituciones = data;
+    })/*
+    this.selectedInstitucion.nombre="UNED";
+    this.selectedInstitucion.sedes.push({nombre:"Guadalupe",id_escuelas:[]});
+    this.institucionService.getUsers().then((data: Institucion[]) => { 
+      this.instituciones = data;
     })
+*/
   }
 }

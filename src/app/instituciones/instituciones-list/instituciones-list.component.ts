@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Institucion } from '../institucion';
-import { InstitucionesService } from '../instituciones.service';
+import { InstitucionService } from '../institucion.service';
 import { EscuelaService } from '../../escuela/escuela.service';
 import { Escuela } from '../../escuela/escuela';
 
@@ -9,7 +9,7 @@ import { Escuela } from '../../escuela/escuela';
   selector: 'app-instituciones-list',
   templateUrl: './instituciones-list.component.html',
   styleUrls: ['./instituciones-list.component.css'],
-  providers: [InstitucionesService,EscuelaService]
+  providers: [InstitucionService,EscuelaService]
 })
 export class InstitucionesListComponent implements OnInit {
 
@@ -52,17 +52,19 @@ export class InstitucionesListComponent implements OnInit {
 
   getNombreEscuelas(arreglo: string[]){
     this.escuelasService.getEscuelas(arreglo).then((data: Escuela[]) => { 
-      this.escuelas = data;})
-    console.log("arreglo: "+this.escuelas);
+      this.escuelas = data;
+      console.log("arreglo: "+this.escuelas);
+    })
+    
   }
 
-  constructor(private institucionService: InstitucionesService,private escuelasService: EscuelaService) {}
+  constructor(private institucionService: InstitucionService,private escuelasService: EscuelaService) {}
 
   ngOnInit() {
     this.sedes = new Array();
     this.noInstitucion = false;
     this.noSede = false;
-    this.institucionService.getUsers().then((data: Institucion[]) => { 
+    this.institucionService.getInstituciones().then((data: Institucion[]) => { 
       this.instituciones = data;
     })/*
     this.selectedInstitucion.nombre="UNED";

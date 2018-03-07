@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Institucion } from '../../instituciones/institucion';
-import { InstitucionesService } from '../../instituciones/instituciones.service';
+import { InstitucionService } from '../../instituciones/institucion.service';
 import {Usuario} from '../usuario';
 import {UsuarioService} from '../usuario.service';
 
@@ -8,7 +8,7 @@ import {UsuarioService} from '../usuario.service';
   selector: 'app-crear-profesor',
   templateUrl: './crear-profesor.component.html',
   styleUrls: ['./crear-profesor.component.css'],
-  providers: [InstitucionesService]
+  providers: [InstitucionService]
 })
 export class CrearProfesorComponent implements OnInit {
   instituciones: Institucion[];
@@ -24,12 +24,12 @@ export class CrearProfesorComponent implements OnInit {
     }
   }
 
-  constructor(private institucionService: InstitucionesService) { }
+  constructor(private institucionService: InstitucionService) { }
 
   ngOnInit() {
     this.profesor = new Usuario();
     this.profesor.tipo = "profesor";
-    this.institucionService.getUsers().then((data: Institucion[]) => { 
+    this.institucionService.getInstituciones().then((data: Institucion[]) => { 
       this.instituciones = data;
     })
   }

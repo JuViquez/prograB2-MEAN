@@ -8,9 +8,9 @@ export class EscuelaService {
   private EscuelaUrl = 'api/escuelas'
   
     constructor(private http: Http) { }
-  
+
     getEscuelas(escuelasIds: string[]): Promise<void | Escuela[]> {
-      return this.http.get(this.EscuelaUrl, {params: escuelasIds})
+      return this.http.get(this.EscuelaUrl, {params:  escuelasIds})
                  .toPromise()
                  .then(response => response.json() as Escuela[])
                  .catch(this.handleError);

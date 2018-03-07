@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const mongodb = require('./mongodb.js');
+var varmongodb = require("mongodb");
+var ObjectID = varmongodb.ObjectID;
 var db;
 const INSTITUCIONES_COLLECTION = 'instituciones';
 const ESCUELAS_COLLECTION = 'escuelas';
@@ -13,8 +15,12 @@ mongodb.connectToServer( function( err ) {
 });
 
 var distDir = __dirname + "/dist/";
+<<<<<<< HEAD
 app.use(express.static(distDir));
 
+=======
+app.use(express.static(distDir)); 
+>>>>>>> 2ef7c57ac7c44f651ecad238b022fa9e9e0ab9ea
 
 function handleError(res, reason, message, code) {
     console.log("ERROR: " + reason);
@@ -78,7 +84,11 @@ app.delete('/api/instituciones/:id', function(req, res){
 //ESCUELAS
 
 app.get('/api/escuelas', function(req, res){
-    db.collection(ESCUELAS_COLLECTION).find().toArray(function(err, docs) {
+    console.log(req.query);
+var arr = [];
+for(var x in req.query){arr.push(new ObjectID(req.query[x]));};
+console.log(arr);
+    db.collection(ESCUELAS_COLLECTION).find({ _id: {$in: arr}}).toArray(function(err, docs) {
         if (err) {
             handleError(res, err.message, "No se pudo obtener escuelas.");
           } else {

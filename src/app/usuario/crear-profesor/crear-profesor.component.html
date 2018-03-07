@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+<title>Formulario Profesor</title>
+<meta charset="utf-8" />
+</head>
+
+<body>
+  <div class= "container">
+    <h2>Formulario para el registro de un profesor</h2>
+    <form action="" class="">
+      <div class="from-group">
+        <label class="" for="nombre">Nombre Completo:</label>
+        <input class="form-control" id="nombre" type="text" [(ngModel)]="profesor.nombre" name="nombre" placeholder="Nombre Completo">
+      </div>
+      <div class="from-group">
+          <label class="" for="carnet">Carnet:</label>
+          <input class="form-control" id="carnet" type="text" [(ngModel)]="profesor.carnet" name="carnet" placeholder="Carnet">
+      </div>
+      <div class="from-group">
+          <label class="" for="email">Email:</label>
+          <input class="form-control" id="email" type="text" [(ngModel)]="profesor.email" name="email" placeholder="Email">
+      </div>
+      <div class="from-group">
+          <label class="" for="password">Contraseña:</label>
+          <input class="form-control" id="password" type="text" [(ngModel)]="profesor.password" name="password"  placeholder="Contraseña">
+      </div>
+    </form>
+    <h1>{{profesor.nombre}}</h1>
+    <app-instituciones-list></app-instituciones-list>
+  </div>
+</body>
+</html>

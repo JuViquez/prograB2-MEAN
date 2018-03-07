@@ -6,7 +6,7 @@
 </head>
 <body>
       <div class="container">
-          <div class="input-group">
+          <div class="input-group" id="FormInstituciones">
             <span class="input-group-addon" title="* Institucion" id="InstitucionLabel">Institucion</span>
             <select name="institucion" [(ngModel)]="selectedInstitucion" (change)="selectInstitucion($event)" class="form-control" >
               <option [ngValue]="">No se encuentra mi Institucion</option>
@@ -14,10 +14,10 @@
             </select> 
             <div [hidden]="!noInstitucion">
               <span class="input-group-addon" title="* NuevaInstitucion" id="NuevaInstitucionLabel">Nueva Institucion</span>
-              <input type="text" required="required" class="form-control">
+              <input type="text" [(ngModel)]="inputInstitucion" class="form-control">
             </div>
         </div>
-        <div class="input-group" >
+        <div class="input-group"id="FormSedes" >
             <span class="input-group-addon" title="* Sede" id="SedeLabel">Sede:</span>
             <select name="sedelist" [(ngModel)]="selectedSede" (change)="selectSede($event)" class="form-control" >
               <option value="">No se encuentra mi Sede</option>
@@ -25,23 +25,22 @@
             </select> 
             <div [hidden]="!noSede">
               <span class="input-group-addon" title="* NuevaSede" id="NuevaSedeLabel">Nueva Sede       </span>
-              <input type="text" required="required" class="form-control">
+              <input type="text" [(ngModel)]="inputSede" class="form-control">
             </div>
         </div>
+        <div class="input-group" id="FormEscuelas" >
+          <span class="input-group-addon" title="* Escuela" id="EscuelaLabel">Escuela:</span>
+          <select name="escuelalist" [(ngModel)]="selectedEscuela" (change)="selectEscuela($event)" class="form-control" >
+            <option value="">No se encuentra mi Escuela</option>
+            <option *ngFor="let Escuela of escuelas" [ngValue]="Escuela">{{Escuela.nombre}}</option>
+          </select> 
+          <div [hidden]="!noEscuela">
+            <span class="input-group-addon" title="* NuevaEscuela" id="NuevaEscuelaLabel">Nueva Escuela       </span>
+            <input type="text" [(ngModel)]="inputEscuela" class="form-control">
+          </div>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="EnviarDocumento()">Guardar</button>
     </div>
-<!--
-      <div class="container">                                    
-  <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Instituciones
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-      <li class="list-group-item"
-        *ngFor="let Institucion of instituciones">
-          {{Institucion.nombre}}
-      </li>
-    </ul>
-  </div>
-</div> -->
 </body>
 </html>
 

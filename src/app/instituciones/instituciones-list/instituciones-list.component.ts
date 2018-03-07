@@ -70,18 +70,24 @@ export class InstitucionesListComponent implements OnInit {
 
   getNombreEscuelas(arreglo: string[]){
     this.escuelasService.getEscuelas(arreglo).then((data:Escuela[]) => { 
-      this.escuelas = data; console.log("arreglo: "+this.escuelas);})}
+      this.escuelas = data; console.log("arreglo: "+this.escuelas[0].nombre);})}
 
   EnviarDocumento(){
     var InstitucionOutput = new Institucion;
-
+    var escuelaCreada: Escuela;
+    var institucionCreada: Institucion;
+    escuelaCreada = {nombre: this.inputEscuela, programas: [{codigo_programa:"",nombre:"",malla_curricular:[{codigo_curso:"",nombre:"",temas:[{nombre:"",subtemas:[]}]}]}]};
     if(this.noInstitucion){
-      var arr: string[];
-      arr = new Array();
-      arr.push(this.inputEscuela);
       InstitucionOutput.nombre = this.inputInstitucion;
-      InstitucionOutput.sedes = [{nombre:this.inputSede,id_escuelas:arr}];
-      console.log(InstitucionOutput);
+      this.escuelasService.createEscuela(escuelaCreada).then((data: Escuela) => {escuelaCreada = data;
+        InstitucionOutput.sedes = [{nombre:this.inputSede,id_escuelas:[escuelaCreada._id]}];
+        this.institucionService.createInstitucion(InstitucionOutput).then((data2: Institucion) => {institucionCreada = data2})
+      } )
+    }else if(this.noSede){
+      this.escuelasService.createEscuela(escuelaCreada).then((data: Escuela) => {escuelaCreada = data;
+        this.selectedInstitucion.sedes.push({nombre:this.inputSede,id_escuelas:[escuelaCreada._id]});  
+        this.institucionService.updateInstitucion(this.selectedInstitucion).then((data2: Institucion) => { data2=this.selectedInstitucion; } )
+      } )
     }
   }
   

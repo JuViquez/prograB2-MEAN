@@ -16,7 +16,6 @@ export class EscuelaService {
                  .catch(this.handleError);
     }
   
-  
     createEscuela(newEscuela: Escuela): Promise<void | Escuela> {
       return this.http.post(this.EscuelaUrl, newEscuela)
             .toPromise()

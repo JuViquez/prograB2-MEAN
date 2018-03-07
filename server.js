@@ -4,6 +4,7 @@ const mongodb = require('./mongodb.js');
 var varmongodb = require("mongodb");
 var ObjectID = varmongodb.ObjectID;
 var db;
+var bodyParser = require("body-parser");
 const INSTITUCIONES_COLLECTION = 'instituciones';
 const ESCUELAS_COLLECTION = 'escuelas';
 const GRUPOS_COLLECTION = 'grupos';
@@ -17,6 +18,7 @@ mongodb.connectToServer( function( err ) {
 
 var distDir = __dirname + "/dist/";
 app.use(express.static(distDir)); 
+app.use(bodyParser.json());
 
 function handleError(res, reason, message, code) {
     console.log("ERROR: " + reason);
@@ -86,6 +88,7 @@ for(var x in req.query){arr.push(new ObjectID(req.query[x]));};
         if (err) {
             handleError(res, err.message, "No se pudo obtener escuelas.");
           } else {
+            
             res.status(200).json(docs);
           }      
     })
@@ -93,11 +96,11 @@ for(var x in req.query){arr.push(new ObjectID(req.query[x]));};
 
 app.post('/api/escuelas', function(req, res){
     var newDoc = req.body;
-
     db.collection(ESCUELAS_COLLECTION).insertOne(newDoc, function(err, doc) {
         if (err) {
         handleError(res, err.message, "Fallo al crear Escuela.");
         } else {
+            console.log("DOCS: "+doc);
         res.status(201).json(doc.ops[0]);
         }
     });

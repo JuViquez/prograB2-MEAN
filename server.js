@@ -6,6 +6,7 @@ var ObjectID = varmongodb.ObjectID;
 var db;
 const INSTITUCIONES_COLLECTION = 'instituciones';
 const ESCUELAS_COLLECTION = 'escuelas';
+const GRUPOS_COLLECTION = 'grupos';
 
 mongodb.connectToServer( function( err ) {
     app.listen(3000, function() {
@@ -79,10 +80,8 @@ app.delete('/api/instituciones/:id', function(req, res){
 //ESCUELAS
 
 app.get('/api/escuelas', function(req, res){
-    console.log(req.query);
 var arr = [];
 for(var x in req.query){arr.push(new ObjectID(req.query[x]));};
-console.log(arr);
     db.collection(ESCUELAS_COLLECTION).find({ _id: {$in: arr}}).toArray(function(err, docs) {
         if (err) {
             handleError(res, err.message, "No se pudo obtener escuelas.");
@@ -129,157 +128,10 @@ app.delete('/api/escuelas/:id', function(req, res){
         });
 });
 
-//PROGRAMAS
-
-app.get('/api/programas', function(req, res){
-    db.collection(PROGRAMAS_COLLECTION).find().toArray(function(err, docs) {
-        if (err) {
-            handleError(res, err.message, "No se pudo obtener programas.");
-          } else {
-            res.status(200).json(docs);
-          }      
-    })
-});
-
-app.post('/api/programas', function(req, res){
-    var newDoc = req.body;
-
-    db.collection(PROGRAMAS_COLLECTION).insertOne(newDoc, function(err, doc) {
-        if (err) {
-        handleError(res, err.message, "Fallo al crear Programa.");
-        } else {
-        res.status(201).json(doc.ops[0]);
-        }
-    });
-
-});
-
-app.put('/api/programas/:id', function(req, res){
-    var updateDoc = req.body;
-  delete updateDoc._id;
-
-  db.collection(PROGRAMAS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Fallo al actualizar Programa");
-    } else {
-      updateDoc._id = req.params.id;
-      res.status(200).json(updateDoc);
-    }
-  });
-});
-
-app.delete('/api/programas/:id', function(req, res){
-    db.collection(PROGRAMAS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
-        if (err) {
-            handleError(res, err.message, "Fallo al borrar Programa");
-        } else {
-            res.status(200).json(req.params.id);
-        }
-        });
-});
-
-//MALLAS CURRICULARES
-
-app.get('/api/mallas', function(req, res){
-    db.collection(MALLAS_COLLECTION).find().toArray(function(err, docs) {
-        if (err) {
-            handleError(res, err.message, "No se pudo obtener mallas.");
-          } else {
-            res.status(200).json(docs);
-          }      
-    })
-});
-
-app.post('/api/mallas', function(req, res){
-    var newDoc = req.body;
-
-    db.collection(MALLAS_COLLECTION).insertOne(newDoc, function(err, doc) {
-        if (err) {
-        handleError(res, err.message, "Fallo al crear Malla.");
-        } else {
-        res.status(201).json(doc.ops[0]);
-        }
-    });
-
-});
-
-app.put('/api/mallas/:id', function(req, res){
-    var updateDoc = req.body;
-  delete updateDoc._id;
-
-  db.collection(MALLAS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Fallo al actualizar Malla");
-    } else {
-      updateDoc._id = req.params.id;
-      res.status(200).json(updateDoc);
-    }
-  });
-});
-
-app.delete('/api/mallas/:id', function(req, res){
-    db.collection(MALLAS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
-        if (err) {
-            handleError(res, err.message, "Fallo al borrar Malla");
-        } else {
-            res.status(200).json(req.params.id);
-        }
-        });
-});
-
-//CURSOS
-
-app.get('/api/cursos', function(req, res){
-    db.collection(CURSO_COLLECTION).find().toArray(function(err, docs) {
-        if (err) {
-            handleError(res, err.message, "No se pudo obtener cursos.");
-          } else {
-            res.status(200).json(docs);
-          }      
-    })
-});
-
-app.post('/api/cursos', function(req, res){
-    var newDoc = req.body;
-
-    db.collection(CURSO_COLLECTION).insertOne(newDoc, function(err, doc) {
-        if (err) {
-        handleError(res, err.message, "Fallo al crear curso.");
-        } else {
-        res.status(201).json(doc.ops[0]);
-        }
-    });
-
-});
-
-app.put('/api/cursos/:id', function(req, res){
-    var updateDoc = req.body;
-  delete updateDoc._id;
-
-  db.collection(CURSO_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Fallo al actualizar curso");
-    } else {
-      updateDoc._id = req.params.id;
-      res.status(200).json(updateDoc);
-    }
-  });
-});
-
-app.delete('/api/cursos/:id', function(req, res){
-    db.collection(CURSO_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
-        if (err) {
-            handleError(res, err.message, "Fallo al borrar curso");
-        } else {
-            res.status(200).json(req.params.id);
-        }
-        });
-});
-
 //GRUPOS
 
-app.get('/api/grupos', function(req, res){
-    db.collection(GRUPO_COLLECTION).find().toArray(function(err, docs) {
+app.get('/api/grupos/escuela/:id', function(req, res){
+    db.collection(GRUPOS_COLLECTION).find({id_escuela : req.params.id}).toArray(function(err, docs) {
         if (err) {
             handleError(res, err.message, "No se pudo obtener grupos.");
           } else {
@@ -287,6 +139,27 @@ app.get('/api/grupos', function(req, res){
           }      
     })
 });
+
+app.get('/api/grupos/profesor/:id', function(req, res){
+    db.collection(GRUPOS_COLLECTION).find({id_profesor : req.params.id}).toArray(function(err, docs) {
+        if (err) {
+            handleError(res, err.message, "No se pudo obtener grupos.");
+          } else {
+            res.status(200).json(docs);
+          }      
+    })
+});
+
+app.get('/api/grupos/estudiante/:id', function(req, res){
+    db.collection(GRUPOS_COLLECTION).find({"lista_estudiantes.id_estudiante" : req.params.id }).toArray(function(err, docs) {
+        if (err) {
+            handleError(res, err.message, "No se pudo obtener grupos.");
+          } else {
+            res.status(200).json(docs);
+          }      
+    })
+});
+
 
 app.post('/api/grupos', function(req, res){
     var newDoc = req.body;
@@ -325,103 +198,7 @@ app.delete('/api/grupos/:id', function(req, res){
         });
 });
 
-//MATRICULA
 
-app.get('/api/matriculas', function(req, res){
-    db.collection(MATRICULA_COLLECTION).find().toArray(function(err, docs) {
-        if (err) {
-            handleError(res, err.message, "No se pudo obtener matriculas.");
-          } else {
-            res.status(200).json(docs);
-          }      
-    })
-});
-
-app.post('/api/matriculas', function(req, res){
-    var newDoc = req.body;
-
-    db.collection(MATRICULA_COLLECTION).insertOne(newDoc, function(err, doc) {
-        if (err) {
-        handleError(res, err.message, "Fallo al crear matricula.");
-        } else {
-        res.status(201).json(doc.ops[0]);
-        }
-    });
-
-});
-
-app.put('/api/matriculas/:id', function(req, res){
-    var updateDoc = req.body;
-  delete updateDoc._id;
-
-  db.collection(MATRICULA_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Fallo al actualizar matricula");
-    } else {
-      updateDoc._id = req.params.id;
-      res.status(200).json(updateDoc);
-    }
-  });
-});
-
-app.delete('/api/matriculas/:id', function(req, res){
-    db.collection(MATRICULA_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
-        if (err) {
-            handleError(res, err.message, "Fallo al borrar matricula");
-        } else {
-            res.status(200).json(req.params.id);
-        }
-        });
-});
-
-//materias
-
-app.get('/api/materias', function(req, res){
-    db.collection(MATERIA_COLLECTION).find().toArray(function(err, docs) {
-        if (err) {
-            handleError(res, err.message, "No se pudo obtener materias.");
-          } else {
-            res.status(200).json(docs);
-          }      
-    })
-});
-
-app.post('/api/materias', function(req, res){
-    var newDoc = req.body;
-
-    db.collection(MATERIA_COLLECTION).insertOne(newDoc, function(err, doc) {
-        if (err) {
-        handleError(res, err.message, "Fallo al crear materia.");
-        } else {
-        res.status(201).json(doc.ops[0]);
-        }
-    });
-
-});
-
-app.put('/api/materias/:id', function(req, res){
-    var updateDoc = req.body;
-  delete updateDoc._id;
-
-  db.collection(MATERIA_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Fallo al actualizar materia");
-    } else {
-      updateDoc._id = req.params.id;
-      res.status(200).json(updateDoc);
-    }
-  });
-});
-
-app.delete('/api/materias/:id', function(req, res){
-    db.collection(MATERIA_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
-        if (err) {
-            handleError(res, err.message, "Fallo al borrar materia");
-        } else {
-            res.status(200).json(req.params.id);
-        }
-        });
-});
 
 //Usuarios
 
@@ -471,3 +248,4 @@ app.delete('/api/usuarios/:id', function(req, res){
         }
         });
 });
+

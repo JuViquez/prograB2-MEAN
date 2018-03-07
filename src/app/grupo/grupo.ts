@@ -4,6 +4,7 @@ export class Grupo {
     _id?: string;
     numero: number;
     id_institucion: string;
+    id_escuela: string;
     sede: string;
     id_profesor: string;
     cupos: number;

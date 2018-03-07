@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { InstitucionesListComponent } from './instituciones/instituciones-list/instituciones-list.component';
 import { CrearProfesorComponent } from './usuario/crear-profesor/crear-profesor.component';
 import { CrearEscuelaComponent } from './escuela/crear-escuela/crear-escuela.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 const appRoutes: Routes = [
   {
@@ -41,10 +42,10 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } 
+      {useHash: true}
     )
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -12,8 +12,9 @@ mongodb.connectToServer( function( err ) {
  })
 });
 
- 
-app.use(express.static(__dirname + '/public'));
+var distDir = __dirname + "/dist/";
+app.use(express.static(distDir));
+
 
 function handleError(res, reason, message, code) {
     console.log("ERROR: " + reason);

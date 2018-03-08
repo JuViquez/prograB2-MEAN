@@ -7,8 +7,9 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { InstitucionesListComponent } from './instituciones/instituciones-list/instituciones-list.component';
 import { CrearProfesorComponent } from './usuario/crear-profesor/crear-profesor.component';
-import { CrearEscuelaComponent } from './escuela/crear-escuela/crear-escuela.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ListaEscuelasComponent } from './escuela/lista-escuelas/lista-escuelas.component';
+import { FormEscuelaComponent } from './escuela/form-escuela/form-escuela.component';
 
 const appRoutes: Routes = [
   {
@@ -21,6 +22,10 @@ const appRoutes: Routes = [
     component: CrearProfesorComponent,
     data: { title: 'Formulario para Profesores' }
   },
+  {
+    path: 'crearescuela',
+    component: FormEscuelaComponent,
+  },
   { path: '',
     redirectTo: 'crearprofesor',
     pathMatch: 'prefix'
@@ -32,7 +37,8 @@ const appRoutes: Routes = [
     AppComponent,
     InstitucionesListComponent,
     CrearProfesorComponent,
-    CrearEscuelaComponent
+    ListaEscuelasComponent,
+    FormEscuelaComponent
   ],
   imports: [
     BrowserModule,

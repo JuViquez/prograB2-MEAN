@@ -1,0 +1,22 @@
+<div class= "container">
+  <h2>Formulario para el registro de Escuelas</h2>
+  <form (ngSubmit)="onSubmit(escuelaForm)" #escuelaForm="ngForm">
+    <div class="from-group">
+      <label class="" for="institucion">Institucion:</label>
+      <select id="institucion" name="institucion" class="form-control" [(ngModel)]="selectedInstitucion" (change)="setSedes(selectedInstitucion.sedes)" placeholder="Institucion" >
+        <option *ngFor="let i of instituciones" [ngValue]="i">{{i.nombre}}</option>
+      </select> 
+    </div>
+    <div class="from-group">
+      <label class="" for="sede">Sede:</label>
+      <select id="sede" name="sede"  class="form-control" [(ngModel)]="selectedSede" placeholder="Sede"  >
+        <option *ngFor="let s of sedes" [ngValue]="s">{{s.nombre}}</option>> 
+      </select> 
+    </div>
+    <div class="from-group">
+        <label class="" for="nombre">Nombre de Escuela:</label>
+        <input class="form-control" id="nombre" type="text"  name="nombre"  placeholder="Nombre" ngModel>
+    </div>
+    <button type="submit" class="btn btn-success">Crear</button>
+  </form>
+</div>

@@ -37,7 +37,7 @@ export class InstitucionesListComponent implements OnInit {
       this.noSede=true;
       this.noEscuela = true;
     }else{
-      console.log(this.selectedInstitucion.nombre);
+      console.log(this.selectedInstitucion.sedes.length);
       this.sedes = this.selectedInstitucion.sedes;
       this.noInstitucion = false;
       this.noSede = false;
@@ -93,8 +93,10 @@ export class InstitucionesListComponent implements OnInit {
       } )
     }else if(this.noEscuela && this.creador){
       this.escuelasService.createEscuela(escuelaCreada).then((data: Escuela) => {escuelaCreada = data;
-        this.selectedInstitucion.sedes.push({nombre:this.selectedSede.nombre,id_escuelas:[escuelaCreada._id]});
-        //falta solucionar esta parte
+
+        this.selectedSede.id_escuelas.push(escuelaCreada._id);
+          var index = this.selectedInstitucion.sedes.indexOf(this.selectedSede);
+          if (index !== -1) {this.selectedInstitucion.sedes.splice(index, 1); this.selectedInstitucion.sedes.push({nombre:this.selectedSede.nombre,id_escuelas:this.selectedSede.id_escuelas}); };
         this.institucionService.updateInstitucion(this.selectedInstitucion).then((data2: Institucion) => { institucionCreada.nombre = this.selectedInstitucion.nombre; institucionCreada.sede = this.selectedSede.nombre; institucionCreada.escuela = this.inputEscuela; this.notify.emit(institucionCreada);
       })})
     }else{
@@ -104,11 +106,13 @@ export class InstitucionesListComponent implements OnInit {
         console.log("error")
       }
       }
-  }
-  
+  };
+
+
   constructor(private institucionService: InstitucionService,private escuelasService: EscuelaService) {}
 
   ngOnInit() {
+    this.selectedEscuela = null;
     this.sedes = new Array();
     this.noInstitucion = false;
     this.noSede = false;

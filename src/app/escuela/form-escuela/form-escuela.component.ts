@@ -13,6 +13,7 @@ import { Sede } from '../../models/sede';
   providers: [EscuelaService, InstitucionService]
 })
 export class FormEscuelaComponent implements OnInit {
+  
 
    instituciones: Institucion[];
    sedes: Sede[];
@@ -22,7 +23,11 @@ export class FormEscuelaComponent implements OnInit {
    selectedEscuela: Escuela;
 
   constructor(private escuelaService: EscuelaService, 
-              private institucionService: InstitucionService) { }
+              private institucionService: InstitucionService) { 
+                
+                this.selectedEscuela = new Escuela();
+                this.selectedEscuela.nombre = "";
+              }
 
   ngOnInit() {
     this.institucionService.getInstituciones().then((data: Institucion[]) => { 
@@ -34,10 +39,23 @@ export class FormEscuelaComponent implements OnInit {
     this.sedes = sedes;
   }
 
+  getEscuelas(){
+    this.escuelaService.getEscuelas(this.selectedSede.id_escuelas).then((escuelas: Escuela[]) =>{
+      this.escuelas = escuelas;
+    }
+  
+  )
+  }
+
+  setSelectedEscuela(escuela: Escuela){
+    this.selectedEscuela = escuela;
+  }
+
 
   onSubmit(form: NgForm, event: String){
     switch(event) {
       case 'POST' : this.postClicked(form); break;
+      case 'PUT'  : this.putClicked(form); break;
       default : break;
   }
     
@@ -52,10 +70,21 @@ export class FormEscuelaComponent implements OnInit {
       this.selectedInstitucion.sedes[this.sedes.indexOf(this.selectedSede)].id_escuelas.push(escuela._id);
       this.selectedEscuela = escuela;
       this.escuelas.push(escuela);
-      this.institucionService.updateInstitucion(this.selectedInstitucion).then((institucion: Institucion) => {
-        console.log(institucion);
-      }
-      )
+      this.institucionService.updateInstitucion(this.selectedInstitucion);
     })
   }
+
+  putClicked(form: NgForm){
+    console.log(form.value);
+    console.log(this.selectedEscuela);
+    var putEscuela = new Escuela();
+    putEscuela = this.selectedEscuela;
+    putEscuela.nombre = form.value.nombre;
+    this.escuelaService.updateEscuela(putEscuela).then((escuela: Escuela) => {
+      this.selectedEscuela = escuela;
+      console.log(this.selectedEscuela);
+    })
+
+  }
+
 }

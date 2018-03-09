@@ -11,8 +11,8 @@ const GRUPOS_COLLECTION = 'grupos';
 const USUARIO_COLLECTION = 'usuarios';
 
 mongodb.connectToServer( function( err ) {
-    app.listen(3000, function() {
-       console.log('Node server listening on ' + 3000);
+    app.listen(4000, function() {
+       console.log('Node server listening on ' + 4000);
        db = mongodb.getDb();
  })
 });

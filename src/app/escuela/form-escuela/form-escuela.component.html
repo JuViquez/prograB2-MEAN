@@ -9,16 +9,32 @@
     </div>
     <div class="from-group">
       <label class="" for="sede">Sede:</label>
-      <select id="sede" name="sede"  class="form-control" [(ngModel)]="selectedSede" placeholder="Sede">
+      <select id="sede" name="sede"  class="form-control" [(ngModel)]="selectedSede" (change)="getEscuelas()" placeholder="Sede">
         <option *ngFor="let s of sedes" [ngValue]="s">{{s.nombre}}</option>> 
       </select> 
     </div>
     <div class="from-group">
         <label class="" for="nombre">Nombre de Escuela:</label>
-        <input class="form-control" type="text" name="nombre" list="es" ngModel>
+        <input class="form-control" type="text" name="nombre" [ngModel]="selectedEscuela.nombre" list="es">
     </div>
     <div class="form-group">
       <button type="submit" class="btn btn-success" (click)="onSubmit(escuelaForm,'POST')">Crear</button>
+      <button type="submit" class="btn btn-success" (click)="onSubmit(escuelaForm,'PUT')">Editar</button>
+      <button type="submit" class="btn btn-danger" (click)="onSubmit(escuelaForm,'DELETE')">Borrar</button>
     </div>
   </form>
+</div>
+<div class="container">
+  <table id="table" class="table table-hover">
+    <thead>
+      <tr class="theah-dark">
+        <th scope="col">Nombre</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of escuelas"  [ngClass]= "{ 'info' : e === selectedEscuela}" (click)="setSelectedEscuela(e)">
+        <td>{{e.nombre}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

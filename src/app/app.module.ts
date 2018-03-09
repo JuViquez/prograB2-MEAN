@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,6 +11,7 @@ import { CrearProfesorComponent } from './usuario/crear-profesor/crear-profesor.
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ListaEscuelasComponent } from './escuela/lista-escuelas/lista-escuelas.component';
 import { FormEscuelaComponent } from './escuela/form-escuela/form-escuela.component';
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
   {
@@ -25,6 +27,11 @@ const appRoutes: Routes = [
   {
     path: 'crearescuela',
     component: FormEscuelaComponent,
+  }, 
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: { title: 'Login' }
   },
   { path: '',
     redirectTo: 'crearprofesor',
@@ -38,7 +45,8 @@ const appRoutes: Routes = [
     InstitucionesListComponent,
     CrearProfesorComponent,
     ListaEscuelasComponent,
-    FormEscuelaComponent
+    FormEscuelaComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +54,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     HttpClientModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(
       appRoutes,
       {useHash: true}

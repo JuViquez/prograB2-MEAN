@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Institucion } from '../../instituciones/institucion';
-import { InstitucionService } from '../../instituciones/institucion.service';
 import {Usuario} from '../usuario';
 import {UsuarioService} from '../usuario.service';
 
@@ -8,29 +7,32 @@ import {UsuarioService} from '../usuario.service';
   selector: 'app-crear-profesor',
   templateUrl: './crear-profesor.component.html',
   styleUrls: ['./crear-profesor.component.css'],
-  providers: [InstitucionService]
+  providers: [UsuarioService]
 })
 export class CrearProfesorComponent implements OnInit {
   instituciones: Institucion[];
   profesor: Usuario;
-  institucionSeleccionada: Institucion;
+  creadorVar: Boolean;
+  errMessage: Boolean;
 
-  selectInstitucion (event: any){
-    console.log("Inicio de funcion");
-    if(typeof(this.institucionSeleccionada.nombre) == 'undefined'){
-      console.log("NULO")
+  onNotifyEvent(objeto : any){
+    this.creadorVar = false;
+    if(typeof(objeto.nombre) != 'undefined' && typeof(objeto.sede) != 'undefined' && typeof(objeto.escuela) != 'undefined'){
+      this.errMessage = true;
+      this.profesor.escuela = objeto.escuela;
+      this.profesor.institucion = {nombre: objeto.nombre, sede: objeto.sede};
+      this.usuarioService.createUsuario(this.profesor).then((data: Usuario ) => {});
     }else{
-      console.log(this.institucionSeleccionada.nombre);
+      this.errMessage = false;
     }
   }
 
-  constructor(private institucionService: InstitucionService) { }
+  constructor(private usuarioService: UsuarioService) { }
 
   ngOnInit() {
+    this.errMessage = true;
+    this.creadorVar = true;
     this.profesor = new Usuario();
     this.profesor.tipo = "profesor";
-    this.institucionService.getInstituciones().then((data: Institucion[]) => { 
-      this.instituciones = data;
-    })
   }
 }

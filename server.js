@@ -8,6 +8,7 @@ var bodyParser = require("body-parser");
 const INSTITUCIONES_COLLECTION = 'instituciones';
 const ESCUELAS_COLLECTION = 'escuelas';
 const GRUPOS_COLLECTION = 'grupos';
+const USUARIO_COLLECTION = 'usuarios';
 
 mongodb.connectToServer( function( err ) {
     app.listen(3000, function() {
@@ -206,7 +207,7 @@ app.delete('/api/grupos/:id', function(req, res){
 //Usuarios
 
 app.get('/api/usuarios', function(req, res){
-    db.collection(CURSO_COLLECTION).find().toArray(function(err, docs) {
+    db.collection(USUARIO_COLLECTION).find().toArray(function(err, docs) {
         if (err) {
             handleError(res, err.message, "No se pudo obtener usuarios.");
           } else {
@@ -218,7 +219,7 @@ app.get('/api/usuarios', function(req, res){
 app.post('/api/usuarios', function(req, res){
     var newDoc = req.body;
 
-    db.collection(CURSO_COLLECTION).insertOne(newDoc, function(err, doc) {
+    db.collection(USUARIO_COLLECTION).insertOne(newDoc, function(err, doc) {
         if (err) {
         handleError(res, err.message, "Fallo al crear usuario.");
         } else {
@@ -232,7 +233,7 @@ app.put('/api/usuarios/:id', function(req, res){
     var updateDoc = req.body;
   delete updateDoc._id;
 
-  db.collection(CURSO_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
+  db.collection(USUARIO_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Fallo al actualizar usuario");
     } else {
@@ -243,7 +244,7 @@ app.put('/api/usuarios/:id', function(req, res){
 });
 
 app.delete('/api/usuarios/:id', function(req, res){
-    db.collection(CURSO_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+    db.collection(USUARIO_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
         if (err) {
             handleError(res, err.message, "Fallo al borrar usuario");
         } else {

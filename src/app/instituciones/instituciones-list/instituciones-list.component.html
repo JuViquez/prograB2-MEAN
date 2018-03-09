@@ -12,7 +12,7 @@
               <option [ngValue]="">No se encuentra mi Institucion</option>
               <option *ngFor="let Institucion of instituciones" [ngValue]="Institucion">{{Institucion.nombre}}</option>
             </select> 
-            <div [hidden]="!noInstitucion">
+            <div [hidden]="!noInstitucion || !creador">
               <span class="input-group-addon" title="* NuevaInstitucion" id="NuevaInstitucionLabel">Nueva Institucion</span>
               <input type="text" [(ngModel)]="inputInstitucion" class="form-control">
             </div>
@@ -23,7 +23,7 @@
               <option value="">No se encuentra mi Sede</option>
               <option *ngFor="let Sede of sedes" [ngValue]="Sede">{{Sede.nombre}}</option>
             </select> 
-            <div [hidden]="!noSede">
+            <div [hidden]="!noSede || !creador">
               <span class="input-group-addon" title="* NuevaSede" id="NuevaSedeLabel">Nueva Sede       </span>
               <input type="text" [(ngModel)]="inputSede" class="form-control">
             </div>
@@ -34,7 +34,7 @@
             <option value="">No se encuentra mi Escuela</option>
             <option *ngFor="let Escuela of escuelas" [ngValue]="Escuela">{{Escuela.nombre}}</option>
           </select> 
-          <div [hidden]="!noEscuela">
+          <div [hidden]="!noEscuela || !creador">
             <span class="input-group-addon" title="* NuevaEscuela" id="NuevaEscuelaLabel">Nueva Escuela       </span>
             <input type="text" [(ngModel)]="inputEscuela" class="form-control">
           </div>

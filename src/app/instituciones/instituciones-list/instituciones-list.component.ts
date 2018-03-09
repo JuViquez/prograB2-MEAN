@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Institucion } from '../institucion';
 import { InstitucionService } from '../institucion.service';
 import { EscuelaService } from '../../escuela/escuela.service';
@@ -13,6 +13,8 @@ import { Escuela } from '../../escuela/escuela';
 })
 export class InstitucionesListComponent implements OnInit {
 
+  @Output() notify: EventEmitter<any> = new EventEmitter<any>();
+  @Input() creador: Boolean;
   instituciones: Institucion[];
   selectedInstitucion: Institucion;
   noInstitucion: Boolean;
@@ -35,7 +37,7 @@ export class InstitucionesListComponent implements OnInit {
       this.noSede=true;
       this.noEscuela = true;
     }else{
-      console.log(this.selectedInstitucion.nombre);
+      console.log(this.selectedInstitucion.sedes.length);
       this.sedes = this.selectedInstitucion.sedes;
       this.noInstitucion = false;
       this.noSede = false;
@@ -75,28 +77,46 @@ export class InstitucionesListComponent implements OnInit {
   EnviarDocumento(){
     var InstitucionOutput = new Institucion;
     var escuelaCreada: Escuela;
-    var institucionCreada: Institucion;
+    var institucionCreada: {nombre:string,sede:string,escuela:string};
+    institucionCreada = {nombre:"",sede:"",escuela:""};
     escuelaCreada = {nombre: this.inputEscuela, programas: [{codigo_programa:"",nombre:"",malla_curricular:[{codigo_curso:"",nombre:"",temas:[{nombre:"",subtemas:[]}]}]}]};
-    if(this.noInstitucion){
+    if(this.noInstitucion && this.creador){
       InstitucionOutput.nombre = this.inputInstitucion;
       this.escuelasService.createEscuela(escuelaCreada).then((data: Escuela) => {escuelaCreada = data;
         InstitucionOutput.sedes = [{nombre:this.inputSede,id_escuelas:[escuelaCreada._id]}];
-        this.institucionService.createInstitucion(InstitucionOutput).then((data2: Institucion) => {institucionCreada = data2})
+        this.institucionService.createInstitucion(InstitucionOutput).then((data2: Institucion) => {institucionCreada.nombre = data2.nombre; institucionCreada.sede = this.inputSede; institucionCreada.escuela = this.inputEscuela;this.notify.emit(institucionCreada); })
       } )
-    }else if(this.noSede){
+    }else if(this.noSede && this.creador){
       this.escuelasService.createEscuela(escuelaCreada).then((data: Escuela) => {escuelaCreada = data;
         this.selectedInstitucion.sedes.push({nombre:this.inputSede,id_escuelas:[escuelaCreada._id]});  
-        this.institucionService.updateInstitucion(this.selectedInstitucion).then((data2: Institucion) => { data2=this.selectedInstitucion; } )
+        this.institucionService.updateInstitucion(this.selectedInstitucion).then((data2: Institucion) => { institucionCreada.nombre = this.selectedInstitucion.nombre; institucionCreada.sede = this.inputSede; institucionCreada.escuela = this.inputEscuela; this.notify.emit(institucionCreada); } )
       } )
-    }
-  }
-  
+    }else if(this.noEscuela && this.creador){
+      this.escuelasService.createEscuela(escuelaCreada).then((data: Escuela) => {escuelaCreada = data;
+
+        this.selectedSede.id_escuelas.push(escuelaCreada._id);
+          var index = this.selectedInstitucion.sedes.indexOf(this.selectedSede);
+          if (index !== -1) {this.selectedInstitucion.sedes.splice(index, 1); this.selectedInstitucion.sedes.push({nombre:this.selectedSede.nombre,id_escuelas:this.selectedSede.id_escuelas}); };
+        this.institucionService.updateInstitucion(this.selectedInstitucion).then((data2: Institucion) => { institucionCreada.nombre = this.selectedInstitucion.nombre; institucionCreada.sede = this.selectedSede.nombre; institucionCreada.escuela = this.inputEscuela; this.notify.emit(institucionCreada);
+      })})
+    }else{
+      try{
+        institucionCreada.nombre = this.selectedInstitucion.nombre; institucionCreada.sede = this.selectedSede.nombre; institucionCreada.escuela = this.selectedEscuela.nombre; this.notify.emit(institucionCreada);
+      }catch(err){
+        console.log("error")
+      }
+      }
+  };
+
+
   constructor(private institucionService: InstitucionService,private escuelasService: EscuelaService) {}
 
   ngOnInit() {
+    this.selectedEscuela = null;
     this.sedes = new Array();
     this.noInstitucion = false;
     this.noSede = false;
+    this.noEscuela = false;
     this.institucionService.getInstituciones().then((data: Institucion[]) => { 
       this.instituciones = data;
     })

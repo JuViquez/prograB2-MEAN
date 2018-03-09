@@ -3,6 +3,8 @@ import { EscuelaService } from '../escuela.service'
 import { Institucion } from '../../instituciones/institucion';
 import { InstitucionService } from '../../instituciones/institucion.service'
 import { NgForm } from '@angular/forms';
+import { Escuela } from '../escuela';
+import { Sede } from '../../models/sede';
 
 @Component({
   selector: 'app-form-escuela',
@@ -13,9 +15,11 @@ import { NgForm } from '@angular/forms';
 export class FormEscuelaComponent implements OnInit {
 
    instituciones: Institucion[];
-   sedes: JSON[];
-   selectedSede: JSON;
+   sedes: Sede[];
+   selectedSede: Sede;
    selectedInstitucion: Institucion;
+   escuelas: Escuela[];
+   selectedEscuela: Escuela;
 
   constructor(private escuelaService: EscuelaService, 
               private institucionService: InstitucionService) { }
@@ -26,11 +30,32 @@ export class FormEscuelaComponent implements OnInit {
     })
   }
 
-  setSedes(sedes: JSON[]){
+  setSedes(sedes: Sede[]){
     this.sedes = sedes;
   }
 
-  onSubmit(form: NgForm){
-    console.log(form.value.nombre);
+
+  onSubmit(form: NgForm, event: String){
+    switch(event) {
+      case 'POST' : this.postClicked(form); break;
+      default : break;
+  }
+    
+  }
+
+  postClicked(form: NgForm){
+    var newEscuela = new Escuela();
+    console.log(form.value);
+    newEscuela.nombre = form.value.nombre;
+    newEscuela.programas = []; 
+    this.escuelaService.createEscuela(newEscuela).then((escuela: Escuela) => { 
+      this.selectedInstitucion.sedes[this.sedes.indexOf(this.selectedSede)].id_escuelas.push(escuela._id);
+      this.selectedEscuela = escuela;
+      this.escuelas.push(escuela);
+      this.institucionService.updateInstitucion(this.selectedInstitucion).then((institucion: Institucion) => {
+        console.log(institucion);
+      }
+      )
+    })
   }
 }

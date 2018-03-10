@@ -12,6 +12,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ListaEscuelasComponent } from './escuela/lista-escuelas/lista-escuelas.component';
 import { FormEscuelaComponent } from './escuela/form-escuela/form-escuela.component';
 import { LoginComponent } from './login/login.component';
+import { FormProgramaComponent } from './escuela/form-programa/form-programa.component';
 
 const appRoutes: Routes = [
   {
@@ -25,8 +26,12 @@ const appRoutes: Routes = [
     data: { title: 'Formulario para Profesores' }
   },
   {
-    path: 'crearescuela',
+    path: 'mantenimiento/escuela',
     component: FormEscuelaComponent,
+  }, 
+  {
+    path: 'mantenimiento/programa',
+    component: FormProgramaComponent,
   }, 
   {
     path: 'login',
@@ -46,7 +51,8 @@ const appRoutes: Routes = [
     CrearProfesorComponent,
     ListaEscuelasComponent,
     FormEscuelaComponent,
-    LoginComponent
+    LoginComponent,
+    FormProgramaComponent
   ],
   imports: [
     BrowserModule,

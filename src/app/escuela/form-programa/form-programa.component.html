@@ -1,0 +1,52 @@
+<div class= "container">
+  <h2>Mantenimiento Programas</h2>
+  <form  #escuelaForm="ngForm">
+    <div class="from-group">
+      <label for="institucion">Institucion:</label>
+      <select id="institucion" name="institucion" class="form-control" [(ngModel)]="selectedInstitucion" (change)="setSedes(selectedInstitucion.sedes)" placeholder="Institucion" >
+        <option *ngFor="let i of instituciones" [ngValue]="i">{{i.nombre}}</option>
+      </select> 
+    </div>
+    <div class="from-group">
+      <label  for="sede">Sede:</label>
+      <select id="sede" name="sede"  class="form-control" [(ngModel)]="selectedSede" [disabled]="!selectedInstitucion" (change)="getEscuelas()" placeholder="Sede">
+        <option *ngFor="let s of sedes" [ngValue]="s">{{s.nombre}}</option>> 
+      </select> 
+    </div>
+    <div class="from-group">
+      <label  for="escuela">Escuela:</label>
+      <select id="escuela" name="escuela"  class="form-control" [(ngModel)]="selectedEscuela" [disabled]="!selectedSede" (change)="setProgramas(selectedEscuela.programas)"  placeholder="Escuela">
+        <option *ngFor="let e of escuelas" [ngValue]="e">{{e.nombre}}</option>> 
+      </select> 
+    </div>
+    <div class="from-group">
+      <label class="" for="codigo_programa">Codigo de Programa:</label>
+      <input class="form-control" type="text" name="codigo_programa" [ngModel]="selectedPrograma.codigo_programa" [disabled]="!selectedEscuela" list="es">
+  </div>
+    <div class="from-group">
+        <label class="" for="nombre">Nombre de Programa:</label>
+        <input class="form-control" type="text" name="nombre" [ngModel]="selectedPrograma.nombre" [disabled]="!selectedEscuela" list="es">
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-success" [disabled]="!selectedSede" (click)="onSubmit(escuelaForm,'POST')">Crear</button>
+      <button type="submit" class="btn btn-success" [disabled]="selectedPrograma.nombre == ''" (click)="onSubmit(escuelaForm,'PUT')">Editar</button>
+      <button type="submit" class="btn btn-danger"  [disabled]="selectedPrograma.nombre == ''" (click)="onSubmit(escuelaForm,'DELETE')">Borrar</button>
+    </div>
+  </form>
+</div>
+<div class="container">
+  <table id="table" class="table table-hover">
+    <thead>
+      <tr class="theah-dark">
+        <th scope="col">Codigo</th>
+        <th scope="col">Nombre</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of programas"  [ngClass]= "{ 'info' : p === selectedPrograma}" (click)="setSelectedPrograma(p)">
+        <td>{{p.codigo_programa}}</td>
+        <td>{{p.nombre}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

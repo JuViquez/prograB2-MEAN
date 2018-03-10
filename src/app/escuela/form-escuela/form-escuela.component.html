@@ -1,5 +1,5 @@
 <div class= "container">
-  <h2>Formulario para el registro de Escuelas</h2>
+  <h2>Mantenimiento Escuelas</h2>
   <form  #escuelaForm="ngForm">
     <div class="from-group">
       <label class="" for="institucion">Institucion:</label>
@@ -9,18 +9,18 @@
     </div>
     <div class="from-group">
       <label class="" for="sede">Sede:</label>
-      <select id="sede" name="sede"  class="form-control" [(ngModel)]="selectedSede" (change)="getEscuelas()" placeholder="Sede">
+      <select id="sede" name="sede"  class="form-control" [(ngModel)]="selectedSede" [disabled]="!selectedInstitucion" (change)="getEscuelas()" placeholder="Sede">
         <option *ngFor="let s of sedes" [ngValue]="s">{{s.nombre}}</option>> 
       </select> 
     </div>
     <div class="from-group">
         <label class="" for="nombre">Nombre de Escuela:</label>
-        <input class="form-control" type="text" name="nombre" [ngModel]="selectedEscuela.nombre" list="es">
+        <input class="form-control" type="text" name="nombre" [ngModel]="selectedEscuela.nombre" [disabled]="!selectedSede" list="es">
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-success" (click)="onSubmit(escuelaForm,'POST')">Crear</button>
-      <button type="submit" class="btn btn-success" (click)="onSubmit(escuelaForm,'PUT')">Editar</button>
-      <button type="submit" class="btn btn-danger" (click)="onSubmit(escuelaForm,'DELETE')">Borrar</button>
+      <button type="submit" class="btn btn-success" [disabled]="!selectedSede" (click)="onSubmit(escuelaForm,'POST')">Crear</button>
+      <button type="submit" class="btn btn-success" [disabled]="selectedEscuela.nombre == ''" (click)="onSubmit(escuelaForm,'PUT')">Editar</button>
+      <button type="submit" class="btn btn-danger"  [disabled]="selectedEscuela.nombre == ''" (click)="onSubmit(escuelaForm,'DELETE')">Borrar</button>
     </div>
   </form>
 </div>

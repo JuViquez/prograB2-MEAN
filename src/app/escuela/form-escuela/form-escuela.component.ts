@@ -75,12 +75,14 @@ export class FormEscuelaComponent implements OnInit {
   }
 
   putClicked(form: NgForm){
+  if(form.value.nombre != ''){
     var putEscuela = new Escuela();
     putEscuela = this.selectedEscuela;
     putEscuela.nombre = form.value.nombre;
     this.escuelaService.updateEscuela(putEscuela).then((escuela: Escuela) => {
       this.selectedEscuela = escuela;
     })
+  }
 
   }
 

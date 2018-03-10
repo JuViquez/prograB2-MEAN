@@ -90,6 +90,9 @@ export class FormEscuelaComponent implements OnInit {
       var index = this.selectedInstitucion.sedes[this.sedes.indexOf(this.selectedSede)].id_escuelas.indexOf(id);
       this.selectedInstitucion.sedes[this.sedes.indexOf(this.selectedSede)].id_escuelas.splice(index,1);
       this.institucionService.updateInstitucion(this.selectedInstitucion);
+      this.sedes = this.selectedInstitucion.sedes;
+      this.escuelas.splice(this.escuelas.indexOf(this.selectedEscuela),1);
+      this.selectedEscuela = new Escuela();
 
     })
   }

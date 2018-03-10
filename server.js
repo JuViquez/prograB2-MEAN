@@ -223,7 +223,6 @@ app.get('/api/usuarios/:id', function(req, res){
         if (err) {
             handleError(res, err.message, "No se pudo obtener usuarios.");
           } else {
-              console.log("NOMBRE usuario3 "+doc.nombre);
             res.status(200).json(doc);
           }      
     })
@@ -266,43 +265,39 @@ app.delete('/api/usuarios/:id', function(req, res){
         });
 });
 
-app.post('/login', (req, res) => {
-    if (!req.body.username) {
+app.get('/login/:nombre/:password', (req, res) => {
+    if (!req.params.nombre) {
       res.json({ success: false, message: 'No username was provided' }); 
     } else {
-      if (!req.body.password) {
+      if (!req.params.password) {
         res.json({ success: false, message: 'No password was provided.' });
       } else {
-        db.collection(USUARIO_COLLECTION).findOne({ username: req.body.username.toLowerCase() }, (err, user) => {
-          if (err) {
-            res.json({ success: false, message: err });
-          } else {
-            db.collection(USUARIO_COLLECTION).findOne({email : req.body.username}, function(err, doc) {
-                if (err) {
-                    handleError(res, err.message, "No se pudo obtener usuarios.");
+            db.collection(USUARIO_COLLECTION).findOne({email : req.params.nombre}, function(err, doc) {
+                if (err || doc == null) {
+                    res.json({ success: false, message: err });
                   } else {
-                        if(typeof(doc.username) == 'undefined'){
+                        if(typeof(doc.nombre) == 'undefined'){
                             res.json({ success: false, message: 'Usuario no encontrado' });
                         }else{
-                            if(doc.password == req.body.password){
-                                const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24h' });
-                                res.json({
+                            if(doc.password == req.params.password){
+                                res.status(200).json({
                                 success: true,
-                                message: 'Success!',
-                                token: token,
+                                message: 'Correctamente loggeado',
                                 user: {
-                                    username: user.username
+                                    nombre: doc.nombre,
+                                    carnet: doc.carnet,
+                                    escuela: doc.escuela,
+                                    institucion : doc.institucion,
+                                    permiso: doc.tipo,
+                                    email: doc.email
                                 }})
                             }else{
                                 res.json({ success: false, message: 'Contraseña equivocada' });
                             }
                         }
-                    res.status(200).json(doc);
-                  
                 }      
             })
           }
-        });
       }
     }
-  });
+);

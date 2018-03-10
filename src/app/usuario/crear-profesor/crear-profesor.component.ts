@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Institucion } from '../../instituciones/institucion';
-import {Usuario} from '../usuario';
-import {UsuarioService} from '../usuario.service';
+import { Usuario } from '../usuario';
+import { UsuarioService } from '../usuario.service';
+import { LoginService } from '../../login/login.service'
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-crear-profesor',
   templateUrl: './crear-profesor.component.html',
   styleUrls: ['./crear-profesor.component.css'],
-  providers: [UsuarioService]
+  providers: [UsuarioService,LoginService]
 })
 export class CrearProfesorComponent implements OnInit {
   instituciones: Institucion[];
@@ -27,12 +29,18 @@ export class CrearProfesorComponent implements OnInit {
     }
   }
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private router: Router,private loginService: LoginService ,private usuarioService: UsuarioService) { }
 
   ngOnInit() {
     this.errMessage = true;
     this.creadorVar = true;
     this.profesor = new Usuario();
     this.profesor.tipo = "profesor";
+    var datos = this.loginService.consultarDatos();
+    if(datos.permiso == "profesor"){
+      console.log("Router");
+      this.router.navigateByUrl['/login'];
+    }
+    
   }
 }

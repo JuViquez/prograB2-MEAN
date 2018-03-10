@@ -34,8 +34,8 @@ const appRoutes: Routes = [
     data: { title: 'Login' }
   },
   { path: '',
-    redirectTo: 'crearprofesor',
-    pathMatch: 'prefix'
+    redirectTo: 'login',
+    pathMatch: 'full'
   }
 ];
 

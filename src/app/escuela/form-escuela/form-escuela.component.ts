@@ -56,6 +56,7 @@ export class FormEscuelaComponent implements OnInit {
     switch(event) {
       case 'POST' : this.postClicked(form); break;
       case 'PUT'  : this.putClicked(form); break;
+      case 'DELETE' : this.deleteClicked(); break;
       default : break;
   }
     
@@ -63,7 +64,6 @@ export class FormEscuelaComponent implements OnInit {
 
   postClicked(form: NgForm){
     var newEscuela = new Escuela();
-    console.log(form.value);
     newEscuela.nombre = form.value.nombre;
     newEscuela.programas = []; 
     this.escuelaService.createEscuela(newEscuela).then((escuela: Escuela) => { 
@@ -75,16 +75,23 @@ export class FormEscuelaComponent implements OnInit {
   }
 
   putClicked(form: NgForm){
-    console.log(form.value);
-    console.log(this.selectedEscuela);
     var putEscuela = new Escuela();
     putEscuela = this.selectedEscuela;
     putEscuela.nombre = form.value.nombre;
     this.escuelaService.updateEscuela(putEscuela).then((escuela: Escuela) => {
       this.selectedEscuela = escuela;
-      console.log(this.selectedEscuela);
     })
 
+  }
+
+  deleteClicked(){
+    var itemId = this.selectedEscuela._id;
+    this.escuelaService.DeleteEscuela(itemId).then((id: string) => {
+      var index = this.selectedInstitucion.sedes[this.sedes.indexOf(this.selectedSede)].id_escuelas.indexOf(id);
+      this.selectedInstitucion.sedes[this.sedes.indexOf(this.selectedSede)].id_escuelas.splice(index,1);
+      this.institucionService.updateInstitucion(this.selectedInstitucion);
+
+    })
   }
 
 }

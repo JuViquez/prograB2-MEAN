@@ -281,17 +281,18 @@ app.post('/login', (req, res) => {
                 if (err) {
                     handleError(res, err.message, "No se pudo obtener usuarios.");
                   } else {
-                        if(typeof(doc.username) == 'undefined'){
+                        if(typeof(doc.nombre) == 'undefined'){
                             res.json({ success: false, message: 'Usuario no encontrado' });
                         }else{
                             if(doc.password == req.body.password){
-                                const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24h' });
+                                //const token = jwt.sign({ userId: doc._id }, config.secret, { expiresIn: '24h' });
                                 res.json({
                                 success: true,
                                 message: 'Success!',
                                 token: token,
                                 user: {
-                                    username: user.username
+                                    username: doc.nombre,
+                                    permiso: doc.tipo
                                 }})
                             }else{
                                 res.json({ success: false, message: 'Contraseña equivocada' });

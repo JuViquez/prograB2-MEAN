@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private loginservice: LoginService
   ) {
     this.createForm();
    }
@@ -41,7 +43,14 @@ export class LoginComponent implements OnInit {
     const user = {
       username: this.form.get('username').value,
       password: this.form.get('password').value
-    }
+    };
+    this.loginservice.login(user).subscribe(data => {
+      if(!data.success){
+
+      }else{
+        
+      }
+    })
   
   }
 

@@ -5,10 +5,12 @@ var varmongodb = require("mongodb");
 var ObjectID = varmongodb.ObjectID;
 var db;
 var bodyParser = require("body-parser");
+const jwt = require('jsonwebtoken');
 const INSTITUCIONES_COLLECTION = 'instituciones';
 const ESCUELAS_COLLECTION = 'escuelas';
 const GRUPOS_COLLECTION = 'grupos';
 const USUARIO_COLLECTION = 'usuarios';
+
 
 mongodb.connectToServer( function( err ) {
     app.listen(4000, function() {
@@ -216,6 +218,17 @@ app.get('/api/usuarios', function(req, res){
     })
 });
 
+app.get('/api/usuarios/:id', function(req, res){
+    db.collection(USUARIO_COLLECTION).findOne({email : req.params.id}, function(err, doc) {
+        if (err) {
+            handleError(res, err.message, "No se pudo obtener usuarios.");
+          } else {
+              console.log("NOMBRE usuario3 "+doc.nombre);
+            res.status(200).json(doc);
+          }      
+    })
+});
+
 app.post('/api/usuarios', function(req, res){
     var newDoc = req.body;
 
@@ -253,3 +266,43 @@ app.delete('/api/usuarios/:id', function(req, res){
         });
 });
 
+app.post('/login', (req, res) => {
+    if (!req.body.username) {
+      res.json({ success: false, message: 'No username was provided' }); 
+    } else {
+      if (!req.body.password) {
+        res.json({ success: false, message: 'No password was provided.' });
+      } else {
+        db.collection(USUARIO_COLLECTION).findOne({ username: req.body.username.toLowerCase() }, (err, user) => {
+          if (err) {
+            res.json({ success: false, message: err });
+          } else {
+            db.collection(USUARIO_COLLECTION).findOne({email : req.body.username}, function(err, doc) {
+                if (err) {
+                    handleError(res, err.message, "No se pudo obtener usuarios.");
+                  } else {
+                        if(typeof(doc.username) == 'undefined'){
+                            res.json({ success: false, message: 'Usuario no encontrado' });
+                        }else{
+                            if(doc.password == req.body.password){
+                                const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24h' });
+                                res.json({
+                                success: true,
+                                message: 'Success!',
+                                token: token,
+                                user: {
+                                    username: user.username
+                                }})
+                            }else{
+                                res.json({ success: false, message: 'Contraseña equivocada' });
+                            }
+                        }
+                    res.status(200).json(doc);
+                  
+                }      
+            })
+          }
+        });
+      }
+    }
+  });

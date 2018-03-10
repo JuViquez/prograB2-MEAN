@@ -16,6 +16,12 @@ export class UsuarioService {
                  .catch(this.handleError);
     }
   
+    getUsuario(id_usuarios: string): Promise<void | Usuario> {
+      return this.http.get(this.UsuarioUrl+"/"+id_usuarios)
+                 .toPromise()
+                 .then(response => response.json() as Usuario)
+                 .catch(this.handleError);
+    }
   
     createUsuario(newUsuario: Usuario): Promise<void | Usuario> {
       return this.http.post(this.UsuarioUrl, newUsuario)

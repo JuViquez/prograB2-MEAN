@@ -3,6 +3,8 @@ import { Institucion } from '../institucion';
 import { InstitucionService } from '../institucion.service';
 import { EscuelaService } from '../../escuela/escuela.service';
 import { Escuela } from '../../escuela/escuela';
+import {UsuarioService} from '../../usuario/usuario.service'
+import {Usuario} from '../../usuario/usuario'
 
 
 @Component({
@@ -109,7 +111,7 @@ export class InstitucionesListComponent implements OnInit {
   };
 
 
-  constructor(private institucionService: InstitucionService,private escuelasService: EscuelaService) {}
+  constructor(private usuarioService : UsuarioService,private institucionService: InstitucionService,private escuelasService: EscuelaService) {}
 
   ngOnInit() {
     this.selectedEscuela = null;
@@ -119,7 +121,7 @@ export class InstitucionesListComponent implements OnInit {
     this.noEscuela = false;
     this.institucionService.getInstituciones().then((data: Institucion[]) => { 
       this.instituciones = data;
-    })
+    });
   }
 
 

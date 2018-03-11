@@ -11,7 +11,7 @@ import {Usuario} from '../../usuario/usuario'
   selector: 'app-instituciones-list',
   templateUrl: './instituciones-list.component.html',
   styleUrls: ['./instituciones-list.component.css'],
-  providers: [InstitucionService,EscuelaService]
+  providers: [UsuarioService,InstitucionService,EscuelaService]
 })
 export class InstitucionesListComponent implements OnInit {
 
@@ -114,6 +114,7 @@ export class InstitucionesListComponent implements OnInit {
   constructor(private usuarioService : UsuarioService,private institucionService: InstitucionService,private escuelasService: EscuelaService) {}
 
   ngOnInit() {
+    this.creador = true;
     this.selectedEscuela = null;
     this.sedes = new Array();
     this.noInstitucion = false;

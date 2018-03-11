@@ -1,0 +1,66 @@
+<div class="container">
+<h2>Formulario para creación de un estudiante </h2>
+<form [formGroup]="form">>
+  <div class = "form-group">
+    <div  [ngClass]="{'has-error': form.controls.nombre.errors && form.controls.nombre.dirty, 'has-success': form.controls.nombre.valid && form.controls.nombre.dirty }" >
+        <label class="" for="Nombre" >Nombre: </label>
+        <input  class="form-control" id="nombre" name="dia" type="text" formControlName="nombre">
+    </div>
+    <ul class="help-block">
+        <li *ngIf="form.controls.nombre.errors?.required && form.controls.nombre.dirty">Este campo es obligatorio.</li>
+    </ul>
+  </div>
+  <div class = "form-group">
+      <div  [ngClass]="{'has-error': form.controls.carnet.errors && form.controls.carnet.dirty, 'has-success': form.controls.carnet.valid && form.controls.carnet.dirty }" >
+          <label class="" for="Carnet" >Carnet: </label>
+          <input  class="form-control" id="carnet" name="carnet" type="text" formControlName="carnet">
+      </div>
+      <ul class="help-block">
+          <li *ngIf="form.controls.carnet.errors?.required && form.controls.carnet.dirty">Este campo es obligatorio.</li>
+      </ul>
+  </div>
+  <div class = "form-group">
+      <div  [ngClass]="{'has-error': form.controls.email.errors && form.controls.email.dirty, 'has-success': form.controls.email.valid && form.controls.email.dirty }" >
+          <label class="" for="Email" >Correo Electrónico: </label>
+          <input  class="form-control" id="email" name="email" type="text" formControlName="email">
+      </div>
+      <ul class="help-block">
+          <li *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">Este campo es obligatorio.</li>
+      </ul>
+  </div>
+  <div class = "form-group">
+      <div  [ngClass]="{'has-error': form.controls.password.errors && form.controls.password.dirty, 'has-success': form.controls.password.valid && form.controls.password.dirty }" >
+          <label class="" for="Password" >Password: </label>
+          <input  class="form-control" id="password" name="password" type="password" formControlName="password">
+      </div>
+      <ul class="help-block">
+          <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">Este campo es obligatorio.</li>
+      </ul>
+  </div>
+</form>
+  <div class="from-group">
+    <label class="" for="institucion">Institucion:</label>
+    <select id="institucion" name="institucion" class="form-control" [(ngModel)]="selectedInstitucion" (change)="setSedes()" placeholder="Institucion" >
+      <option *ngFor="let i of instituciones" [ngValue]="i">{{i.nombre}}</option>
+    </select> 
+  </div>
+  <div class="from-group">
+    <label class="" for="sede">Sede:</label>
+    <select id="sede" name="sede"  class="form-control" [(ngModel)]="selectedSede" [disabled]="!selectedInstitucion" (change)="getEscuelas()" placeholder="Sede">
+      <option *ngFor="let s of sedes" [ngValue]="s">{{s.nombre}}</option>> 
+    </select> 
+  </div>
+  <div class="from-group">
+    <label class="" for="sede">Escuela:</label>
+    <select id="escuela" name="escuela"  class="form-control" [(ngModel)]="selectedEscuela" [disabled]="!selectedSede" (change)="getProgramas()" placeholder="Escuela">
+      <option *ngFor="let e of escuelas" [ngValue]="e">{{e.nombre}}</option>> 
+    </select>   
+  </div>
+  <div class="from-group">
+      <label class="" for="sede">Programas:</label>
+      <select id="programa" name="programa"  class="form-control" [(ngModel)]="selectedPrograma" [disabled]="!selectedEscuela" placeholder="Programa">
+        <option *ngFor="let p of programas" [ngValue]="p">{{p.nombre}}</option>> 
+      </select>   
+  </div>
+  <button [disabled]="!conHorarios" class="btn btn-primary" (click)="createGrupo()" >Crear Grupo</button>
+</div>

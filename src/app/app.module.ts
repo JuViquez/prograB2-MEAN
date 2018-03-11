@@ -16,23 +16,25 @@ import { FormProgramaComponent } from './escuela/form-programa/form-programa.com
 import { FormGrupoComponent } from './grupo/form-grupo/form-grupo.component';
 import { FormCursoComponent } from './escuela/form-curso/form-curso.component';
 import { FormTemaComponent } from './escuela/form-tema/form-tema.component';
+import { CrearUsuarioComponent } from './usuario/crear-usuario/crear-usuario.component';
 
 
 const appRoutes: Routes = [
   {
     path: 'creargrupo',
-    component: FormGrupoComponent,
-    data: { title: 'Crear Grupo' }
+    component: FormGrupoComponent
   },
   {
     path: 'instituciones',
-    component: InstitucionesListComponent,
-    data: { title: 'Instituciones' }
+    component: InstitucionesListComponent
   },
   {
     path: 'crearprofesor',
-    component: CrearProfesorComponent,
-    data: { title: 'Formulario para Profesores' }
+    component: CrearProfesorComponent
+  },
+  {
+    path: 'crearestudiante',
+    component: CrearUsuarioComponent
   },
   {
     path: 'mantenimiento/escuela',
@@ -52,8 +54,7 @@ const appRoutes: Routes = [
   }, 
   {
     path: 'login',
-    component: LoginComponent,
-    data: { title: 'Login' }
+    component: LoginComponent
   },
   { path: '',
     redirectTo: 'login',
@@ -72,7 +73,8 @@ const appRoutes: Routes = [
     FormProgramaComponent,
     FormGrupoComponent,
     FormCursoComponent,
-    FormTemaComponent
+    FormTemaComponent,
+    CrearUsuarioComponent
   ],
   imports: [
     BrowserModule,

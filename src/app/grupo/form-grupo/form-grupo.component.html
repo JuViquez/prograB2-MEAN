@@ -14,8 +14,61 @@
         </select> 
     </div>
     <div class = "form-group">
-        <label class="" for="cupos" > Cupos:</label>
-        <input class="form-control" id="cupos" name="cupos" type="number" [ngModel]="createdGrupo.cupos" >
+        <label class="" for="cupos" >Cupos:</label>
+        <input class="form-control" id="cupos" name="cupos" type="number" (ngModel)="createdGrupo.cupos" >
+    </div>
+    <div class = "form-group">
+        <label class="" for="numero" >Numero de grupo:</label>
+        <input class="form-control" id="cupos" name="cupos" type="number" (ngModel)="createdGrupo.numero" >
     </div>
   </form>
+  <form [formGroup]="form">
+    <h3>Horarios:</h3>
+    <div class = "form-group" >
+      <div [ngClass]="{'has-error': form.controls.dia.errors && form.controls.dia.dirty, 'has-success': form.controls.dia.valid && form.controls.dia.dirty }">
+        <label class="" for="Dia" >Dia: </label>
+        <input  class="form-control" id="dia" name="dia" type="text" formControlName="dia">
+      </div>
+      <ul class="help-block">
+          <li *ngIf="form.controls.dia.errors?.required && form.controls.dia.dirty">Este campo es obligatorio.</li>
+      </ul>
+    </div>
+    <div class = "form-group" >
+        <div [ngClass]="{'has-error': form.controls.inicio.errors && form.controls.inicio.dirty, 'has-success': form.controls.inicio.valid && form.controls.inicio.dirty }">
+          <label class="" for="Inicio">Hora de inicio</label>
+          <input  class="form-control" id="inicio" name="inicio" type="text" formControlName="inicio">
+        </div>
+        <ul class="help-block">
+            <li *ngIf="form.controls.inicio.errors?.required && form.controls.inicio.dirty">Este campo es obligatorio.</li>
+        </ul>
+    </div>
+    <div class = "form-group" >
+        <div [ngClass]="{'has-error': form.controls.fin.errors && form.controls.fin.dirty, 'has-success': form.controls.fin.valid && form.controls.fin.dirty }">
+          <label class="" for="fin">Hora de fin:</label>
+          <input  class="form-control" id="fin" name="fin" type="text" formControlName="fin">
+        </div>
+        <ul class="help-block">
+            <li *ngIf="form.controls.fin.errors?.required && form.controls.fin.dirty">Este campo es obligatorio.</li>
+        </ul>
+    </div>
+    <button [disabled]="!form.valid" class="btn btn-success" (click)="HorarioSubmit()" >Login</button>
+    <button [disabled]="selectedHorario.dia == ''" class="btn btn-danger" (click)="BorrarHorario()">Borrar horario</button>
+  </form>
+  <div [hidden]="!conHorarios" class = "container">
+    <p>Seleccione el horario que desee eliminar</p>
+    <table id="table" class="table table-hover">
+        <thead class="thead-inverse">
+            <th>Dia</th>
+            <th>Hora Inicio</th>
+            <th>Hora Fin</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let h of horarios"  [ngClass]= "{ 'info' : h === selectedHorario}" (click)="setSelectedHorario(h)">
+                <td>{{h.dia}}</td>
+                <td>{{h.hora_inicio}}</td>
+                <td>{{h.hora_final}}</td>
+            </tr>
+        </tbody>  
+    </table>
+  </div>
 </div>

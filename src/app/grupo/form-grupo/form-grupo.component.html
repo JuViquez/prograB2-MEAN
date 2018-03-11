@@ -15,11 +15,11 @@
     </div>
     <div class = "form-group">
         <label class="" for="cupos" >Cupos:</label>
-        <input class="form-control" id="cupos" name="cupos" type="number" (ngModel)="createdGrupo.cupos" >
+        <input class="form-control" id="cupos" name="cupos" type="number" [(ngModel)]="this.createdGrupo.cupos" >
     </div>
     <div class = "form-group">
         <label class="" for="numero" >Numero de grupo:</label>
-        <input class="form-control" id="cupos" name="cupos" type="number" (ngModel)="createdGrupo.numero" >
+        <input class="form-control" id="cupos" name="cupos" type="number" [(ngModel)]="this.createdGrupo.numero" >
     </div>
   </form>
   <form [formGroup]="form">
@@ -51,7 +51,7 @@
             <li *ngIf="form.controls.fin.errors?.required && form.controls.fin.dirty">Este campo es obligatorio.</li>
         </ul>
     </div>
-    <button [disabled]="!form.valid" class="btn btn-success" (click)="HorarioSubmit()" >Login</button>
+    <button [disabled]="!form.valid" class="btn btn-success" (click)="HorarioSubmit()" >Agregar Horario</button>
     <button [disabled]="selectedHorario.dia == ''" class="btn btn-danger" (click)="BorrarHorario()">Borrar horario</button>
   </form>
   <div [hidden]="!conHorarios" class = "container">
@@ -71,4 +71,5 @@
         </tbody>  
     </table>
   </div>
+  <button [disabled]="!conHorarios" class="btn btn-primary" (click)="createGrupo()" >Crear Grupo</button>
 </div>

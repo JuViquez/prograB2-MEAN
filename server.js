@@ -5,7 +5,6 @@ var varmongodb = require("mongodb");
 var ObjectID = varmongodb.ObjectID;
 var db;
 var bodyParser = require("body-parser");
-const jwt = require('jsonwebtoken');
 const INSTITUCIONES_COLLECTION = 'instituciones';
 const ESCUELAS_COLLECTION = 'escuelas';
 const GRUPOS_COLLECTION = 'grupos';
@@ -96,6 +95,17 @@ for(var x in req.query){arr.push(new ObjectID(req.query[x]));};
           }      
     })
 });
+
+app.get('/api/escuelas/:id', function(req, res){
+        db.collection(ESCUELAS_COLLECTION).findOne({_id: new ObjectID(req.params.id)}, function(err, docs) {
+            if (err) {
+                handleError(res, err.message, "No se pudo obtener escuela.");
+              } else {
+                console.log("Escuela obtenida: "+docs.nombre);
+                res.status(200).json(docs);
+              }      
+        })
+    });
 
 app.post('/api/escuelas', function(req, res){
     var newDoc = req.body;
@@ -284,6 +294,7 @@ app.get('/login/:nombre/:password', (req, res) => {
                                 success: true,
                                 message: 'Correctamente loggeado',
                                 user: {
+                                    id: doc._id,
                                     nombre: doc.nombre,
                                     carnet: doc.carnet,
                                     escuela: doc.escuela,

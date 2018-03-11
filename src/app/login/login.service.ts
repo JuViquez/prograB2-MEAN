@@ -13,6 +13,7 @@ export class LoginService {
   }
 
   guardarDatos(usuario){
+    localStorage.setItem('id', usuario._id);
     localStorage.setItem('nombre', usuario.nombre);
     localStorage.setItem('permiso', usuario.permiso);
     localStorage.setItem('institucion', usuario.institucion.nombre);
@@ -22,6 +23,7 @@ export class LoginService {
 
   consultarDatos(){
     var datos = {
+      id : localStorage.getItem('id'),
       nombre: localStorage.getItem('nombre'),
       institucion: localStorage.getItem('institucion'),
       sede : localStorage.getItem('sede'),

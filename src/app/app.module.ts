@@ -13,8 +13,14 @@ import { ListaEscuelasComponent } from './escuela/lista-escuelas/lista-escuelas.
 import { FormEscuelaComponent } from './escuela/form-escuela/form-escuela.component';
 import { LoginComponent } from './login/login.component';
 import { FormProgramaComponent } from './escuela/form-programa/form-programa.component';
+import { FormGrupoComponent } from './grupo/form-grupo/form-grupo.component';
 
 const appRoutes: Routes = [
+  {
+    path: 'creargrupo',
+    component: FormGrupoComponent,
+    data: { title: 'Crear Grupo' }
+  },
   {
     path: 'instituciones',
     component: InstitucionesListComponent,
@@ -52,7 +58,8 @@ const appRoutes: Routes = [
     ListaEscuelasComponent,
     FormEscuelaComponent,
     LoginComponent,
-    FormProgramaComponent
+    FormProgramaComponent,
+    FormGrupoComponent
   ],
   imports: [
     BrowserModule,

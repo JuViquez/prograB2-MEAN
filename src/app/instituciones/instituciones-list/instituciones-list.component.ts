@@ -86,12 +86,12 @@ export class InstitucionesListComponent implements OnInit {
       InstitucionOutput.nombre = this.inputInstitucion;
       this.escuelasService.createEscuela(escuelaCreada).then((data: Escuela) => {escuelaCreada = data;
         InstitucionOutput.sedes = [{nombre:this.inputSede,id_escuelas:[escuelaCreada._id]}];
-        this.institucionService.createInstitucion(InstitucionOutput).then((data2: Institucion) => {institucionCreada.nombre = data2.nombre; institucionCreada.sede = this.inputSede; institucionCreada.escuela = this.inputEscuela;this.notify.emit(institucionCreada); })
+        this.institucionService.createInstitucion(InstitucionOutput).then((data2: Institucion) => {institucionCreada.nombre = data2._id; institucionCreada.sede = this.inputSede; institucionCreada.escuela = escuelaCreada._id;this.notify.emit(institucionCreada); })
       } )
     }else if(this.noSede && this.creador){
       this.escuelasService.createEscuela(escuelaCreada).then((data: Escuela) => {escuelaCreada = data;
         this.selectedInstitucion.sedes.push({nombre:this.inputSede,id_escuelas:[escuelaCreada._id]});  
-        this.institucionService.updateInstitucion(this.selectedInstitucion).then((data2: Institucion) => { institucionCreada.nombre = this.selectedInstitucion.nombre; institucionCreada.sede = this.inputSede; institucionCreada.escuela = this.inputEscuela; this.notify.emit(institucionCreada); } )
+        this.institucionService.updateInstitucion(this.selectedInstitucion).then((data2: Institucion) => { institucionCreada.nombre = this.selectedInstitucion._id; institucionCreada.sede = this.inputSede; institucionCreada.escuela = escuelaCreada._id; this.notify.emit(institucionCreada); } )
       } )
     }else if(this.noEscuela && this.creador){
       this.escuelasService.createEscuela(escuelaCreada).then((data: Escuela) => {escuelaCreada = data;
@@ -99,11 +99,11 @@ export class InstitucionesListComponent implements OnInit {
         this.selectedSede.id_escuelas.push(escuelaCreada._id);
           var index = this.selectedInstitucion.sedes.indexOf(this.selectedSede);
           if (index !== -1) {this.selectedInstitucion.sedes.splice(index, 1); this.selectedInstitucion.sedes.push({nombre:this.selectedSede.nombre,id_escuelas:this.selectedSede.id_escuelas}); };
-        this.institucionService.updateInstitucion(this.selectedInstitucion).then((data2: Institucion) => { institucionCreada.nombre = this.selectedInstitucion.nombre; institucionCreada.sede = this.selectedSede.nombre; institucionCreada.escuela = this.inputEscuela; this.notify.emit(institucionCreada);
+        this.institucionService.updateInstitucion(this.selectedInstitucion).then((data2: Institucion) => { institucionCreada.nombre = this.selectedInstitucion._id; institucionCreada.sede = this.selectedSede.nombre; institucionCreada.escuela = escuelaCreada._id; this.notify.emit(institucionCreada);
       })})
     }else{
       try{
-        institucionCreada.nombre = this.selectedInstitucion.nombre; institucionCreada.sede = this.selectedSede.nombre; institucionCreada.escuela = this.selectedEscuela.nombre; this.notify.emit(institucionCreada);
+        institucionCreada.nombre = this.selectedInstitucion._id; institucionCreada.sede = this.selectedSede.nombre; institucionCreada.escuela = this.selectedEscuela._id; this.notify.emit(institucionCreada);
       }catch(err){
         console.log("error")
       }

@@ -42,7 +42,7 @@ export class FormEscuelaComponent implements OnInit {
   getEscuelas(){
     this.escuelaService.getEscuelas(this.selectedSede.id_escuelas).then((escuelas: Escuela[]) =>{
       this.escuelas = escuelas;
-    }
+  }
   
   )
   }

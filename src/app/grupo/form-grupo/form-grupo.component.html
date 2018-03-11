@@ -1,0 +1,21 @@
+<div class= "container">
+  <h2>Formulario para la creación de un grupo</h2>
+  <form #grupoForm>
+    <div class= "form-group">
+        <label class="" for="Programa">Programa:</label>
+        <select id="programas" name="programas" class="form-control" [(ngModel)]="selectedPrograma" (change)="setCursos()" placeholder="Programa" >
+            <option *ngFor="let i of programas" [ngValue]="i">{{i.codigo_programa}}</option>
+        </select> 
+    </div>
+    <div class= "form-group">
+        <label class="" for="Cursos">Cursos:</label>
+        <select id="cursos" name="cursos" class="form-control" [(ngModel)]="selectedCurso" placeholder="Curso" >
+            <option *ngFor="let i of cursos" [ngValue]="i">{{i.nombre + " [" + i.codigo_curso + "]"}}</option>
+        </select> 
+    </div>
+    <div class = "form-group">
+        <label class="" for="cupos" > Cupos:</label>
+        <input class="form-control" id="cupos" name="cupos" type="number" [ngModel]="createdGrupo.cupos" >
+    </div>
+  </form>
+</div>

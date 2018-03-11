@@ -15,6 +15,13 @@ export class EscuelaService {
                  .then(response => response.json() as Escuela[])
                  .catch(this.handleError);
     }
+
+    getEscuelasByID(escuela: string): Promise<void | Escuela> {
+      return this.http.get(this.EscuelaUrl+'/'+escuela)
+                 .toPromise()
+                 .then(response => response.json() as Escuela)
+                 .catch(this.handleError);
+    }
   
     createEscuela(newEscuela: Escuela): Promise<void | Escuela> {
       return this.http.post(this.EscuelaUrl, newEscuela)

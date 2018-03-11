@@ -32,6 +32,7 @@ export class FormProgramaComponent implements OnInit {
                
                this.selectedPrograma = new Programa();
                this.selectedPrograma.nombre = "";
+               this.selectedPrograma.codigo_programa = "";
  }
 
  ngOnInit() {

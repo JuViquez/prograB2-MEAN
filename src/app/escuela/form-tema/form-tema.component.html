@@ -1,0 +1,76 @@
+<div class= "container">
+  <h2>Mantenimiento Temas</h2>
+  <form  #Form="ngForm">
+    <div class="from-group">
+      <label for="institucion">Institucion:</label>
+      <select id="institucion" name="institucion" class="form-control" [(ngModel)]="selectedInstitucion" (change)="setSedes(selectedInstitucion.sedes)" placeholder="Institucion" >
+        <option *ngFor="let i of instituciones" [ngValue]="i">{{i.nombre}}</option>
+      </select> 
+    </div>
+    <div class="from-group">
+      <label  for="sede">Sede:</label>
+      <select id="sede" name="sede"  class="form-control" [(ngModel)]="selectedSede" [disabled]="!selectedInstitucion" (change)="getEscuelas()" placeholder="Sede">
+        <option *ngFor="let s of sedes" [ngValue]="s">{{s.nombre}}</option>> 
+      </select> 
+    </div>
+    <div class="from-group">
+      <label  for="escuela">Escuela:</label>
+      <select id="escuela" name="escuela"  class="form-control" [(ngModel)]="selectedEscuela" [disabled]="!selectedSede" (change)="setProgramas(selectedEscuela.programas)"  placeholder="Escuela">
+        <option *ngFor="let e of escuelas" [ngValue]="e">{{e.nombre}}</option>> 
+      </select> 
+    </div>
+    <div class="from-group">
+      <label class="" for="programa">Programa:</label>
+      <select id="programa" name="programa"  class="form-control" [(ngModel)]="selectedPrograma" [disabled]="!selectedEscuela" (change)="setCursos(selectedPrograma.malla_curricular)" >
+        <option *ngFor="let p of programas" [ngValue]="p">{{p.codigo_programa}} {{p.nombre}}</option>> 
+      </select> 
+  </div>
+    <div class="from-group">
+        <label class="" for="curso">Curso:</label>
+        <select id="curso" name="curso"  class="form-control" [(ngModel)]="selectedCurso" [disabled]="!selectedPrograma" (change)="setTemas(selectedCurso.temas)" >
+          <option *ngFor="let c of cursos" [ngValue]="c">{{c.codigo_curso}} {{c.nombre}}</option>> 
+        </select> 
+    </div>
+    <div class="from-group">
+      <label class="" for="nombre">Nombre de Tema:</label>
+      <input class="form-control" type="text" name="nombre" [ngModel]="selectedTema.nombre" [disabled]="!selectedCurso" >
+  </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-success" [disabled]="!selectedCurso" (click)="onSubmit(Form,'POST')">Crear</button>
+      <button type="submit" class="btn btn-success" [disabled]="selectedTema.nombre == ''" (click)="onSubmit(Form,'PUT')">Editar</button>
+      <button type="submit" class="btn btn-danger"  [disabled]="selectedTema.nombre == ''" (click)="onSubmit(Form,'DELETE')">Borrar</button>
+    </div>
+  </form>
+</div>
+<div class="container">
+  <div class ="row">
+    <div class = "col-6 col-md-6">
+      <table id="table" class="table table-hover ">
+        <thead>
+          <tr class="theah-dark">
+            <th scope="col">Tema</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of temas"  [ngClass]= "{ 'info' : c === selectedTema}" (click)="setSelectedTema(t)"  data-toggle="collapse" data-target=".order1">
+            <td>{{t.nombre}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class = "col-6 col-md-6">
+      <table id="table" class="cl-6 table table-hover ">
+        <thead>
+          <tr class="theah-dark">
+            <th scope="col">subtemas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of subtemas; let i = index"  [ngClass]= "{ 'info' : s === selectedTema}" (click)="setSelectedTema(t)"  data-toggle="collapse" data-target=".order1">
+            <td>{{t.nombre}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>    
+  </div>
+</div>

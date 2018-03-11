@@ -15,6 +15,8 @@ import { LoginComponent } from './login/login.component';
 import { FormProgramaComponent } from './escuela/form-programa/form-programa.component';
 import { FormGrupoComponent } from './grupo/form-grupo/form-grupo.component';
 import { FormCursoComponent } from './escuela/form-curso/form-curso.component';
+import { FormTemaComponent } from './escuela/form-tema/form-tema.component';
+
 
 const appRoutes: Routes = [
   {
@@ -45,6 +47,10 @@ const appRoutes: Routes = [
     component: FormCursoComponent,
   }, 
   {
+    path: 'mantenimiento/tema',
+    component: FormTemaComponent,
+  }, 
+  {
     path: 'login',
     component: LoginComponent,
     data: { title: 'Login' }
@@ -65,7 +71,8 @@ const appRoutes: Routes = [
     LoginComponent,
     FormProgramaComponent,
     FormGrupoComponent,
-    FormCursoComponent
+    FormCursoComponent,
+    FormTemaComponent
   ],
   imports: [
     BrowserModule,

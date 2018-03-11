@@ -52,7 +52,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let t of temas"  [ngClass]= "{ 'info' : c === selectedTema}" (click)="setSelectedTema(t)"  data-toggle="collapse" data-target=".order1">
+          <tr *ngFor="let t of temas"  [ngClass]= "{ 'info' : t === selectedTema}" (click)="setSelectedTema(t)" >
             <td>{{t.nombre}}</td>
           </tr>
         </tbody>
@@ -66,8 +66,24 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let s of subtemas; let i = index"  [ngClass]= "{ 'info' : s === selectedTema}" (click)="setSelectedTema(t)"  data-toggle="collapse" data-target=".order1">
-            <td>{{t.nombre}}</td>
+          <tr>
+            <td>
+              <input #subtema class="form-control" type="text" [disabled]="selectedTema == ''">
+              
+            </td>
+            <td>
+              <button class="btn btn-success" [disabled]="selectedTema.nombre == ''" (click)="addSubtema(subtema.value)">
+                  <span class="glyphicon glyphicon-plus-sign"></span>
+              </button>
+            </td>
+          </tr>
+          <tr *ngFor="let s of selectedTema.subtemas; let i = index" >
+            <td>{{s}}</td>
+            <td> 
+              <button class="btn btn-danger" [disabled]="selectedTema.nombre == ''" (click)="deleteSubtema(i)">
+                  <span class="glyphicon glyphicon-remove-sign" ></span>
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>

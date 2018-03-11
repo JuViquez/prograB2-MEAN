@@ -37,7 +37,6 @@ export class FormTemaComponent implements OnInit {
   temas: Tema[];
   selectedTema: Tema;
 
-  subtemas: String[];
 
  constructor(private escuelaService: EscuelaService, 
              private institucionService: InstitucionService) { 
@@ -91,17 +90,25 @@ setTemas(temas: Tema[]){
 
 setSelectedTema(tema: Tema){
  this.selectedTema = tema;
- this.subtemas = tema.subtemas;
 }
 
-setSubtemas(subtemas: String[]){
-  this.subtemas = subtemas;
+deleteSubtema(index: number){
+  var subtemas =  this.selectedTema.subtemas;
+  subtemas.splice(index,1);
+  this.putClicked(this.selectedTema.nombre, subtemas)
 }
+
+addSubtema(subtema: string){
+  var subtemas =  this.selectedTema.subtemas;
+  subtemas.push(subtema);
+  this.putClicked(this.selectedTema.nombre, subtemas)
+}
+
 
  onSubmit(form: NgForm, event: String){
    switch(event) {
      case 'POST' : this.postClicked(form); break;
-     case 'PUT'  : this.putClicked(form); break;
+     case 'PUT'  : this.putClicked(form.value.nombre, this.selectedTema.subtemas); break;
      case 'DELETE' : this.deleteClicked(); break;
      default : break;
  }
@@ -142,11 +149,11 @@ setSubtemas(subtemas: String[]){
    })
  }
 
- putClicked(form: NgForm){
- if(form.value.nombre){
+ putClicked(nombre: string, subtemas: string[]){
+ if(nombre){
    
   var putTema = this.selectedTema;
-  putTema.nombre = form.value.nombre;
+  putTema.nombre = nombre;
 
   var putTemas = this.temas;
   putTemas[putTemas.indexOf(this.selectedTema)] = putTema;
@@ -204,6 +211,7 @@ setSubtemas(subtemas: String[]){
     this.selectedCurso = putCurso;
     this.temas = putTemas;
     this.selectedTema = new Tema();
+    this.selectedTema.nombre = "";
    })
  }
 

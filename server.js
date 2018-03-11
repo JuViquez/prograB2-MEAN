@@ -180,7 +180,7 @@ app.get('/api/grupos/estudiante/:id', function(req, res){
 app.post('/api/grupos', function(req, res){
     var newDoc = req.body;
 
-    db.collection(GRUPO_COLLECTION).insertOne(newDoc, function(err, doc) {
+    db.collection(GRUPOS_COLLECTION).insertOne(newDoc, function(err, doc) {
         if (err) {
         handleError(res, err.message, "Fallo al crear grupo.");
         } else {
@@ -194,7 +194,7 @@ app.put('/api/grupos/:id', function(req, res){
     var updateDoc = req.body;
   delete updateDoc._id;
 
-  db.collection(GRUPO_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
+  db.collection(GRUPOS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Fallo al actualizar grupo");
     } else {
@@ -205,7 +205,7 @@ app.put('/api/grupos/:id', function(req, res){
 });
 
 app.delete('/api/grupos/:id', function(req, res){
-    db.collection(GRUPO_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+    db.collection(GRUPOS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
         if (err) {
             handleError(res, err.message, "Fallo al borrar grupo");
         } else {
@@ -301,7 +301,9 @@ app.get('/login/:nombre/:password', (req, res) => {
                                     institucion : doc.institucion,
                                     permiso: doc.tipo,
                                     email: doc.email
-                                }})
+                                }
+                                
+                            })
                             }else{
                                 res.json({ success: false, message: 'Contraseña equivocada' });
                             }

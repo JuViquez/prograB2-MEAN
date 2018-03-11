@@ -13,7 +13,7 @@ export class LoginService {
   }
 
   guardarDatos(usuario){
-    localStorage.setItem('id', usuario._id);
+    localStorage.setItem('id', usuario.id);
     localStorage.setItem('nombre', usuario.nombre);
     localStorage.setItem('permiso', usuario.permiso);
     localStorage.setItem('institucion', usuario.institucion.nombre);
@@ -30,6 +30,7 @@ export class LoginService {
       escuela: localStorage.getItem('escuela'),
       permiso: localStorage.getItem('permiso')
     }
+    console.log("USUARIO LOGGEADO: "+localStorage.getItem('id'))
     return datos;
   }
 

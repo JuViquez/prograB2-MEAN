@@ -16,16 +16,17 @@ import { FormProgramaComponent } from './escuela/form-programa/form-programa.com
 import { FormGrupoComponent } from './grupo/form-grupo/form-grupo.component';
 import { FormCursoComponent } from './escuela/form-curso/form-curso.component';
 import { FormTemaComponent } from './escuela/form-tema/form-tema.component';
+import { NavigationBarComponent } from './navigation/navigation-bar/navigation-bar.component';
 
 
 const appRoutes: Routes = [
   {
-    path: 'creargrupo',
+    path: 'mantenimiento/grupo',
     component: FormGrupoComponent,
     data: { title: 'Crear Grupo' }
   },
   {
-    path: 'instituciones',
+    path: 'mantenimiento/institucion',
     component: InstitucionesListComponent,
     data: { title: 'Instituciones' }
   },
@@ -72,7 +73,8 @@ const appRoutes: Routes = [
     FormProgramaComponent,
     FormGrupoComponent,
     FormCursoComponent,
-    FormTemaComponent
+    FormTemaComponent,
+    NavigationBarComponent
   ],
   imports: [
     BrowserModule,

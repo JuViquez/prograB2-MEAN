@@ -9,6 +9,7 @@ import { GrupoService } from '../grupo.service'
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; 
 import { HttpModule } from '@angular/http';
+import { NavigationBarComponent } from "../../navigation/navigation-bar/navigation-bar.component"
 
 
 @Component({

@@ -5,6 +5,7 @@ import { EscuelaService } from '../../escuela/escuela.service';
 import { Escuela } from '../../escuela/escuela';
 import {UsuarioService} from '../../usuario/usuario.service'
 import {Usuario} from '../../usuario/usuario'
+import { NavigationBarComponent } from '../../navigation/navigation-bar/navigation-bar.component' 
 
 
 @Component({

@@ -7,6 +7,7 @@ import { Escuela } from '../escuela';
 import { Sede } from '../../models/sede';
 import { Programa } from '../../models/programa';
 import { Curso } from '../../models/curso';
+import { NavigationBarComponent } from "../../navigation/navigation-bar/navigation-bar.component"
 
 @Component({
   selector: 'app-form-curso',

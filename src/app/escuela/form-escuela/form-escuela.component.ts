@@ -5,6 +5,8 @@ import { InstitucionService } from '../../instituciones/institucion.service'
 import { NgForm } from '@angular/forms';
 import { Escuela } from '../escuela';
 import { Sede } from '../../models/sede';
+import { NavigationBarComponent } from '../../navigation/navigation-bar/navigation-bar.component' 
+
 
 @Component({
   selector: 'app-form-escuela',

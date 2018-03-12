@@ -8,6 +8,7 @@ import { Sede } from '../../models/sede';
 import { Programa } from '../../models/programa';
 import { Curso } from '../../models/curso';
 import { Tema } from '../../models/tema';
+import { NavigationBarComponent } from "../../navigation/navigation-bar/navigation-bar.component"
 
 
 

@@ -6,7 +6,7 @@ import { NgForm } from '@angular/forms';
 import { Escuela } from '../escuela';
 import { Sede } from '../../models/sede';
 import { Programa } from '../../models/programa';
-
+import { NavigationBarComponent } from "../../navigation/navigation-bar/navigation-bar.component"
 @Component({
   selector: 'app-form-programa',
   templateUrl: './form-programa.component.html',

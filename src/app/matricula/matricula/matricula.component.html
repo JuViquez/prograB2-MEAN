@@ -1,0 +1,37 @@
+<nav-bar></nav-bar>
+<h2>Matricula</h2>
+<h3>Usuario</h3>
+<table class="table table-responsive table-hover">
+  <thead>
+      <tr><th>Curso</th></tr>
+  </thead>
+  <tbody>
+      <tr class="clickable info" data-toggle="collapse" data-target="#group-of-rows-1" aria-expanded="false" aria-controls="group-of-rows-1">
+          <td>Curso 1</td>
+      </tr>
+  </tbody>
+  <tbody>
+    <table class="table table-responsive table-hover">
+      <tbody id="group-of-rows-1" class="collapse">
+          <tr>
+            <th>Grupo</th>
+            <th>Profesor</th>
+            <th>Cupos</th>
+          </tr>
+          <tr>
+              <td>Grupo</td>
+              <td>Profe</td>
+              <td>Cupos</td>  
+              <td>
+              <span class="button-checkbox">
+                  <button type="button" class="btn" [ngClass]="{ 'btn-success': isMatriculado.checked}" (click)="isMatriculado.checked = !isMatriculado.checked"  data-color="primary">
+                    <i class="glyphicon glyphicon-ok-sign"></i>
+                  </button>
+                  <input #isMatriculado  type="checkbox" class="hidden" />
+              </span>
+              </td>
+          </tr>
+      </tbody>
+    </table> 
+  </tbody>
+</table>

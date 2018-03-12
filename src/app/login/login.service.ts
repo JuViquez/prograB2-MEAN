@@ -30,7 +30,6 @@ export class LoginService {
       escuela: localStorage.getItem('escuela'),
       permiso: localStorage.getItem('permiso')
     }
-    console.log("USUARIO LOGGEADO: "+localStorage.getItem('id'))
     return datos;
   }
 

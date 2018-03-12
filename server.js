@@ -240,10 +240,11 @@ app.get('/api/usuarios', function(req, res){
 });
 
 app.get('/api/usuarios/:id', function(req, res){
-    db.collection(USUARIO_COLLECTION).findOne({email : req.params.id}, function(err, doc) {
+    db.collection(USUARIO_COLLECTION).findOne({_id : new ObjectID(req.params.id)}, function(err, doc) {
         if (err) {
             handleError(res, err.message, "No se pudo obtener usuarios.");
           } else {
+            console.log("Usuario Obtenido "+doc.nombre);
             res.status(200).json(doc);
           }      
     })

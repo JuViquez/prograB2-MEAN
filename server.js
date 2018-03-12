@@ -305,15 +305,7 @@ app.get('/login/:nombre/:password', (req, res) => {
                                 res.status(200).json({
                                 success: true,
                                 message: 'Correctamente loggeado',
-                                user: {
-                                    id: doc._id,
-                                    nombre: doc.nombre,
-                                    carnet: doc.carnet,
-                                    escuela: doc.escuela,
-                                    institucion : doc.institucion,
-                                    permiso: doc.tipo,
-                                    email: doc.email
-                                }
+                                user: doc
                                 
                             })
                             }else{

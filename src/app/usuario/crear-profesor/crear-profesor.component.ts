@@ -37,8 +37,8 @@ export class CrearProfesorComponent implements OnInit {
     this.creadorVar = true;
     this.profesor = new Usuario();
     this.profesor.tipo = "profesor";
-    var datos = this.loginService.consultarDatos();
-    if(datos.permiso == "profesor"){
+    var session = this.loginService.consultarDatos();
+    if(session.tipo == "profesor"){
       console.log("Router");
       this.router.navigateByUrl['/login'];
     }

@@ -34,7 +34,8 @@ export class FormGrupoComponent implements OnInit {
   createdGrupos : Grupo[]
 
   createGrupo(){
-    this.createdGrupo.curso = { codigo_curso: this.selectedCurso.codigo_curso, nombre: this.selectedCurso.nombre};
+    this.createdGrupo.programa = this.selectedPrograma.codigo_programa;
+    this.createdGrupo.curso = { codigo_programa: this.selectedPrograma.nombre ,codigo_curso: this.selectedCurso.codigo_curso, nombre: this.selectedCurso.nombre};
     this.createdGrupo.horario = this.horarios;
     this.grupoService.createGrupo(this.createdGrupo).then((data : Grupo)=>{ this.createdGrupos.push(data); })
   }
@@ -48,7 +49,7 @@ export class FormGrupoComponent implements OnInit {
   }
 
   editGrupo(){
-    this.createdGrupo.curso = { codigo_curso: this.selectedCurso.codigo_curso, nombre: this.selectedCurso.nombre};
+    this.createdGrupo.curso = { codigo_programa: this.selectedPrograma.nombre , codigo_curso: this.selectedCurso.codigo_curso, nombre: this.selectedCurso.nombre};
     this.createdGrupo.horario = this.horarios;
     this.grupoService.updateGrupo(this.createdGrupo).then((data : Grupo) => { } )
   }

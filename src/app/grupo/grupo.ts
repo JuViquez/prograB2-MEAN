@@ -4,6 +4,7 @@ import { ListaAsistencia } from "../models/lista-asistencia";
 
 export class Grupo {
     _id?: string;
+    programa: string;
     numero: number;
     id_institucion: string;
     id_escuela: string;
@@ -22,6 +23,7 @@ export class Grupo {
         }
     ]
     curso: {
+        codigo_programa : string,
         codigo_curso: string;
         nombre: string;
     }

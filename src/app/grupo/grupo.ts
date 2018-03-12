@@ -1,4 +1,6 @@
 import { Rubro } from "./rubro";
+import { ListaEstudiantes } from "../models/lista-estudiantes";
+import { ListaAsistencia } from "../models/lista-asistencia";
 
 export class Grupo {
     _id?: string;
@@ -24,21 +26,6 @@ export class Grupo {
         nombre: string;
     }
     rubros: Rubro[]
-    lista_estudiantes: [
-        {
-            id_estudiante: string;
-            evaluaciones: Rubro[];
-        }
-    ]
-    lista_asistencia: [
-        {
-            fecha: Date;
-            estudiantes: [
-                {
-                id_estudiante: string;
-                estado: string;
-                }
-            ]
-        }
-    ]
+    lista_estudiantes: ListaEstudiantes[];
+    lista_asistencia: ListaAsistencia[];
 }

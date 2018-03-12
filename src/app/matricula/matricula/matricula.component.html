@@ -1,6 +1,6 @@
 <nav-bar></nav-bar>
-<h2>Matricula</h2>
-<h3>Usuario</h3>
+<h2>Matricula {{currentInstitucion.nombre}}</h2>
+<h3>{{session.nombre}}</h3>
 <table class="table table-responsive table-hover">
   <thead>
       <tr>
@@ -27,8 +27,8 @@
     </tr>
     <ng-container *ngFor="let grupo of grupos">
       <tr  *ngIf="selectedCurso != '' && grupo.curso.codigo_curso == selectedCurso" >
-          <td>{{grupo._id}}</td>
-          <td>{{grupo.id_profesor}}</td>
+          <td>{{grupo.nomero}}</td>
+          <td>{{grupo.profesor}}</td>
           <td>{{grupo.horario}}</td>
           <td>{{grupo.cupos}}</td>  
           <td>

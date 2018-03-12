@@ -9,6 +9,7 @@ export class Grupo {
     id_escuela: string;
     sede: string;
     id_profesor: string;
+    profesor: string;
     cupos: number;
     periodo:{
         ano: string;

@@ -18,6 +18,7 @@ import { FormCursoComponent } from './escuela/form-curso/form-curso.component';
 import { FormTemaComponent } from './escuela/form-tema/form-tema.component';
 import { NavigationBarComponent } from './navigation/navigation-bar/navigation-bar.component';
 import { CrearUsuarioComponent } from './usuario/crear-usuario/crear-usuario.component';
+import { MatriculaComponent } from './matricula/matricula/matricula.component';
 
 
 const appRoutes: Routes = [
@@ -54,7 +55,11 @@ const appRoutes: Routes = [
   {
     path: 'mantenimiento/tema',
     component: FormTemaComponent,
-  }, 
+  },
+  {
+    path: 'matricula',
+    component: MatriculaComponent,
+  },  
   {
     path: 'login',
     component: LoginComponent
@@ -78,7 +83,8 @@ const appRoutes: Routes = [
     FormCursoComponent,
     FormTemaComponent,
     NavigationBarComponent,
-    CrearUsuarioComponent
+    CrearUsuarioComponent,
+    MatriculaComponent
   ],
   imports: [
     BrowserModule,

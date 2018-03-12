@@ -1,6 +1,6 @@
 <div class="container">
-<h2>Formulario para creación de un estudiante </h2>
-<form [formGroup]="form">>
+<h2>Formulario para registro de un estudiante </h2>
+<form [formGroup]="form">
   <div class = "form-group">
     <div  [ngClass]="{'has-error': form.controls.nombre.errors && form.controls.nombre.dirty, 'has-success': form.controls.nombre.valid && form.controls.nombre.dirty }" >
         <label class="" for="Nombre" >Nombre: </label>
@@ -62,5 +62,6 @@
         <option *ngFor="let p of programas" [ngValue]="p">{{p.nombre}}</option>> 
       </select>   
   </div>
-  <button [disabled]="!conHorarios" class="btn btn-primary" (click)="createGrupo()" >Crear Grupo</button>
+  <hr>
+  <button [disabled]="emptyForm" class="btn btn-primary" (click)="createEstudiante()" >Registrar Estudiante</button>
 </div>

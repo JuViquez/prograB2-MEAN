@@ -28,6 +28,7 @@ export class CrearUsuarioComponent implements OnInit {
   programas : Programa[];
   selectedPrograma : Programa;
   emptyForm : Boolean;
+  createdEstudiante : Usuario;
   
 
   createForm() {
@@ -40,7 +41,18 @@ export class CrearUsuarioComponent implements OnInit {
   }
 
   createEstudiante(){
-
+    this.createdEstudiante.nombre =  this.form.get('nombre').value;
+    this.createdEstudiante.email =  this.form.get('email').value;
+    this.createdEstudiante.password =  this.form.get('password').value;
+    this.createdEstudiante.carnet = this.form.get('carnet').value;
+    this.createdEstudiante.institucion.nombre = this.selectedInstitucion._id;
+    this.createdEstudiante.institucion.sede = this.selectedSede.nombre;
+    this.createdEstudiante.escuela = this.selectedEscuela._id;
+    this.createdEstudiante.tipo = "estudiante";
+    this.createdEstudiante.programa.nombre = this.selectedPrograma.nombre;
+    this.createdEstudiante.programa.codigo_programa = this.selectedPrograma.codigo_programa;
+    this.usuarioService.createUsuario(this.createdEstudiante).then((usuario: Usuario) =>{
+  })
   }
 
   setSedes(){
@@ -53,11 +65,16 @@ export class CrearUsuarioComponent implements OnInit {
 
   getProgramas(){
     this.programas = this.selectedEscuela.programas;
+    this.emptyForm = false;
   }
 
-  constructor(private formBuilder: FormBuilder, private institucionService: InstitucionService, private escuelaService : EscuelaService) { this.createForm(); }
+  constructor(private formBuilder: FormBuilder, private usuarioService : UsuarioService , private institucionService: InstitucionService, private escuelaService : EscuelaService) { this.createForm(); }
 
   ngOnInit() {
+    this.createdEstudiante = new Usuario();
+    this.createdEstudiante.institucion = {nombre: "",sede: ""};
+    this.createdEstudiante.programa = {nombre: "",codigo_programa: ""};
+    this.emptyForm = true;
     this.institucionService.getInstituciones().then((data: Institucion[]) => { 
       this.instituciones = data;
     })

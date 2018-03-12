@@ -18,6 +18,11 @@ export class LoginService {
     localStorage.setItem('usuario', JSON.stringify(usuario));
   }
 
+  logOut(){
+    console.log("LOGOUT");
+    localStorage.clear();
+  }
+
   consultarDatos(){
     return JSON.parse(localStorage.getItem('usuario')) as Usuario ;
   }

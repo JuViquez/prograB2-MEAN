@@ -20,6 +20,7 @@ import { NavigationBarComponent } from './navigation/navigation-bar/navigation-b
 import { CrearUsuarioComponent } from './usuario/crear-usuario/crear-usuario.component';
 import { FormUsuarioComponent } from './usuario/form-usuario/form-usuario.component';
 import { MatriculaComponent } from './matricula/matricula/matricula.component';
+import { LoginBarComponent } from './navigation/login-bar/login-bar.component';
 
 
 const appRoutes: Routes = [
@@ -38,11 +39,11 @@ const appRoutes: Routes = [
     data: { title: 'Instituciones' }
   },
   {
-    path: 'crearprofesor',
+    path: 'registro/profesor',
     component: CrearProfesorComponent
   },
   {
-    path: 'crearestudiante',
+    path: 'registro/estudiante',
     component: CrearUsuarioComponent
   },
   {
@@ -90,7 +91,8 @@ const appRoutes: Routes = [
     NavigationBarComponent,
     CrearUsuarioComponent,
     FormUsuarioComponent,
-    MatriculaComponent
+    MatriculaComponent,
+    LoginBarComponent
   ],
   imports: [
     BrowserModule,

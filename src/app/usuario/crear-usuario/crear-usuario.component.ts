@@ -9,7 +9,8 @@ import { Institucion } from '../../instituciones/institucion';
 import { Sede } from '../../models/sede';
 import { Escuela } from '../../escuela/escuela';
 import { EscuelaService } from '../../escuela/escuela.service';
-import { Programa } from '../../models/programa'
+import { Programa } from '../../models/programa';
+import { LoginBarComponent } from '../../navigation/login-bar/login-bar.component';
 
 @Component({
   selector: 'app-crear-usuario',

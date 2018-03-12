@@ -17,7 +17,8 @@ import { NavigationBarComponent } from '../../navigation/navigation-bar/navigati
 export class InstitucionesListComponent implements OnInit {
 
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
-  @Input() creador: Boolean;
+  @Input() barra : Boolean;
+  creador: Boolean;
   instituciones: Institucion[];
   selectedInstitucion: Institucion;
   noInstitucion: Boolean;
@@ -30,6 +31,7 @@ export class InstitucionesListComponent implements OnInit {
   selectedEscuela: Escuela;
   noEscuela: Boolean;
   inputEscuela: string;
+  periodo: any;
 
   selectInstitucion (event: any){
     this.sedes = [];
@@ -73,6 +75,15 @@ export class InstitucionesListComponent implements OnInit {
     }
   }
 
+  setPeriodo(){
+    var today = new Date();
+    this.periodo = {ano:"",semestre:""};
+    console.log(today);
+    if(today.getMonth() > 5){ this.periodo.semestre = "2"}else{ this.periodo.semestre = "1" };
+    this.periodo.ano = today.getFullYear().toString();
+    console.log(this.periodo.ano);
+  }
+
   getNombreEscuelas(arreglo: string[]){
     this.escuelasService.getEscuelas(arreglo).then((data:Escuela[]) => { 
       this.escuelas = data; console.log("arreglo: "+this.escuelas[0].nombre);})}
@@ -87,7 +98,8 @@ export class InstitucionesListComponent implements OnInit {
       InstitucionOutput.nombre = this.inputInstitucion;
       this.escuelasService.createEscuela(escuelaCreada).then((data: Escuela) => {escuelaCreada = data;
         InstitucionOutput.sedes = [{nombre:this.inputSede,id_escuelas:[escuelaCreada._id]}];
-        this.institucionService.createInstitucion(InstitucionOutput).then((data2: Institucion) => {institucionCreada.nombre = data2._id; institucionCreada.sede = this.inputSede; institucionCreada.escuela = escuelaCreada._id;this.notify.emit(institucionCreada); })
+        InstitucionOutput.periodo = this.periodo;
+        this.institucionService.createInstitucion(InstitucionOutput).then((data2: Institucion) => {institucionCreada.nombre = data2._id; institucionCreada.sede = this.inputSede; institucionCreada.escuela = escuelaCreada._id; this.notify.emit(institucionCreada); })
       } )
     }else if(this.noSede && this.creador){
       this.escuelasService.createEscuela(escuelaCreada).then((data: Escuela) => {escuelaCreada = data;
@@ -124,7 +136,6 @@ export class InstitucionesListComponent implements OnInit {
     this.institucionService.getInstituciones().then((data: Institucion[]) => { 
       this.instituciones = data;
     });
+    this.setPeriodo();
   }
-
-
 }

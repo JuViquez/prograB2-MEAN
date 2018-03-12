@@ -16,8 +16,10 @@
             <li><a routerLink="/mantenimiento/grupo">Grupo</a></li>
           </ul>
         </li>
-        <li><a href="#">Page 2</a></li>
-        <li><a href="#">Page 3</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+          <button (click)="logOut()" class="btn btn-danger navbar-btn"> Log Out</button>
+          <a href="#" (click)="logOut()" class="btn btn-danger navbar-btn" >LogOut2</a>
       </ul>
     </div>
   </nav>

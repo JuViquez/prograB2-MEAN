@@ -20,7 +20,8 @@ import { NavigationBarComponent } from "../../navigation/navigation-bar/navigati
   providers: [LoginService,EscuelaService,GrupoService]
 })
 export class FormGrupoComponent implements OnInit {
-  datos: any;
+  datos : any;
+  periodo : any;
   selectedEscuela: Escuela;
   programas : Programa[];
   cursos : Curso[];
@@ -34,6 +35,10 @@ export class FormGrupoComponent implements OnInit {
   createdGrupos : Grupo[]
 
   createGrupo(){
+    this.createdGrupo.periodo = this.periodo;
+    this.createdGrupo.lista_asistencia = [];
+    this.createdGrupo.lista_estudiantes = [];
+    this.createdGrupo.rubros = [];
     this.createdGrupo.curso = { codigo_programa: this.selectedPrograma.nombre ,codigo_curso: this.selectedCurso.codigo_curso, nombre: this.selectedCurso.nombre};
     this.createdGrupo.horario = this.horarios;
     this.grupoService.createGrupo(this.createdGrupo).then((data : Grupo)=>{ this.createdGrupos.push(data); })
@@ -67,8 +72,13 @@ export class FormGrupoComponent implements OnInit {
       dia: ['', Validators.required], 
       inicio: ['', Validators.required],
       fin: ['', Validators.required]
-    });
-  }
+    });}
+
+  setPeriodo(){
+    var today = new Date();
+    this.periodo = {ano:"",semestre:""};
+    if(today.getMonth() > 5){ this.periodo.semestre = "2"}else{ this.periodo.semestre = "1" };
+    this.periodo.ano = today.getFullYear().toString();}
 
   BorrarHorario(){
     var index = this.horarios.indexOf(this.selectedHorario);
@@ -96,6 +106,7 @@ export class FormGrupoComponent implements OnInit {
   constructor(private grupoService : GrupoService, private formBuilder: FormBuilder, private loginService: LoginService, private escuelaService : EscuelaService) { this.createForm(); }
 
   ngOnInit() {
+    this.setPeriodo()
     this.selectedCurso = new Curso();
     this.selectedHorario = {dia:"",hora_inicio: "", hora_final:""};
     this.horarios = new Array();
@@ -105,18 +116,15 @@ export class FormGrupoComponent implements OnInit {
     this.createdGrupo =  new Grupo();
     this.createdGrupo.id_escuela = this.datos.escuela;
     this.createdGrupo.id_profesor = this.datos.id;
-    this.createdGrupo.id_institucion = this.datos.institucion;
+    this.createdGrupo.id_institucion = this.datos.institucion.nombre;
     this.createdGrupo.cupos = 0;
     this.createdGrupo.numero = 0;
-    this.createdGrupo.sede = this.datos.sede;
+    this.createdGrupo.sede = this.datos.institucion.sede;
     this.createdGrupo.periodo = {ano: "",semestre: ""};
     this.escuelaService.getEscuelasByID(this.datos.escuela).then((data: Escuela) => { 
       this.selectedEscuela = data;
       this.programas = data.programas;
     })
-
-    this.grupoService.getGruposNoCursados(["IC-01"]).then((data:Grupo[]) => { console.log("Cursos: "+data[0].numero) } )
-
     this.actualizarGrupos();
 }
 }

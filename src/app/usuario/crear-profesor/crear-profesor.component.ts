@@ -4,7 +4,7 @@ import { Usuario } from '../usuario';
 import { UsuarioService } from '../usuario.service';
 import { LoginService } from '../../login/login.service'
 import { Router } from "@angular/router";
-import { NavigationBarComponent } from "../../navigation/navigation-bar/navigation-bar.component"
+import { LoginBarComponent } from '../../navigation/login-bar/login-bar.component';
 
 @Component({
   selector: 'app-crear-profesor',

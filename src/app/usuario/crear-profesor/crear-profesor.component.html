@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-
-<html lang="es">
-
-<head>
-<title>Formulario Profesor</title>
-<meta charset="utf-8" />
-</head>
-
-<body>
-  <nav-bar></nav-bar>
+<app-login-bar></app-login-bar>
   <div class= "container">
     <h2>Formulario para el registro de un profesor</h2>
     <form action="" class="">
@@ -29,12 +19,11 @@
           <input class="form-control" id="password" type="text" [(ngModel)]="profesor.password" name="password"  placeholder="Contraseña">
       </div>
     </form>
-    <app-instituciones-list [creador]= creadorVar (notify) = "onNotifyEvent($event)" ></app-instituciones-list>
+    <hr>
+    <app-instituciones-list [barra]= true (notify) = "onNotifyEvent($event)" ></app-instituciones-list>
     <div [hidden]="errMessage">
       <div class="alert alert-warning">
         <strong>Advertencia!</strong> No se creará el usuario debido a que la información no está completa
       </div>
     </div>
   </div>
-</body>
-</html>

@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { Usuario } from '../usuario';
 import { UsuarioService } from '../usuario.service'
 import { LoginService } from '../../login/login.service'
+import { NavigationBarComponent } from "../../navigation/navigation-bar/navigation-bar.component"
 
 @Component({
   selector: 'app-form-usuario',
@@ -19,7 +20,7 @@ export class FormUsuarioComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private loginService : LoginService , private usuarioService :  UsuarioService) { this.createForm(); this.currentUsuario = new Usuario();
     this.datos = this.loginService.consultarDatos();
-    this.usuarioService.getUsuario(this.datos.id).then((data: Usuario) => { this.currentUsuario = data; console.log("NOMBRE: "+this.currentUsuario.nombre)} )
+    this.usuarioService.getUsuario(this.datos._id).then((data: Usuario) => { this.currentUsuario = data; console.log("NOMBRE: "+this.currentUsuario.nombre)} )
  }
 
  EditUsuario(){

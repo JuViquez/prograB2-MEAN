@@ -1,5 +1,6 @@
+<nav-bar></nav-bar>
 <div class="container" >
-  <h2>Formulario para registro de un estudiante </h2>
+  <h2>Formulario para mantenimiento de un usuario </h2>
   <form [formGroup]="form">
     <div class = "form-group">
       <div  [ngClass]="{'has-error': form.controls.nombre.errors && form.controls.nombre.dirty, 'has-success': form.controls.nombre.valid && form.controls.nombre.dirty }" >

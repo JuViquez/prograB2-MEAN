@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { LoginService } from './login.service';
+import { LoginBarComponent } from '../navigation/login-bar/login-bar.component'
 
 @Component({
   selector: 'app-login',
@@ -39,7 +40,6 @@ export class LoginComponent implements OnInit {
     this.form.controls['username'].enable();
     this.form.controls['password'].enable();
   }
-
 
   onLoginSubmit() {
     this.processing = true; 

@@ -176,10 +176,10 @@ app.get('/api/grupos/estudiante/:id', function(req, res){
     })
 });
 
-app.get('/api/grupos/cursos', function(req, res){
+app.get('/api/grupos/cursos/:ano/:semestre', function(req, res){
     var arr = [];
     for(var x in req.query){arr.push(req.query[x]);};
-    db.collection(GRUPOS_COLLECTION).find({"curso.codigo_curso": { $not : { $in : arr} }}).toArray(function(err, docs) {
+    db.collection(GRUPOS_COLLECTION).find({"curso.codigo_curso": { $not : { $in : arr} }, "periodo.ano": req.params.ano, "periodo.semestre" : req.params.semestre }).toArray(function(err, docs) {
         if (err) {
             handleError(res, err.message, "No se pudo obtener grupos.");
           } else {

@@ -1,4 +1,5 @@
-import { Institucion } from "../instituciones/institucion";
+
+import { HistorialCurso } from "../models/historial-curso";
 
 export class Usuario {
     _id?: string;
@@ -16,13 +17,5 @@ export class Usuario {
         codigo_programa: string;
         nombre: string;
     }
-    historial_cursos:[
-        {
-            fecha: Date;
-            codigo_curso: string;
-            nombre: string;
-            estado: string;
-            nota_final: number;
-        }
-    ]
+    historial_cursos: HistorialCurso[]
 }

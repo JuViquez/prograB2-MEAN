@@ -35,6 +35,8 @@ export class FormGrupoComponent implements OnInit {
   createdGrupos : Grupo[]
 
   createGrupo(){
+    this.createdGrupo.profesor = this.datos.nombre;
+    this.createdGrupo.id_profesor = this.datos._id;
     this.createdGrupo.periodo = this.periodo;
     this.createdGrupo.lista_asistencia = [];
     this.createdGrupo.lista_estudiantes = [];
@@ -115,7 +117,6 @@ export class FormGrupoComponent implements OnInit {
     this.datos = this.loginService.consultarDatos();
     this.createdGrupo =  new Grupo();
     this.createdGrupo.id_escuela = this.datos.escuela;
-    this.createdGrupo.id_profesor = this.datos.id;
     this.createdGrupo.id_institucion = this.datos.institucion.nombre;
     this.createdGrupo.cupos = 0;
     this.createdGrupo.numero = 0;
@@ -126,5 +127,6 @@ export class FormGrupoComponent implements OnInit {
       this.programas = data.programas;
     })
     this.actualizarGrupos();
+    this.grupoService.matricularGrupos(["5aa4830e40e7dc2bc8a2034e"],"5aa5c5305ccde505606d6d61").then((data: Grupo[]) => {} )
 }
 }

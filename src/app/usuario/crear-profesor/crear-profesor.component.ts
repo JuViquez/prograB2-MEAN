@@ -36,12 +36,6 @@ export class CrearProfesorComponent implements OnInit {
     this.errMessage = true;
     this.creadorVar = true;
     this.profesor = new Usuario();
-    this.profesor.tipo = "profesor";
-    var session = this.loginService.consultarDatos();
-    if(session.tipo == "profesor"){
-      console.log("Router");
-      this.router.navigateByUrl['/login'];
-    }
-    
+    this.profesor.tipo = "profesor"; 
   }
 }

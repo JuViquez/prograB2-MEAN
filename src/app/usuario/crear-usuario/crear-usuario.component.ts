@@ -75,6 +75,7 @@ export class CrearUsuarioComponent implements OnInit {
     this.createdEstudiante = new Usuario();
     this.createdEstudiante.institucion = {nombre: "",sede: ""};
     this.createdEstudiante.programa = {nombre: "",codigo_programa: ""};
+    this.createdEstudiante.historial_cursos = [];
     this.emptyForm = true;
     this.institucionService.getInstituciones().then((data: Institucion[]) => { 
       this.instituciones = data;

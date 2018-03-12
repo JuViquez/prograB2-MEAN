@@ -5,6 +5,7 @@ import { EscuelaService } from '../../escuela/escuela.service';
 import { Curso } from '../../models/curso';
 import { Programa } from '../../models/programa';
 import { Grupo } from '../grupo';
+import { Tema } from '../../models/tema';
 import { GrupoService } from '../grupo.service'
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; 
@@ -30,11 +31,35 @@ export class FormGrupoComponent implements OnInit {
   conHorarios : Boolean;
   horarios : any;
   selectedHorario: any;
+  createdGrupos : Grupo[]
 
   createGrupo(){
     this.createdGrupo.curso = { codigo_curso: this.selectedCurso.codigo_curso, nombre: this.selectedCurso.nombre};
     this.createdGrupo.horario = this.horarios;
-    this.grupoService.createGrupo(this.createdGrupo).then((data : Grupo)=>{})
+    this.grupoService.createGrupo(this.createdGrupo).then((data : Grupo)=>{ this.createdGrupos.push(data); })
+  }
+
+  setSelectedGrupo(c: Grupo){
+    this.createdGrupo = c;
+    this.createdGrupo.cupos = c.cupos
+    this.horarios = c.horario;
+    this.selectedCurso.codigo_curso = c.curso.codigo_curso;
+    this.selectedCurso.nombre = c.curso.nombre;
+  }
+
+  editGrupo(){
+    this.createdGrupo.curso = { codigo_curso: this.selectedCurso.codigo_curso, nombre: this.selectedCurso.nombre};
+    this.createdGrupo.horario = this.horarios;
+    this.grupoService.updateGrupo(this.createdGrupo).then((data : Grupo) => { } )
+  }
+
+  deleteGrupo(){
+    this.grupoService.DeleteGrupo(this.createdGrupo._id).then((data: string)=> {this.actualizarGrupos();})
+
+  }
+
+  actualizarGrupos(){
+    this.grupoService.getGruposByEscuela(this.datos.escuela).then((data : Grupo[]) => {this.createdGrupos = data; if(this.createdGrupos.length){this.conHorarios=true;}});
   }
 
   createForm() {
@@ -71,8 +96,10 @@ export class FormGrupoComponent implements OnInit {
   constructor(private grupoService : GrupoService, private formBuilder: FormBuilder, private loginService: LoginService, private escuelaService : EscuelaService) { this.createForm(); }
 
   ngOnInit() {
+    this.selectedCurso = new Curso();
     this.selectedHorario = {dia:"",hora_inicio: "", hora_final:""};
     this.horarios = new Array();
+    this.createdGrupos = new Array();
     this.conHorarios = false;
     this.datos = this.loginService.consultarDatos();
     this.createdGrupo =  new Grupo();
@@ -82,10 +109,11 @@ export class FormGrupoComponent implements OnInit {
     this.createdGrupo.cupos = 0;
     this.createdGrupo.numero = 0;
     this.createdGrupo.sede = this.datos.sede;
+    this.createdGrupo.periodo = {ano: "",semestre: ""};
     this.escuelaService.getEscuelasByID(this.datos.escuela).then((data: Escuela) => { 
       this.selectedEscuela = data;
       this.programas = data.programas;
-    });
-  }
-
+    })
+    this.actualizarGrupos();
+}
 }

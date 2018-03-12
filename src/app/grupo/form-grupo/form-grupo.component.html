@@ -1,6 +1,6 @@
 <nav-bar></nav-bar>
 <div class= "container">
-  <h2>Formulario para la creación de un grupo</h2>
+  <h2>Formulario1 para la creación de un grupo</h2>
   <form #grupoForm>
     <div class= "form-group">
         <label class="" for="Programa">Programa:</label>
@@ -20,7 +20,15 @@
     </div>
     <div class = "form-group">
         <label class="" for="numero" >Numero de grupo:</label>
-        <input class="form-control" id="cupos" name="cupos" type="number" [(ngModel)]="this.createdGrupo.numero" >
+        <input class="form-control" id="numero" name="numero" type="number" [(ngModel)]="this.createdGrupo.numero" >
+    </div>
+    <div class = "form-group">
+        <label class="" for="ano" >Año:</label>
+        <input class="form-control" id="ano" name="ano" type="text" [(ngModel)]="this.createdGrupo.periodo.ano" >
+    </div>
+    <div class = "form-group">
+        <label class="" for="semestre" >Semestre:</label>
+        <input class="form-control" id="semestre" name="semestre" type="text" [(ngModel)]="this.createdGrupo.periodo.semestre" >
     </div>
   </form>
   <form [formGroup]="form">
@@ -73,4 +81,21 @@
     </table>
   </div>
   <button [disabled]="!conHorarios" class="btn btn-primary" (click)="createGrupo()" >Crear Grupo</button>
+  <button [disabled]="!conHorarios" class="btn btn-warning" (click)="editGrupo()" >Editar Grupo</button>
+  <button [disabled]="!conHorarios" class="btn btn-danger" (click)="deleteGrupo()" >Eliminar Grupo</button>
+  <p>Seleccione el grupo que desea darle mantenimiento</p>
+    <table id="tableGrupo" class="table table-hover">
+        <thead class="thead-inverse">
+            <th># grupo</th>
+            <th>Curso</th>
+            <th>Codigo</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let c of createdGrupos"  [ngClass]= "{ 'info' : c === createdGrupo}" (click)="setSelectedGrupo(c)">
+                <td>{{c.numero}}</td>
+                <td>{{c.curso.nombre}}</td>
+                <td>{{c.curso.codigo_curso}}</td>
+            </tr>
+        </tbody>  
+    </table>
 </div>

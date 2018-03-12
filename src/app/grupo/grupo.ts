@@ -8,6 +8,10 @@ export class Grupo {
     sede: string;
     id_profesor: string;
     cupos: number;
+    periodo:{
+        ano: string;
+        semestre : string;
+    };
     horario: [
         {
             dia: string;

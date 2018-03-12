@@ -176,6 +176,17 @@ app.get('/api/grupos/estudiante/:id', function(req, res){
     })
 });
 
+app.get('/api/grupos/cursos', function(req, res){
+    var arr = [];
+    for(var x in req.query){arr.push(req.query[x]);};
+    db.collection(GRUPOS_COLLECTION).find({"curso.codigo_curso": { $not : { $in : arr} }}).toArray(function(err, docs) {
+        if (err) {
+            handleError(res, err.message, "No se pudo obtener grupos.");
+          } else {
+            res.status(200).json(docs);
+          }      
+    })
+});
 
 app.post('/api/grupos', function(req, res){
     var newDoc = req.body;

@@ -9,7 +9,7 @@ export class Usuario {
     password: string;
     email: string;
     institucion: {
-        nombre: string;
+        id_institucion : string;
         sede: string;
     } 
     escuela: string;

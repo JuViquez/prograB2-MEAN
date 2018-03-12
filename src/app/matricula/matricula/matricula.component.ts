@@ -35,7 +35,7 @@ export class MatriculaComponent implements OnInit {
       if(this.session.historial_cursos[i].estado == 'Aprobado'){
         codigosCurso.push(this.session.historial_cursos[i])
       }
-    }
+    } /*
     this.grupoService.getGruposNoCursados(codigosCurso).then((grupos: Grupo[]) =>{
       this.grupos = grupos;
       this.cursos = this.grupos.map(function(grupo){
@@ -45,7 +45,7 @@ export class MatriculaComponent implements OnInit {
       })
       
     });
-   
+   */
   }
 
   matricularClicked(checked: boolean, grupo: Grupo){

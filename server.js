@@ -213,11 +213,11 @@ app.post('/api/grupos', function(req, res){
     });
 
 });
-
+/*
 app.put('/api/grupos/matricula/:id', function(req, res){
   var arr = [];
   for(var x in req.query){arr.push(new ObjectID(req.query[x]));};
-  db.collection(GRUPOS_COLLECTION).updateMany({_id: {$in : arr }}, {$push : { lista_estudiantes : { id_estudiantes : new ObjectID(req.params.id) , rubros: [] } }, $inc : { cupos : -1} }).toArray( function( err, doc) {
+  db.collection(GRUPOS_COLLECTION).update({_id: {$in : arr }}, {$push : { lista_estudiantes : { id_estudiantes : new ObjectID(req.params.id) , rubros: [] } }, $inc : { cupos : -1} }).toArray( function( err, doc) {
     if (err) {
       handleError(res, err.message, "Fallo al actualizar grupo");
     } else {
@@ -225,6 +225,20 @@ app.put('/api/grupos/matricula/:id', function(req, res){
     }
   });
 });
+*/
+
+app.put('/api/grupos/matricula/:id', function(req, res){
+    var arr = [];
+    for(var x in req.query){arr.push(new ObjectID(req.query[x]));};
+    db.collection(GRUPOS_COLLECTION).update({_id: {$in : arr }}, {$push : { lista_estudiantes : { id_estudiantes : new ObjectID(req.params.id) , rubros: [] } }, $inc : { cupos : -1} }, {w:1, multi: true} , function( err, doc) {
+      if (err) {
+        handleError(res, err.message, "Fallo al actualizar grupo");
+      } else {
+        console.log("Actualizó")
+        res.status(200).json(doc);
+      }
+    });
+  });
 
 app.delete('/api/grupos/:id', function(req, res){
     db.collection(GRUPOS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {

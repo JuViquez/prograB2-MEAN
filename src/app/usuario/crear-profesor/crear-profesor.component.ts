@@ -23,7 +23,7 @@ export class CrearProfesorComponent implements OnInit {
     if(typeof(objeto.nombre) != 'undefined' && typeof(objeto.sede) != 'undefined' && typeof(objeto.escuela) != 'undefined'){
       this.errMessage = true;
       this.profesor.escuela = objeto.escuela;
-      this.profesor.institucion = {nombre: objeto.nombre, sede: objeto.sede};
+      this.profesor.institucion = { id_institucion: objeto.nombre , sede: objeto.sede};
       this.usuarioService.createUsuario(this.profesor).then((data: Usuario ) => {});
     }else{
       this.errMessage = false;

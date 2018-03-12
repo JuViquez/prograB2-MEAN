@@ -46,7 +46,7 @@ export class CrearUsuarioComponent implements OnInit {
     this.createdEstudiante.email =  this.form.get('email').value;
     this.createdEstudiante.password =  this.form.get('password').value;
     this.createdEstudiante.carnet = this.form.get('carnet').value;
-    this.createdEstudiante.institucion.nombre = this.selectedInstitucion._id;
+    this.createdEstudiante.institucion.id_institucion = this.selectedInstitucion._id;
     this.createdEstudiante.institucion.sede = this.selectedSede.nombre;
     this.createdEstudiante.escuela = this.selectedEscuela._id;
     this.createdEstudiante.tipo = "estudiante";
@@ -73,7 +73,7 @@ export class CrearUsuarioComponent implements OnInit {
 
   ngOnInit() {
     this.createdEstudiante = new Usuario();
-    this.createdEstudiante.institucion = {nombre: "",sede: ""};
+    this.createdEstudiante.institucion = { id_institucion: "" ,sede: ""};
     this.createdEstudiante.programa = {nombre: "",codigo_programa: ""};
     this.createdEstudiante.historial_cursos = [];
     this.emptyForm = true;

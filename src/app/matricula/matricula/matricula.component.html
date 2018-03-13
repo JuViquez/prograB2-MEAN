@@ -1,20 +1,30 @@
 <nav-bar></nav-bar>
-<h2>Matricula</h2>
-<h3>Usuario</h3>
+<h2>Matricula {{currentInstitucion.nombre}}</h2>
+<h3>{{session.nombre}}</h3>
 <table class="table table-responsive table-hover">
-  <thead>
-      <tr>
-        <th>Codigo</th>
-        <th>Curso</th>
-      </tr>
-  </thead>
   <tbody>
-      <tr class="clickable" (click)="setSelectedCurso(curso.codigo_curso)" [ngClass]="{'info': selectedCurso==curso.codigo_curso }" *ngFor="let curso of cursos" >
-          <td>{{curso.codigo_curso}}</td>
-          <td>{{curso.nombre}}</td>
-      </tr>
+    <tr>
+      <th>Grupo</th>
+      <th>Profesor</th>
+      <th>Horario</th>
+      <th>Cupos</th>
+      <th></th>
+    </tr>
+    <tr  *ngFor="let grupo of grupos" >
+        <td>{{grupo.numero}}</td>
+        <td>{{grupo.profesor}}</td>
+        <td>{{grupo.horario}}</td>
+        <td>{{grupo.cupos}}</td>  
+        <td>
+        <span class="button-checkbox">
+            <button type="button" class="btn btn-circle btn-success" (click)="matricularClicked(grupo)"  data-color="primary">
+              <i class="glyphicon glyphicon-plus-sign"></i>
+            </button>
+        </span>
+        </td>
+    </tr>
   </tbody>
-</table>
+</table> 
 
 <table class="table table-responsive table-hover">
   <tbody>
@@ -25,21 +35,18 @@
       <th>Cupos</th>
       <th></th>
     </tr>
-    <ng-container *ngFor="let grupo of grupos">
-      <tr  *ngIf="selectedCurso != '' && grupo.curso.codigo_curso == selectedCurso" >
-          <td>{{grupo._id}}</td>
-          <td>{{grupo.id_profesor}}</td>
-          <td>{{grupo.horario}}</td>
-          <td>{{grupo.cupos}}</td>  
-          <td>
-          <span class="button-checkbox">
-              <button type="button" class="btn btn-circle" [ngClass]="{ 'btn-success': checkGrupo(grupo)}" (click)="matricularClicked(checkGrupo(grupo), grupo)"  data-color="primary">
-                <i class="glyphicon glyphicon-ok-sign"></i>
-              </button>
-              <input type="checkbox" class="hidden" [checked]=checkGrupo(grupo) />
-          </span>
-          </td>
-      </tr>
-    </ng-container>
+    <tr  *ngFor="let grupo of gruposMatriculados" >
+        <td>{{grupo.numero}}</td>
+        <td>{{grupo.profesor}}</td>
+        <td>{{grupo.horario}}</td>
+        <td>{{grupo.cupos}}</td>  
+        <td>
+        <span class="button-checkbox">
+            <button type="button" class="btn btn-circle btn-danger" (click)="desmatricularClicked(grupo)"  data-color="primary">
+              <i class="glyphicon glyphicon-minus-sign"></i>
+            </button>
+        </span>
+        </td>
+    </tr>
   </tbody>
 </table> 

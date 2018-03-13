@@ -40,6 +40,17 @@ app.get('/api/instituciones', function(req, res){
     })
 });
 
+app.get('/api/instituciones/:id', function(req, res){
+    db.collection(INSTITUCIONES_COLLECTION).findOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+        if (err) {
+            handleError(res, err.message, "Fallo al obtener Institucion");
+        } else {
+            res.status(200).json(result);
+        }
+        });
+});
+
+
 app.post('/api/instituciones', function(req, res){
     var newDoc = req.body;
 

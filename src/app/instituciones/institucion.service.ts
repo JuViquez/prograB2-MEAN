@@ -16,6 +16,13 @@ export class InstitucionService {
                .catch(this.handleError);
   }
 
+  getInstitucionById(_id: string){
+    return this.http.get(this.InstitucionUrl + '/' + _id)
+    .toPromise()
+    .then(response => response.json() as Institucion)
+    .catch(this.handleError);
+  }
+
 
   createInstitucion(newInstitucion: Institucion): Promise<void | Institucion> {
     return this.http.post(this.InstitucionUrl, newInstitucion)

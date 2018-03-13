@@ -42,7 +42,6 @@ export class MatriculaComponent implements OnInit {
       if(this.session.historial_cursos[i].estado == 'Aprobado'){
         codigosCurso.push(this.session.historial_cursos[i])
       }
-<<<<<<< HEAD
     }
     this.institucionService.getInstitucionById(this.session.institucion.id_institucion).then((institucion: Institucion) => {
       console.log(institucion);
@@ -59,19 +58,6 @@ export class MatriculaComponent implements OnInit {
     })
    
    
-=======
-    } /*
-    this.grupoService.getGruposNoCursados(codigosCurso).then((grupos: Grupo[]) =>{
-      this.grupos = grupos;
-      this.cursos = this.grupos.map(function(grupo){
-        return grupo.curso;
-      }).filter(function(item,pos,array){
-        return array.indexOf(item) == pos;
-      })
-      
-    });
-   */
->>>>>>> 72449551a29c2df646aa6c1ce2cf64187e7cc860
   }
 
   matricularClicked(checked: boolean, grupo: Grupo){

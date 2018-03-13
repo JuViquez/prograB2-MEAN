@@ -9,11 +9,7 @@ export class Grupo {
     id_escuela: string;
     sede: string;
     id_profesor: string;
-<<<<<<< HEAD
-    profesor: string;
-=======
     profesor : string;
->>>>>>> 72449551a29c2df646aa6c1ce2cf64187e7cc860
     cupos: number;
     periodo:{
         ano: string;

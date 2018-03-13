@@ -29,6 +29,8 @@ export class MatriculaComponent implements OnInit {
               private grupoService: GrupoService,
               private institucionService: InstitucionService) { 
                 this.gruposMatriculados = [];
+                this.currentInstitucion = new Institucion();
+                this.currentInstitucion.nombre = "";
               }
 
   ngOnInit() {
@@ -43,7 +45,7 @@ export class MatriculaComponent implements OnInit {
     this.institucionService.getInstitucionById(this.session.institucion.id_institucion).then((institucion: Institucion) => {
       console.log(institucion);
       this.currentInstitucion = institucion;
-      this.grupoService.getGruposNoCursados(codigosCurso, institucion.periodo).then((grupos: Grupo[]) =>{
+      this.grupoService.getGruposNoCursados(codigosCurso, institucion.periodo, this.session.programa.codigo_programa).then((grupos: Grupo[]) =>{
         this.grupos = grupos;
       });
     })
@@ -89,5 +91,9 @@ export class MatriculaComponent implements OnInit {
     newHistorial.nota_final = 0;
     newHistorial.periodo = grupo.periodo;
     return newHistorial;
+  }
+
+  confirmarMatricula(){
+    this.grupoService.updateManyGrupos(this.gruposMatriculados.concat(this.grupos));
   }
 }

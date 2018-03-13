@@ -9,12 +9,13 @@ import { InstitucionService } from '../../instituciones/institucion.service'
 import { Institucion } from '../../instituciones/institucion';
 import { ListaEstudiantes } from '../../models/lista-estudiantes';
 import { HistorialCurso } from '../../models/historial-curso';
+import { UsuarioService } from '../../usuario/usuario.service'
 
 @Component({
   selector: 'app-matricula',
   templateUrl: './matricula.component.html',
   styleUrls: ['./matricula.component.css'],
-  providers: [LoginService, GrupoService, InstitucionService]
+  providers: [LoginService, GrupoService, InstitucionService, UsuarioService]
 })
 export class MatriculaComponent implements OnInit {
 
@@ -27,7 +28,8 @@ export class MatriculaComponent implements OnInit {
 
   constructor(private loginService: LoginService,
               private grupoService: GrupoService,
-              private institucionService: InstitucionService) { 
+              private institucionService: InstitucionService,
+              private usuarioService: UsuarioService) { 
                 this.gruposMatriculados = [];
                 this.grupos = [];
                 this.currentInstitucion = new Institucion();
@@ -107,6 +109,7 @@ export class MatriculaComponent implements OnInit {
 
   confirmarMatricula(){
     this.grupoService.updateManyGrupos(this.gruposMatriculados.concat(this.grupos));
+    this.usuarioService.updateUsuario(this.session);
   }
 
   toStringHorario(Horario: any){

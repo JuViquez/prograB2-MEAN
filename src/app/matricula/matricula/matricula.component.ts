@@ -40,13 +40,13 @@ export class MatriculaComponent implements OnInit {
     this.session = this.loginService.consultarDatos();
     var historialLength = this.session.historial_cursos.length;
     var codigosCurso = new Array();
-    var cursosMatriculados = new Array();
+    var gruposMatriculados = new Array();
     for(var i = 0; i < historialLength; i++){
       if(this.session.historial_cursos[i].estado == 'Aprobado'){
         codigosCurso.push(this.session.historial_cursos[i])
       }else
       if(this.session.historial_cursos[i].estado == 'Cursando'){
-        cursosMatriculados.push(this.session.historial_cursos[i].codigo_curso);
+        gruposMatriculados.push(this.session.historial_cursos[i].id_grupo);
       }
     }
 
@@ -54,7 +54,7 @@ export class MatriculaComponent implements OnInit {
       this.currentInstitucion = institucion;
       this.grupoService.getGruposNoCursados(codigosCurso, institucion.periodo, this.session.programa.codigo_programa).then((grupos: Grupo[]) =>{
           for(var i = 0; i < grupos.length; i++){
-            if(cursosMatriculados.indexOf(grupos[i].curso.codigo_curso) != -1){
+            if(gruposMatriculados.indexOf(grupos[i]._id) != -1){
               this.gruposMatriculados.push(grupos[i]);
             }else{
               this.grupos.push(grupos[i]);

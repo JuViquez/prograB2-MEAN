@@ -1,10 +1,12 @@
 <nav-bar></nav-bar>
 <h2>Matricula {{currentInstitucion.nombre}}</h2>
 <h3>{{session.nombre}}</h3>
+
 <table class="table table-responsive table-hover">
   <tbody>
     <tr>
       <th>Grupo</th>
+      <td>Curso</td>
       <th>Profesor</th>
       <th>Horario</th>
       <th>Cupos</th>
@@ -12,8 +14,9 @@
     </tr>
     <tr  *ngFor="let grupo of grupos" >
         <td>{{grupo.numero}}</td>
+        <td>{{grupo.curso.codigo_curso}} {{grupo.curso.nombre}}</td>
         <td>{{grupo.profesor}}</td>
-        <td>{{grupo.horario}}</td>
+        <td>{{toStringHorario(grupo.horario)}}</td>
         <td>{{grupo.cupos}}</td>  
         <td>
         <span class="button-checkbox">
@@ -30,6 +33,7 @@
   <tbody>
     <tr>
       <th>Grupo</th>
+      <td>Curso</td>
       <th>Profesor</th>
       <th>Horario</th>
       <th>Cupos</th>
@@ -37,8 +41,9 @@
     </tr>
     <tr  *ngFor="let grupo of gruposMatriculados" >
         <td>{{grupo.numero}}</td>
+        <td>{{grupo.curso.codigo_curso}} {{grupo.curso.nombre}}</td>
         <td>{{grupo.profesor}}</td>
-        <td>{{grupo.horario}}</td>
+        <td>{{toStringHorario(grupo.horario)}}</td>
         <td>{{grupo.cupos}}</td>  
         <td>
         <span class="button-checkbox">

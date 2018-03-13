@@ -112,7 +112,6 @@ app.get('/api/escuelas/:id', function(req, res){
             if (err) {
                 handleError(res, err.message, "No se pudo obtener escuela.");
               } else {
-                console.log("Escuela obtenida: "+docs.nombre);
                 res.status(200).json(docs);
               }      
         })
@@ -124,7 +123,6 @@ app.post('/api/escuelas', function(req, res){
         if (err) {
         handleError(res, err.message, "Fallo al crear Escuela.");
         } else {
-            console.log("DOCS: "+doc);
         res.status(201).json(doc.ops[0]);
         }
     });
@@ -187,6 +185,19 @@ app.get('/api/grupos/estudiante/:id', function(req, res){
     })
 });
 
+app.put('/api/grupos/:id', function(req, res){
+  var updateDoc = req.body;
+
+  db.collection(GRUPOS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Fallo al actualizar grupo");
+    } else {
+      updateDoc._id = req.params.id;
+      res.status(200).json(updateDoc);
+    }
+  });
+});
+
 app.get('/api/grupos/cursos/:ano/:semestre', function(req, res){
     var arr = [];
     for(var x in req.query){arr.push(req.query[x]);};
@@ -212,19 +223,19 @@ app.post('/api/grupos', function(req, res){
 
 });
 
-app.put('/api/grupos/:id', function(req, res){
-    var updateDoc = req.body;
-  delete updateDoc._id;
 
-  db.collection(GRUPOS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Fallo al actualizar grupo");
-    } else {
-      updateDoc._id = req.params.id;
-      res.status(200).json(updateDoc);
-    }
+app.put('/api/grupos/matricula/:id', function(req, res){
+    var arr = [];
+    var array = req.body.arreglo[0].split(',');
+    for(var x in array){arr.push(new ObjectID(array[x]));};
+    db.collection(GRUPOS_COLLECTION).updateMany({_id: {$in : arr }}, {$push : { lista_estudiantes : { id_estudiantes : new ObjectID(req.params.id) , rubros: [] } }, $inc : { cupos : -1} } , function( err, doc) {
+      if (err) {
+        handleError(res, err.message, "Fallo al actualizar grupo");
+      } else {
+        res.status(200).json(doc);
+      }
+    });
   });
-});
 
 app.delete('/api/grupos/:id', function(req, res){
     db.collection(GRUPOS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
@@ -255,7 +266,6 @@ app.get('/api/usuarios/:id', function(req, res){
         if (err) {
             handleError(res, err.message, "No se pudo obtener usuarios.");
           } else {
-            console.log("Usuario Obtenido "+doc.nombre);
             res.status(200).json(doc);
           }      
     })

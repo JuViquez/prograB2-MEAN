@@ -38,6 +38,14 @@ export class GrupoService {
                  .then(response => response.json() as Grupo)
                  .catch(this.handleError);
     }
+
+    matricularGrupos(arr : string [], idEstudiante : string) :Promise<void | Grupo[]> {
+      var putUrl = this.GrupoUrl + '/matricula/' + idEstudiante;
+      return this.http.put(putUrl, {arreglo: arr})
+                 .toPromise()
+                 .then(response => response.json() as Grupo[])
+                 .catch(this.handleError);
+    }
   
     DeleteGrupo(delGrupoId: string): Promise<void | string> {
       var delUrl = this.GrupoUrl + '/' + delGrupoId;

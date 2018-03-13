@@ -23,7 +23,7 @@ export class CrearProfesorComponent implements OnInit {
     if(typeof(objeto.nombre) != 'undefined' && typeof(objeto.sede) != 'undefined' && typeof(objeto.escuela) != 'undefined'){
       this.errMessage = true;
       this.profesor.escuela = objeto.escuela;
-      this.profesor.institucion = {nombre: objeto.nombre, sede: objeto.sede};
+      this.profesor.institucion = { id_institucion: objeto.nombre , sede: objeto.sede};
       this.usuarioService.createUsuario(this.profesor).then((data: Usuario ) => {});
     }else{
       this.errMessage = false;
@@ -36,12 +36,6 @@ export class CrearProfesorComponent implements OnInit {
     this.errMessage = true;
     this.creadorVar = true;
     this.profesor = new Usuario();
-    this.profesor.tipo = "profesor";
-    var session = this.loginService.consultarDatos();
-    if(session.tipo == "profesor"){
-      console.log("Router");
-      this.router.navigateByUrl['/login'];
-    }
-    
+    this.profesor.tipo = "profesor"; 
   }
 }

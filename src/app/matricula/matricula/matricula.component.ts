@@ -39,7 +39,7 @@ export class MatriculaComponent implements OnInit {
       if(this.session.historial_cursos[i].estado == 'Aprobado'){
         codigosCurso.push(this.session.historial_cursos[i])
       }
-    }
+    }/*
     this.institucionService.getInstitucionById(this.session.institucion.id_institucion).then((institucion: Institucion) => {
       console.log(institucion);
       this.currentInstitucion = institucion;
@@ -47,7 +47,7 @@ export class MatriculaComponent implements OnInit {
         this.grupos = grupos;
       });
     })
-   
+   */
    
   }
 

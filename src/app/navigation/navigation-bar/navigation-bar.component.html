@@ -4,12 +4,12 @@
         <a class="navbar-brand" href="#">Sistema de Registro</a>
       </div>
       <ul class="nav navbar-nav">
-        <li> <a routerLink="/mantenimiento/usuario">Mi perfil</a> </li>
-        <li class="dropdown">
+        <li> <a routerLink="/mantenimiento/usuario"> <span class = "glyphicon glyphicon-user"></span> Mi perfil</a> </li>
+        <li [ngClass]="{ 'hidden': !profesor}" class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">Mantenimiento
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a routerLink="/mantenimiento/institucion">Institucion</a></li>
+            <li><a routerLink="/mantenimiento/institucion" >Institucion</a></li>
             <li><a routerLink="/mantenimiento/escuela">Escuela</a></li>
             <li><a routerLink="/mantenimiento/programa">Programa</a></li>
             <li><a routerLink="/mantenimiento/curso">Curso</a></li>
@@ -17,6 +17,7 @@
             <li><a routerLink="/mantenimiento/grupo">Grupo</a></li>
           </ul>
         </li>
+        <li [ngClass]="{ 'hidden': profesor}"><a routerLink="matricula"><span class="glyphicon glyphicon-education"></span> Matricular</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
           <a href="#" (click)="logOut()" class="btn btn-danger navbar-btn" >LogOut</a>

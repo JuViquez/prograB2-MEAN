@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   messageClass;
   message;
   processing = false;
+  success : Boolean;
   form: FormGroup;
 
   constructor(
@@ -52,12 +53,13 @@ export class LoginComponent implements OnInit {
     };
     this.loginservice.login(user).then((data: any) => {
       if(!data.success){
-        console.log("usuario no identificado "+data.message)
         this.processing = false;
         this.enableForm();
+        this.success = false;
       }else{
         this.loginservice.guardarDatos(data.user);
         this.router.navigate(['/mantenimiento/usuario']);
+        this.success = true;
       }
     })
   
@@ -66,6 +68,7 @@ export class LoginComponent implements OnInit {
   
 
   ngOnInit() {
+    this.success = true;
   }
 
 }

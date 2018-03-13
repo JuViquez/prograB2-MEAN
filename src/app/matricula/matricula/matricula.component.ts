@@ -29,6 +29,7 @@ export class MatriculaComponent implements OnInit {
               private grupoService: GrupoService,
               private institucionService: InstitucionService) { 
                 this.gruposMatriculados = [];
+                this.grupos = [];
                 this.currentInstitucion = new Institucion();
                 this.currentInstitucion.nombre = "";
               }
@@ -37,20 +38,29 @@ export class MatriculaComponent implements OnInit {
     this.session = this.loginService.consultarDatos();
     var historialLength = this.session.historial_cursos.length;
     var codigosCurso = new Array();
+    var cursosMatriculados = new Array();
     for(var i = 0; i < historialLength; i++){
       if(this.session.historial_cursos[i].estado == 'Aprobado'){
         codigosCurso.push(this.session.historial_cursos[i])
+      }else
+      if(this.session.historial_cursos[i].estado == 'Cursando'){
+        cursosMatriculados.push(this.session.historial_cursos[i].codigo_curso);
       }
-    }/*
+    }
+
     this.institucionService.getInstitucionById(this.session.institucion.id_institucion).then((institucion: Institucion) => {
-      console.log(institucion);
       this.currentInstitucion = institucion;
       this.grupoService.getGruposNoCursados(codigosCurso, institucion.periodo, this.session.programa.codigo_programa).then((grupos: Grupo[]) =>{
-        this.grupos = grupos;
+          for(var i = 0; i < grupos.length; i++){
+            if(cursosMatriculados.indexOf(grupos[i].curso.codigo_curso) != -1){
+              this.gruposMatriculados.push(grupos[i]);
+            }else{
+              this.grupos.push(grupos[i]);
+            }
+          }
+          
       });
     })
-   */
-   
   }
 
   matricularClicked( grupo: Grupo){
@@ -60,6 +70,7 @@ export class MatriculaComponent implements OnInit {
     {
       var newHistorial = this.iniciarHistorial(grupo);
       this.session.historial_cursos.push(newHistorial);
+      this.loginService.guardarDatos(this.session);
       this.grupos.splice(this.grupos.indexOf(grupo),1);
       grupo.cupos--;
       var lista = new ListaEstudiantes();
@@ -80,6 +91,7 @@ export class MatriculaComponent implements OnInit {
     this.grupos.push(grupo);
     var newHistorial = this.iniciarHistorial(grupo);
     this.session.historial_cursos.splice(this.session.historial_cursos.indexOf(newHistorial),1);
+    this.loginService.guardarDatos(this.session);
   }
 
   private iniciarHistorial(grupo: Grupo){
@@ -95,5 +107,13 @@ export class MatriculaComponent implements OnInit {
 
   confirmarMatricula(){
     this.grupoService.updateManyGrupos(this.gruposMatriculados.concat(this.grupos));
+  }
+
+  toStringHorario(Horario: any){
+    var str = "";
+    for(var i = 0; i < Horario.length; i++){
+      str = str + Horario[i].dia + ' : ' + Horario[i].hora_inicio + ' - ' + Horario[i].hora_final + '\n';
+    }
+    return str;
   }
 }

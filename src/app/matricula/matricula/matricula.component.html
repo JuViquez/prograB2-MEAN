@@ -27,7 +27,7 @@
     </tr>
     <ng-container *ngFor="let grupo of grupos">
       <tr  *ngIf="selectedCurso != '' && grupo.curso.codigo_curso == selectedCurso" >
-          <td>{{grupo.nomero}}</td>
+          <td>{{grupo.numero}}</td>
           <td>{{grupo.profesor}}</td>
           <td>{{grupo.horario}}</td>
           <td>{{grupo.cupos}}</td>  

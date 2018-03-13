@@ -18,7 +18,7 @@ import { UsuarioService } from '../../usuario/usuario.service'
   providers: [LoginService, GrupoService, InstitucionService, UsuarioService]
 })
 export class MatriculaComponent implements OnInit {
-
+//Version Final
   session: Usuario
 
   grupos: Grupo[];
@@ -66,9 +66,9 @@ export class MatriculaComponent implements OnInit {
   }
 
   matricularClicked( grupo: Grupo){
-    if(grupo.cupos > 0 && !this.gruposMatriculados.find(function(x){
-      return x.curso == grupo.curso;
-    }))
+    if(grupo.cupos > 0 && !(this.gruposMatriculados.find(function(x){
+      return x.curso.codigo_curso == grupo.curso.codigo_curso;
+    })))
     {
       var newHistorial = this.iniciarHistorial(grupo);
       this.session.historial_cursos.push(newHistorial);

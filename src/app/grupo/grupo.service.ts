@@ -16,9 +16,9 @@ export class GrupoService {
                  .catch(this.handleError);
     }
   
-    getGruposNoCursados(arreglo : string[], periodo : any ): Promise<void | Grupo[]>{
+    getGruposNoCursados(arreglo : string[], periodo : any, codigo_programa : string ): Promise<void | Grupo[]>{
 
-      return this.http.get(this.GrupoUrl + '/cursos/'+periodo.ano+'/'+periodo.semestre, {params:  arreglo}).
+      return this.http.get(this.GrupoUrl + '/cursos/'+periodo.ano+'/'+periodo.semestre+'/'+codigo_programa, {params:  arreglo}).
                   toPromise()
                   .then(response => response.json() as Grupo[])
                   .catch(this.handleError);

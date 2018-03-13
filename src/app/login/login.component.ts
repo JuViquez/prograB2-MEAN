@@ -3,7 +3,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { LoginService } from './login.service';
-import { LoginBarComponent } from '../navigation/login-bar/login-bar.component'
+import { LoginBarComponent } from '../navigation/login-bar/login-bar.component';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private loginservice: LoginService
+    private loginservice: LoginService,
+    private router: Router
   ) {
     this.createForm();
    }
@@ -55,6 +57,7 @@ export class LoginComponent implements OnInit {
         this.enableForm();
       }else{
         this.loginservice.guardarDatos(data.user);
+        this.router.navigate(['/mantenimiento/usuario']);
       }
     })
   

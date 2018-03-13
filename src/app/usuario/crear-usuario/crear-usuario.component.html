@@ -59,10 +59,15 @@
   </div>
   <div class="from-group">
       <label class="" for="sede">Programas:</label>
-      <select id="programa" name="programa"  class="form-control" [(ngModel)]="selectedPrograma" [disabled]="!selectedEscuela" placeholder="Programa">
+      <select id="programa" name="programa"  class="form-control" [(ngModel)]="selectedPrograma" [disabled]="!selectedEscuela" (change)="changeEmptyForm()" placeholder="Programa">
         <option *ngFor="let p of programas" [ngValue]="p">{{p.nombre}}</option>> 
       </select>   
   </div>
   <hr>
   <button [disabled]="emptyForm" class="btn btn-primary" (click)="createEstudiante()" >Registrar Estudiante</button>
+  <div [hidden]="success" >
+        <div class="alert alert-success">
+            <strong>Completado</strong> El profesor ha sido registrado
+          </div>          
+   </div>
 </div>

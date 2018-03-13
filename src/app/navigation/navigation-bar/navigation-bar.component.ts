@@ -11,6 +11,7 @@ import { Usuario } from '../../usuario/usuario';
 export class NavigationBarComponent implements OnInit {
   usuario : Usuario;
   profesor: Boolean;
+  nombre: string;
 
   constructor(private loginService : LoginService) {}
 
@@ -20,6 +21,7 @@ export class NavigationBarComponent implements OnInit {
 
   ngOnInit() {
     this.usuario =this.loginService.consultarDatos();
+    this.nombre = this.usuario.nombre;
     if(this.usuario.tipo == "profesor"){
       this.profesor = true;
     }else{

@@ -41,7 +41,7 @@ export class GrupoService {
 
     matricularGrupos(arr : string [], idEstudiante : string) :Promise<void | Grupo[]> {
       var putUrl = this.GrupoUrl + '/matricula/' + idEstudiante;
-      return this.http.put(putUrl, arr)
+      return this.http.put(putUrl, {arreglo: arr})
                  .toPromise()
                  .then(response => response.json() as Grupo[])
                  .catch(this.handleError);

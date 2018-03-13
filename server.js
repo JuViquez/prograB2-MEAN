@@ -101,7 +101,6 @@ app.get('/api/escuelas/:id', function(req, res){
             if (err) {
                 handleError(res, err.message, "No se pudo obtener escuela.");
               } else {
-                console.log("Escuela obtenida: "+docs.nombre);
                 res.status(200).json(docs);
               }      
         })
@@ -113,7 +112,6 @@ app.post('/api/escuelas', function(req, res){
         if (err) {
         handleError(res, err.message, "Fallo al crear Escuela.");
         } else {
-            console.log("DOCS: "+doc);
         res.status(201).json(doc.ops[0]);
         }
     });
@@ -213,28 +211,16 @@ app.post('/api/grupos', function(req, res){
     });
 
 });
-/*
-app.put('/api/grupos/matricula/:id', function(req, res){
-  var arr = [];
-  for(var x in req.query){arr.push(new ObjectID(req.query[x]));};
-  db.collection(GRUPOS_COLLECTION).update({_id: {$in : arr }}, {$push : { lista_estudiantes : { id_estudiantes : new ObjectID(req.params.id) , rubros: [] } }, $inc : { cupos : -1} }).toArray( function( err, doc) {
-    if (err) {
-      handleError(res, err.message, "Fallo al actualizar grupo");
-    } else {
-      res.status(200).json(doc);
-    }
-  });
-});
-*/
+
 
 app.put('/api/grupos/matricula/:id', function(req, res){
     var arr = [];
-    for(var x in req.query){arr.push(new ObjectID(req.query[x]));};
-    db.collection(GRUPOS_COLLECTION).update({_id: {$in : arr }}, {$push : { lista_estudiantes : { id_estudiantes : new ObjectID(req.params.id) , rubros: [] } }, $inc : { cupos : -1} }, {w:1, multi: true} , function( err, doc) {
+    var array = req.body.arreglo[0].split(',');
+    for(var x in array){arr.push(new ObjectID(array[x]));};
+    db.collection(GRUPOS_COLLECTION).updateMany({_id: {$in : arr }}, {$push : { lista_estudiantes : { id_estudiantes : new ObjectID(req.params.id) , rubros: [] } }, $inc : { cupos : -1} } , function( err, doc) {
       if (err) {
         handleError(res, err.message, "Fallo al actualizar grupo");
       } else {
-        console.log("Actualizó")
         res.status(200).json(doc);
       }
     });
@@ -269,7 +255,6 @@ app.get('/api/usuarios/:id', function(req, res){
         if (err) {
             handleError(res, err.message, "No se pudo obtener usuarios.");
           } else {
-            console.log("Usuario Obtenido "+doc.nombre);
             res.status(200).json(doc);
           }      
     })

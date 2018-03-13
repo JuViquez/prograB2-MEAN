@@ -39,6 +39,14 @@ export class GrupoService {
                  .catch(this.handleError);
     }
 
+    updateManyGrupos(putGrupos: Grupo[]){
+      var putUrl = this.GrupoUrl + '/update/many';
+      return this.http.put(putUrl, { array: JSON.stringify(putGrupos)})
+      .toPromise()
+      .then(response => response.json() as Grupo[])
+      .catch(this.handleError);
+    }
+
     matricularGrupos(arr : string [], idEstudiante : string) :Promise<void | Grupo[]> {
       var putUrl = this.GrupoUrl + '/matricula/' + idEstudiante;
       return this.http.put(putUrl, {arreglo: arr})

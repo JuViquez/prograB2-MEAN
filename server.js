@@ -223,6 +223,20 @@ app.post('/api/grupos', function(req, res){
 
 });
 
+app.put('/api/grupos/update/many', function(req, res){
+    var newDocs = JSON.parse(req.body.array);
+    newDocs.array.forEach(function(element) {
+        db.collection(GRUPOS_COLLECTION).updateMany(newDosc, function(err, doc) {
+            if (err) {
+            handleError(res, err.message, "Fallo al crear grupo.");
+            } else {
+            res.status(201).json(doc.ops[0]);
+            }
+        });
+    });
+    
+});
+
 
 app.put('/api/grupos/matricula/:id', function(req, res){
     var arr = [];

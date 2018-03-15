@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../login/login.service'
+import { Usuario } from '../../usuario/usuario';
 
 @Component({
   selector: 'nav-bar',
@@ -8,6 +9,9 @@ import { LoginService } from '../../login/login.service'
   providers : [LoginService]
 })
 export class NavigationBarComponent implements OnInit {
+  usuario : Usuario;
+  profesor: Boolean;
+  nombre: string;
 
   constructor(private loginService : LoginService) {}
 
@@ -16,6 +20,13 @@ export class NavigationBarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.usuario =this.loginService.consultarDatos();
+    this.nombre = this.usuario.nombre;
+    if(this.usuario.tipo == "profesor"){
+      this.profesor = true;
+    }else{
+      this.profesor = false;
+    }
   }
 
 }

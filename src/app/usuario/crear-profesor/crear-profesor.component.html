@@ -26,4 +26,9 @@
         <strong>Advertencia!</strong> No se creará el usuario debido a que la información no está completa
       </div>
     </div>
+    <div [hidden]="!errMessage" >
+        <div class="alert alert-success">
+            <strong>Completado</strong> El profesor ha sido registrado
+          </div>          
+    </div>
   </div>

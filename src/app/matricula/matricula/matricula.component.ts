@@ -18,7 +18,7 @@ import { UsuarioService } from '../../usuario/usuario.service'
   providers: [LoginService, GrupoService, InstitucionService, UsuarioService]
 })
 export class MatriculaComponent implements OnInit {
-
+//Version Final
   session: Usuario
 
   grupos: Grupo[];
@@ -63,8 +63,6 @@ export class MatriculaComponent implements OnInit {
           
       });
     })
-   
-   
   }
 
   matricularClicked( grupo: Grupo){

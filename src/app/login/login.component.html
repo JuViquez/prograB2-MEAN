@@ -21,5 +21,8 @@
     </div>
   </div>
   <input [disabled]="!form.valid || processing" class="btn btn-primary" type="submit" value="Login" />
+  <div [hidden]="success" class="alert alert-danger">
+      <strong>¡Atención!</strong> Los datos proporcionados no coinciden
+  </div>
 </form>
 </div>

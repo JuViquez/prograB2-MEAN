@@ -30,6 +30,7 @@ export class CrearUsuarioComponent implements OnInit {
   selectedPrograma : Programa;
   emptyForm : Boolean;
   createdEstudiante : Usuario;
+  success : Boolean;
   
 
   createForm() {
@@ -52,8 +53,7 @@ export class CrearUsuarioComponent implements OnInit {
     this.createdEstudiante.tipo = "estudiante";
     this.createdEstudiante.programa.nombre = this.selectedPrograma.nombre;
     this.createdEstudiante.programa.codigo_programa = this.selectedPrograma.codigo_programa;
-    this.usuarioService.createUsuario(this.createdEstudiante).then((usuario: Usuario) =>{
-  })
+    this.usuarioService.createUsuario(this.createdEstudiante).then((usuario: Usuario) =>{ this.success = false; })
   }
 
   setSedes(){
@@ -66,12 +66,16 @@ export class CrearUsuarioComponent implements OnInit {
 
   getProgramas(){
     this.programas = this.selectedEscuela.programas;
+  }
+
+  changeEmptyForm(){
     this.emptyForm = false;
   }
 
   constructor(private formBuilder: FormBuilder, private usuarioService : UsuarioService , private institucionService: InstitucionService, private escuelaService : EscuelaService) { this.createForm(); }
 
   ngOnInit() {
+    this.success = true;
     this.createdEstudiante = new Usuario();
     this.createdEstudiante.institucion = { id_institucion: "" ,sede: ""};
     this.createdEstudiante.programa = {nombre: "",codigo_programa: ""};

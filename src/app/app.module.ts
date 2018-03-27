@@ -21,9 +21,14 @@ import { CrearUsuarioComponent } from './usuario/crear-usuario/crear-usuario.com
 import { FormUsuarioComponent } from './usuario/form-usuario/form-usuario.component';
 import { MatriculaComponent } from './matricula/matricula/matricula.component';
 import { LoginBarComponent } from './navigation/login-bar/login-bar.component';
+import { AsistenciaComponent } from './grupo/asistencia/asistencia/asistencia.component';
 
 
 const appRoutes: Routes = [
+  {
+    path: 'grupo/asistencia',
+    component: AsistenciaComponent,
+  },
   {
     path: 'mantenimiento/usuario',
     component: FormUsuarioComponent,
@@ -92,7 +97,8 @@ const appRoutes: Routes = [
     CrearUsuarioComponent,
     FormUsuarioComponent,
     MatriculaComponent,
-    LoginBarComponent
+    LoginBarComponent,
+    AsistenciaComponent
   ],
   imports: [
     BrowserModule,

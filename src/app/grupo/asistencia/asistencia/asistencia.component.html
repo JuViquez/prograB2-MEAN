@@ -1,0 +1,26 @@
+<div class="container">
+    <form #grupoForm>
+      <div class= "form-group">
+        <label class="" for="ListaAsistencia">Lista de Asistencia:</label>
+        <select id="asistencia" name="asistencia" class="form-control" [(ngModel)]="listaAsistencia" (change)="setAsistencia()" placeholder="Asistencia" >
+          <option value="">Crear nueva lista de asistencia</option>  
+          <option *ngFor="let i of listaGrupo" [ngValue]="i">{{i.fecha}}</option>
+        </select> 
+      </div>
+    </form>
+</div>
+<div class="container">
+    <table class="table table-hover">
+      <thead>
+        <th> Nombre </th>
+        <th> Asistencia </th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let estudiante of listaAsistencia.asistencia" >
+          <td> {{estudiante.id_estudiante}} </td>
+           <td><label class="switch"><input type="checkbox" [checked]="estudiante.estado=='presente'" (change)="seleccionar(estudiante.id_estudiante, $event.target.checked)" ><span class="slider round"></span></label></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-primary" (click)="guardarCambios()" >Guardar Cambios</button>
+</div>

@@ -77,6 +77,7 @@ export class MatriculaComponent implements OnInit {
       grupo.cupos--;
       var lista = new ListaEstudiantes();
       lista.id_estudiante = this.session._id;
+      lista.nombre = this.session.nombre;
       lista.evaluaciones = [];
       grupo.lista_estudiantes.push(lista);
       this.gruposMatriculados.push(grupo);

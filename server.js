@@ -9,6 +9,7 @@ const INSTITUCIONES_COLLECTION = 'instituciones';
 const ESCUELAS_COLLECTION = 'escuelas';
 const GRUPOS_COLLECTION = 'grupos';
 const USUARIO_COLLECTION = 'usuarios';
+const ASISTENCIA_COLLECTION =  'asistencia';
 
 
 mongodb.connectToServer( function( err ) {
@@ -154,6 +155,16 @@ app.delete('/api/escuelas/:id', function(req, res){
 });
 
 //GRUPOS
+
+app.get('/api/grupos/:id', function(req, res){
+    db.collection(GRUPOS_COLLECTION).findOne({_id : new ObjectID(req.params.id)}, function(err, docs) {
+        if (err) {
+            handleError(res, err.message, "No se pudo obtener grupos.");
+          } else {
+            res.status(200).json(docs);
+          }      
+    })
+});
 
 app.get('/api/grupos/escuela/:id', function(req, res){
     db.collection(GRUPOS_COLLECTION).find({id_escuela : req.params.id}).toArray(function(err, docs) {
@@ -350,5 +361,45 @@ app.get('/login/:nombre/:password', (req, res) => {
             })
           }
       }
-    }
+    }   
 );
+
+    //Asistencia
+
+    app.post('/api/asistencia', function(req, res){
+        var newDoc = req.body;
+        newDoc._id = new ObjectID(req.params.id)
+        db.collection(ASISTENCIA_COLLECTION).insertOne(newDoc, {w:1} ,function(err, doc) {
+            if (err) {
+            handleError(res, err.message, "Fallo al crear asistencia.");
+            } else {
+            res.status(201).json(doc.ops[0]);
+            }
+        });
+    
+    });
+
+    app.put('/api/asistencia/:id', function(req, res){
+      var updateDoc = req.body;
+      delete updateDoc._id;
+      db.collection(ASISTENCIA_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
+        if (err) {
+          handleError(res, err.message, "Fallo al actualizar usuario");
+        } else {
+          updateDoc._id = req.params.id;
+          res.status(200).json(updateDoc);
+        }
+      });
+    });
+
+    app.get('/api/asistencia/:id', function(req, res){
+        db.collection(ASISTENCIA_COLLECTION).find({id_grupo : req.params.id}).toArray(function(err, docs) {
+            if (err) {
+                handleError(res, err.message, "No se pudo obtener grupos.");
+              } else {
+                console.log("respuesta");
+                res.status(200).json(docs);
+              }      
+        })
+    });
+    

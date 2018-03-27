@@ -9,6 +9,13 @@ export class GrupoService {
   
    private GrupoUrl = 'api/grupos'
 
+   getGrupo(id_grupo: string): Promise<void | Grupo> {
+    return this.http.get(this.GrupoUrl + '/' + id_grupo)
+               .toPromise()
+               .then(response => response.json() as Grupo)
+               .catch(this.handleError);
+  }
+
     getGruposByEscuela(id_escuela: string): Promise<void | Grupo[]> {
       return this.http.get(this.GrupoUrl + '/escuela/' + id_escuela)
                  .toPromise()

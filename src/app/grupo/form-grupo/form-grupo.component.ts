@@ -127,7 +127,7 @@ export class FormGrupoComponent implements OnInit {
       this.programas = data.programas;
     })
     this.actualizarGrupos();
-    /*
-    this.grupoService.matricularGrupos(["5aa6e99cc8384722885c0c12,5aa7063e6320fb098c289641"],"5aa0f3f994172712c8bf041d").then((data: Grupo[]) => {} ) */
+    
+   // this.grupoService.matricularGrupos(["5aa6e99cc8384722885c0c12,5aa7063e6320fb098c289641"],"5aa0f3f994172712c8bf041d").then((data: Grupo[]) => {} ) 
 }
 }

@@ -22,9 +22,14 @@ import { FormUsuarioComponent } from './usuario/form-usuario/form-usuario.compon
 import { MatriculaComponent } from './matricula/matricula/matricula.component';
 import { LoginBarComponent } from './navigation/login-bar/login-bar.component';
 import { AsistenciaComponent } from './grupo/asistencia/asistencia/asistencia.component';
+import { FormEvaluacionesComponent } from './evaluaciones/form-evaluaciones/form-evaluaciones.component';
 
 
 const appRoutes: Routes = [
+  {
+    path: 'evaluaciones',
+    component: FormEvaluacionesComponent,
+  },
   {
     path: 'grupo/asistencia',
     component: AsistenciaComponent,
@@ -98,7 +103,8 @@ const appRoutes: Routes = [
     FormUsuarioComponent,
     MatriculaComponent,
     LoginBarComponent,
-    AsistenciaComponent
+    AsistenciaComponent,
+    FormEvaluacionesComponent
   ],
   imports: [
     BrowserModule,

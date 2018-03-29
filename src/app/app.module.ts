@@ -23,6 +23,8 @@ import { MatriculaComponent } from './matricula/matricula/matricula.component';
 import { LoginBarComponent } from './navigation/login-bar/login-bar.component';
 import { AsistenciaComponent } from './grupo/asistencia/asistencia/asistencia.component';
 import { FormEvaluacionesComponent } from './evaluaciones/form-evaluaciones/form-evaluaciones.component';
+import { ForoComponent } from './grupo/foro/foro.component';
+import { TopicComponent } from './grupo/topic/topic.component';
 
 
 const appRoutes: Routes = [
@@ -33,6 +35,14 @@ const appRoutes: Routes = [
   {
     path: 'grupo/asistencia',
     component: AsistenciaComponent,
+  },
+  {
+    path: 'grupo/topic',
+    component: TopicComponent,
+  },
+  {
+    path: 'grupo/foro',
+    component: ForoComponent,
   },
   {
     path: 'mantenimiento/usuario',
@@ -104,7 +114,12 @@ const appRoutes: Routes = [
     MatriculaComponent,
     LoginBarComponent,
     AsistenciaComponent,
+<<<<<<< HEAD
     FormEvaluacionesComponent
+=======
+    ForoComponent,
+    TopicComponent
+>>>>>>> abd4628be35e06a12b707d07f2b8ba9f036ca892
   ],
   imports: [
     BrowserModule,

@@ -22,12 +22,22 @@ import { FormUsuarioComponent } from './usuario/form-usuario/form-usuario.compon
 import { MatriculaComponent } from './matricula/matricula/matricula.component';
 import { LoginBarComponent } from './navigation/login-bar/login-bar.component';
 import { AsistenciaComponent } from './grupo/asistencia/asistencia/asistencia.component';
+import { ForoComponent } from './grupo/foro/foro.component';
+import { TopicComponent } from './grupo/topic/topic.component';
 
 
 const appRoutes: Routes = [
   {
     path: 'grupo/asistencia',
     component: AsistenciaComponent,
+  },
+  {
+    path: 'grupo/topic',
+    component: TopicComponent,
+  },
+  {
+    path: 'grupo/foro',
+    component: ForoComponent,
   },
   {
     path: 'mantenimiento/usuario',
@@ -98,7 +108,9 @@ const appRoutes: Routes = [
     FormUsuarioComponent,
     MatriculaComponent,
     LoginBarComponent,
-    AsistenciaComponent
+    AsistenciaComponent,
+    ForoComponent,
+    TopicComponent
   ],
   imports: [
     BrowserModule,

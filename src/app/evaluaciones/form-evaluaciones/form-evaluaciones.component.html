@@ -1,0 +1,65 @@
+<div class = "container" >
+  <form [formGroup]="form">
+      <div class = "form-group" >
+          <div [ngClass]="{'has-error': form.controls.nombre.errors && form.controls.nombre.dirty, 'has-success': form.controls.nombre.valid && form.controls.nombre.dirty }">
+            <label class="" for="Nombre" >Nombre de la evaluación: </label>
+            <input  class="form-control" id="nombre" name="nombre" type="text" [(ngModel)]="selectedEvaluacion.nombre" formControlName="nombre">
+          </div>
+          <ul class="help-block">
+              <li *ngIf="form.controls.nombre.errors?.required && form.controls.nombre.dirty">Este campo es obligatorio.</li>
+          </ul>
+      </div>
+      <div class = "form-group" >
+          <div class = "row" >
+            <div class='col-sm-4'>
+                <div class = "form-group" >
+                    <select id="tipo" name="tipo" class="form-control" [(ngModel)]="selectedEvaluacion.tipo" formControlName="tipo">
+                        <option value="examen">Examen</option>
+                        <option value="laboratorio">Laboratorio</option>
+                        <option value="proyecto">Proyecto</option>
+                        <option value="tarea">Tarea</option>
+                        <option value="quiz">Quiz</option>
+                    </select> 
+                </div>
+            </div>
+            <div class = 'col-sm-4' >
+                <div [ngClass]="{'has-error': form.controls.fecha.errors && form.controls.fecha.dirty, 'has-success': form.controls.fecha.valid && form.controls.fecha.dirty }">
+                    <label class="" for="Fecha" >Fecha de entrega: </label>
+                    <input  class="form-control" id="fecha" name="fecha" type="datetime-local" [(ngModel)]="selectedEvaluacion.fecha_entrega" formControlName="fecha">
+                </div>
+                <ul class="help-block">
+                    <li *ngIf="form.controls.fecha.errors?.required && form.controls.fecha.dirty">Este campo es obligatorio.</li>
+                </ul>
+            </div>
+            <div class = 'col-sm-4' >
+                <div class = "form-group" >
+                    <div [ngClass]="{'has-error': form.controls.porcentaje.errors && form.controls.porcentaje.dirty, 'has-success': form.controls.porcentaje.valid && form.controls.porcentaje.dirty }">
+                        <label class="" for="Porcentaje" >Porcentaje de valor: </label>
+                        <input  class="form-control" id="porcentaje" name="porcentaje" type="number" min="0" max="100" [(ngModel)]="selectedEvaluacion.porcentaje" formControlName="porcentaje">
+                    </div>
+                    <ul class="help-block">
+                        <li *ngIf="form.controls.porcentaje.errors?.required && form.controls.porcentaje.dirty">Este campo es obligatorio.</li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+      </div>
+      <button [disabled]="!form.valid" class="btn btn-success" (click)="submitAgregar()" >Agregar Evaluacion</button>
+      <button [disabled]="!form.valid" class="btn btn-warning" (click)="submitModificar()" >Modificar Evaluacion</button>
+      <button class="btn btn-danger" (click)="submitEliminar()" >Eliminar Evaluacion</button>
+  </form>
+</div>
+<div class = "container" >
+    <table class="table table-hover">
+        <thead>
+          <th> Nombre </th>
+          <th> Fecha </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let e of listaEvaluaciones"  [ngClass]= "{ 'info' : e === selectedHorario}" (click)="setSelectedEvaluacion(e)" >
+            <td> {{e.nombre}} </td>
+            <td> {{e.fecha_entrega}} </td>
+        </tr>
+        </tbody>
+      </table>
+</div>

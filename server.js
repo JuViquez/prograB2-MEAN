@@ -297,6 +297,41 @@ app.post('/api/grupos/topics', function(req, res){
     });
 
 });
+
+app.put('/api/grupos/topics/:id', function(req, res){
+    var updateDoc = req.body;
+    delete updateDoc._id;
+  
+    db.collection(TOPICS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
+      if (err) {
+        handleError(res, err.message, "Fallo al actualizar grupo");
+      } else {
+        updateDoc._id = req.params.id;
+        res.status(200).json(updateDoc);
+      }
+    });
+  });
+
+app.get('/api/grupos/topic/:id', function(req, res){
+    db.collection(TOPICS_COLLECTION).findOne({_id: new ObjectID(req.params.id)}, function(err, docs) {
+        if (err) {
+            handleError(res, err.message, "No se pudo obtener Topic.");
+          } else {
+            res.status(200).json(docs);
+          }      
+    })
+});
+
+app.delete('/api/grupos/topic/:id', function(req, res){
+    db.collection(TOPICS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+        if (err) {
+            handleError(res, err.message, "Fallo al borrar topic");
+        } else {
+            res.status(200).json(req.params.id);
+        }
+        });
+});
+
     
 
 //Usuarios

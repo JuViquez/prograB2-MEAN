@@ -1,26 +1,66 @@
 <div class="container">
   <ul class="list-group">
-    <li class="list-group-item ">
-      <h3>TOPIC1</h3>
-      <h4>Julito</h4>
-      <p>22/05/18</p>
-      <br>
-      <p> kliasdhouiahwdoidjhnalkshdjliawjhdlsakdnm k s dijwoid  skl dnlkmw nmdon aslndlakwn lkdsnd law dnsamld n</p>
+    <ng-container *ngIf="topic" >
+      <li class="list-group-item list-group-item-info" >
+        <div class="row">
+          <div class="col-sm-3">
+            <h3>{{topic.titulo}}</h3>
+            <h4>{{topic.autor.nombre}}</h4>
+            <p>{{topic.fecha | date: 'yyyy-MM-dd HH:mm'}}</p>
+            <p>{{topic.estado}}</p>
+            <div class="btn-group" *ngIf="id_usuario == topic.autor.id_usuario"  >
+                <button type="button" class="btn btn-circle btn-success" (click)="abrirTopic()" [disabled]="topic.estado === 'Abierto'">Abrir</button>
+                <button type="button" class="btn btn-circle btn-danger" (click)="cerrarTopic()" [disabled]="topic.estado === 'Cerrado'">Cerrar</button>
+            </div>
+          </div>
+          <div class="col-sm-8">
+           <textarea #txtTopic class="form-control" rows="7" required [disabled]="!isTextEditable">{{topic.texto}}</textarea>
+          </div>
+          <ng-container *ngIf="id_usuario == topic.autor.id_usuario  && topic.estado !== 'Cerrado'"  >
+            <div class="col-sm-1">
+              <button type="button" class="btn btn-circle btn-success" (click)="changeTextEditable(txtTopic.value)" data-color="primary">
+                <i class="glyphicon glyphicon-pencil"></i>
+              </button>
+              <button type="button" class="btn btn-circle btn-danger" (click)="deleteTopic()"data-color="primary">
+                <i class="glyphicon glyphicon-remove"></i>
+              </button>
+            </div>
+          </ng-container>
+        </div>
+      </li>      
+      <h4>Comentarios</h4>
+      <li *ngFor="let comentario of topic.comentarios; let i = index;"  class="list-group-item">
+        <div class="row">
+            <div class="col-sm-3">
+              <h4>{{comentario.autor.nombre}}</h4>
+               <p>{{comentario .fecha | date: 'yyyy-MM-dd HH:mm'}}</p>
+            </div>
+            <div class="col-sm-8">
+                <textarea #comentarioRef class="form-control" rows="5" required [disabled]="!editComments[i]">{{comentario.texto}}</textarea>
+            </div>
+            <ng-container *ngIf="id_usuario == comentario.autor.id_usuario && topic.estado !== 'Cerrado'">
+              <div class="col-sm-1">
+                <button type="button" class="btn btn-circle btn-success" (click)="changeCommentEditable(i, comentarioRef.value)" data-color="primary">
+                  <i class="glyphicon glyphicon-pencil"></i>
+                </button>
+                <button type="button" class="btn btn-circle btn-danger"  [disabled]="editComments[i]" (click)="deleteComment(comentario,i)" data-color="primary">
+                  <i class="glyphicon glyphicon-remove"></i>
+                </button>
+              </div>
+            </ng-container>
+        </div>
     </li>
-    <li class="list-group-item">
-      <h4>Julito</h4>
-      <p>22/05/18</p>
-      <br>
-      <p> kliasdhouiahwdoidjhnalkshdjliawjhdlsakdnm k s dijwoid  skl dnlkmw nmdon aslndlakwn lkdsnd law dnsamld n</p>
-    </li>
+  </ng-container>
   </ul>
 </div>
-<div class="container">
-  <div class="form-group">
-    <label for="comment">Comentario:</label>
-    <textarea class="form-control" rows="5" id="comment"></textarea>
-  </div>
-  <div class="form-group">
-    <button class="btn btn-success">Comentar</button>
-  </div>
+<div class="container" *ngIf="topic.estado !== 'Cerrado'">
+  <form  #form="ngForm">
+    <div class="form-group">
+      <label for="txt">Comentario:</label>
+      <textarea class="form-control" rows="5" id="txt" name="txt" ngModel></textarea>
+    </div>
+    <div class="form-group">
+      <button type="submit" (click)="crearComentario(form)" class="btn btn-success">Comentar</button>
+    </div>
+  </form>
 </div>

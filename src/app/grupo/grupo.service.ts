@@ -86,6 +86,30 @@ export class GrupoService {
             .then(response => response.json() as Topic)
             .catch(this.handleError);
     }
+
+    putTopic(putTopic: Topic){
+      var putUrl = this.GrupoUrl + '/topics/' + putTopic._id;
+      return this.http.put(putUrl, putTopic)
+                 .toPromise()
+                 .then(response => response.json() as Topic)
+                 .catch(this.handleError);
+    }
+    
+    getTopic(topic_id: String){
+      var getUrl = this.GrupoUrl + '/topic/' + topic_id;
+      return this.http.get(getUrl)
+                 .toPromise()
+                 .then(response => response.json() as Topic)
+                 .catch(this.handleError);
+    }
+
+    deleteTopic(topic_id: String){
+      var delUrl = this.GrupoUrl + '/topic/' + topic_id;
+      return this.http.delete(delUrl)
+                 .toPromise()
+                 .then(response => response.json() as string)
+                 .catch(this.handleError);
+    }
     
   
   

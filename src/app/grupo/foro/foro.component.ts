@@ -3,6 +3,7 @@ import { GrupoService } from '../grupo.service';
 import { Topic } from '../../models/topic';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { LoginService } from '../../login/login.service';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-foro',
@@ -15,7 +16,8 @@ export class ForoComponent implements OnInit {
   topics: Topic[];
 
   constructor(private grupoService: GrupoService, 
-              private loginService: LoginService) { }
+              private loginService: LoginService,
+              private dataService: DataService) { }
 
   ngOnInit() {
     this.grupoService.getForumTopics( "5aa7526784df143ac06a0105").then((topics: Topic[])=>{

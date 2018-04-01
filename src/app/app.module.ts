@@ -22,22 +22,18 @@ import { FormUsuarioComponent } from './usuario/form-usuario/form-usuario.compon
 import { MatriculaComponent } from './matricula/matricula/matricula.component';
 import { LoginBarComponent } from './navigation/login-bar/login-bar.component';
 import { AsistenciaComponent } from './grupo/asistencia/asistencia/asistencia.component';
-import { FormEvaluacionesComponent } from './evaluaciones/form-evaluaciones/form-evaluaciones.component';
 import { ForoComponent } from './grupo/foro/foro.component';
 import { TopicComponent } from './grupo/topic/topic.component';
+import { DataService } from './services/data.service';
 
 
 const appRoutes: Routes = [
-  {
-    path: 'evaluaciones',
-    component: FormEvaluacionesComponent,
-  },
   {
     path: 'grupo/asistencia',
     component: AsistenciaComponent,
   },
   {
-    path: 'grupo/topic',
+    path: 'grupo/topic/:id',
     component: TopicComponent,
   },
   {
@@ -114,12 +110,8 @@ const appRoutes: Routes = [
     MatriculaComponent,
     LoginBarComponent,
     AsistenciaComponent,
-<<<<<<< HEAD
-    FormEvaluacionesComponent
-=======
     ForoComponent,
     TopicComponent
->>>>>>> abd4628be35e06a12b707d07f2b8ba9f036ca892
   ],
   imports: [
     BrowserModule,
@@ -133,7 +125,8 @@ const appRoutes: Routes = [
       {useHash: true}
     )
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
+              DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
 
 <div class="container">
-  <table class="table table-responsive table-hover table-bordered">
+  <table class="table table-responsive table-hover">
     <tbody>
       <tr>
         <th>Estado</th>
@@ -9,11 +9,11 @@
         <th>Publicado</th>
         <th>Comentarios</th>
       </tr>
-      <tr *ngFor="let topic of topics" [ngClass]="{ 'info' : topic.autor.tipo === 'profesor' }"  >
+      <tr *ngFor="let topic of topics" [ngClass]="{ 'info' : topic.autor.tipo === 'profesor' }" routerLink="/grupo/topic/{{topic._id}}" >
           <td>{{topic.estado}}</td>  
           <td>{{topic.titulo}}</td>
           <td>{{topic.autor.nombre}}</td>
-          <td>{{topic.fecha | date: 'dd/MM/yyyy'}}</td>
+          <td>{{topic.fecha | date: 'yyyy-MM-dd HH:mm'}}</td>
           <td>{{topic.comentarios.length}}</td>
       </tr>
     </tbody>

@@ -16,8 +16,8 @@ export class EvaluacionesService {
           .catch(this.handleError);
   }
 
-  getEvaluaciones(): Promise<void | evaluaciones[]> {
-    return this.http.get(this.EvaluacionesUrl)
+  getEvaluaciones(id_grupo : string): Promise<void | evaluaciones[]> {
+    return this.http.get(this.EvaluacionesUrl+'/'+id_grupo)
                .toPromise()
                .then(response => response.json() as evaluaciones[])
                .catch(this.handleError);

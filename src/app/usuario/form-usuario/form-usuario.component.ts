@@ -36,7 +36,6 @@ export class FormUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {
-    
   }
 
 }

@@ -56,7 +56,7 @@
           <th> Fecha </th>
         </thead>
         <tbody>
-          <tr *ngFor="let e of listaEvaluaciones"  [ngClass]= "{ 'info' : e === selectedHorario}" (click)="setSelectedEvaluacion(e)" >
+          <tr *ngFor="let e of listaEvaluaciones"  [ngClass]= "{ 'info' : e === selectedEvaluacion}" (click)="setSelectedEvaluacion(e)" >
             <td> {{e.nombre}} </td>
             <td> {{e.fecha_entrega}} </td>
         </tr>

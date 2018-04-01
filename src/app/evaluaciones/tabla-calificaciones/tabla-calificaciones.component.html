@@ -1,0 +1,17 @@
+<div class = "container" >
+    <table class="table table-hover">
+        <thead>
+          <th>Nombre de estudiante</th>
+          <th *ngFor="let e of listaEvaluaciones" >{{e.nombre}} ({{e.porcentaje}})</th>
+          <th>Nota</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let a of filas" [ngClass]= "{ 'danger' : a.nota < 67.5, 'success' : a.nota >= 67.5}"  >
+            <td> {{a.nombre}} </td>
+            <td *ngFor = "let b of a.calificaciones"> {{b}} </td>
+            <td> {{a.nota}} </td>
+        </tr>
+        </tbody>
+      </table>
+      <button [disabled]="!available" class="btn btn-success" (click)="generarNotaFinal()" >Generar notas finales</button>
+</div>

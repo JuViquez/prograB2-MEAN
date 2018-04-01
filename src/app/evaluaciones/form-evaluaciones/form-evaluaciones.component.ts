@@ -3,13 +3,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { evaluaciones } from '../evaluaciones'
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { EvaluacionesService } from '../evaluaciones.service'
+import { EvaluacionesService } from '../evaluaciones.service';
+import { GrupoService } from '../../grupo/grupo.service'
+import { Grupo } from '../../grupo/grupo';
+import { ListaEstudiantes } from '../../models/lista-estudiantes';
 
 @Component({
   selector: 'app-form-evaluaciones',
   templateUrl: './form-evaluaciones.component.html',
   styleUrls: ['./form-evaluaciones.component.css'],
-  providers: [EvaluacionesService]
+  providers: [EvaluacionesService,GrupoService]
 })
 export class FormEvaluacionesComponent implements OnInit {
   selectedEvaluacion: evaluaciones; 
@@ -30,25 +33,52 @@ export class FormEvaluacionesComponent implements OnInit {
   }
 
   actualizarListaEvaluaciones(){
-    this.evaluacionesService.getEvaluaciones().then((data: evaluaciones[]) => {
+    this.evaluacionesService.getEvaluaciones("5abff382d1058d1754c806fc").then((data: evaluaciones[]) => {
       this.listaEvaluaciones = data;
     } )
   }
 
   submitEliminar(){
-    this.evaluacionesService.deleteEvaluacion(this.selectedEvaluacion._id).then((data:string)=>{this.actualizarListaEvaluaciones()})
+    var idEvaluacion = this.selectedEvaluacion._id;
+    this.evaluacionesService.deleteEvaluacion(this.selectedEvaluacion._id).then((data:string)=>{
+      this.grupoService.getGrupo(this.selectedEvaluacion.id_grupo).then((grupo:Grupo)=>{
+        for(var e in grupo.lista_estudiantes){
+          for(var i = 0; i < grupo.lista_estudiantes[e].evaluaciones.length; i++){
+            if(grupo.lista_estudiantes[e].evaluaciones[i].id_evaluacion==idEvaluacion){
+              grupo.lista_estudiantes[e].evaluaciones.splice(i,1);
+              break;
+            }
+          }
+        }
+        this.grupoService.updateGrupo(grupo).then((resultado:Grupo)=>{});
+      })
+      this.actualizarListaEvaluaciones()})
   }
 
   submitModificar(){
-    this.evaluacionesService.updateEvaluaciones(this.selectedEvaluacion).then((data : evaluaciones)=>{this.actualizarListaEvaluaciones()});
+    this.evaluacionesService.updateEvaluaciones(this.selectedEvaluacion).then((data : evaluaciones)=>{
+      this.grupoService.getGrupo(this.selectedEvaluacion.id_grupo).then((grupo:Grupo)=>{
+        var evalEst;
+        for(var e in grupo.lista_estudiantes){
+          evalEst = grupo.lista_estudiantes[e].evaluaciones.find(x => x.id_evaluacion == data._id);
+          evalEst.porcentaje = data.porcentaje;
+        }
+        this.grupoService.updateGrupo(grupo).then((resultado:Grupo)=>{})
+      });
+      this.actualizarListaEvaluaciones()});
   }
 
   submitAgregar(){
-    this.selectedEvaluacion.id_grupo = "5aa7526784df143ac06a0105";
-    this.evaluacionesService.createEvaluaciones(this.selectedEvaluacion).then((data: evaluaciones)=>{ this.actualizarListaEvaluaciones() })
+    this.selectedEvaluacion.id_grupo = "5abff382d1058d1754c806fc";
+    this.evaluacionesService.createEvaluaciones(this.selectedEvaluacion).then((data: evaluaciones)=>{ this.actualizarListaEvaluaciones();
+      this.grupoService.getGrupo(this.selectedEvaluacion.id_grupo).then((grupo:Grupo)=>{
+        for(var e in grupo.lista_estudiantes){ grupo.lista_estudiantes[e].evaluaciones.push({id_evaluacion:data._id,porcentaje:data.porcentaje,nota:0})}
+        this.grupoService.updateGrupo(grupo).then((resultado:Grupo)=>{})
+      })
+    })
   }
 
-  constructor(private formBuilder: FormBuilder, private evaluacionesService : EvaluacionesService) {  this.createForm();}
+  constructor(private formBuilder: FormBuilder, private grupoService : GrupoService, private evaluacionesService : EvaluacionesService) {  this.createForm();}
 
   ngOnInit() {
     this.selectedEvaluacion = new evaluaciones();

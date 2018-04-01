@@ -46,7 +46,15 @@ export class UsuarioService {
                  .catch(this.handleError);
     }
   
-    getEscuelas2(): Promise<void | any> {
+    updateNotaFinal(idUsuario : string, idGrupo: string, notaFinal: number, estatus: string): Promise<void | Usuario> {
+      var putUrl = this.UsuarioUrl + '/nota/' + idUsuario + '/' + idGrupo
+      return this.http.put(putUrl, {nota: notaFinal, estatus: estatus})
+                 .toPromise()
+                 .then(response => response.json() as Usuario)
+                 .catch(this.handleError);
+    }
+
+    getEscuelas3(): Promise<void | any> {
       return this.http.get(this.UsuarioUrl+'/agg')
                  .toPromise()
                  .then(response => response.json() as any)

@@ -376,6 +376,19 @@ app.get('/login/:nombre/:password', (req, res) => {
     }   
 );
 
+    app.put('/api/usuarios/nota/:idU/:idG', function(req, res){
+    var notaFinal = req.body.nota;
+    var estatus = req.body.estatus;
+    db.collection(USUARIO_COLLECTION).updateOne({_id: new ObjectID(req.params.idU), "historial_cursos.id_grupo": req.params.idG }, {$set : { "historial_cursos.$.nota_final": notaFinal, "historial_cursos.$.estado":estatus }}, function(err, doc) {
+        if (err) {
+        handleError(res, err.message, "Fallo al actualizar usuario");
+        } else {
+        
+        res.status(200).json({});
+        }
+    });
+    });
+
     //Asistencia
 
     app.post('/api/asistencia', function(req, res){

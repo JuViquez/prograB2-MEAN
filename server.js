@@ -10,6 +10,7 @@ const ESCUELAS_COLLECTION = 'escuelas';
 const GRUPOS_COLLECTION = 'grupos';
 const USUARIO_COLLECTION = 'usuarios';
 const ASISTENCIA_COLLECTION =  'asistencia';
+const TOPICS_COLLECTION = 'topics';
 const EVALUACIONES_COLLECTION = 'evaluaciones';
 
 
@@ -272,7 +273,31 @@ app.delete('/api/grupos/:id', function(req, res){
         });
 });
 
+app.get('/api/grupos/topics/:id', function(req, res){
+    var arr = [];
+    for(var x in req.query){arr.push(new ObjectID(req.query[x]));};
+        db.collection(TOPICS_COLLECTION).find({id_grupo: req.params.id}).toArray(function(err, docs) {
+            if (err) {
+                handleError(res, err.message, "No se pudo obtener topics.");
+              } else {
+                res.status(200).json(docs);
+              }      
+        })
+    });
 
+app.post('/api/grupos/topics', function(req, res){
+    var newDoc = req.body;
+
+    db.collection(TOPICS_COLLECTION).insertOne(newDoc, function(err, doc) {
+        if (err) {
+        handleError(res, err.message, "Fallo al crear Topic.");
+        } else {
+        res.status(201).json(doc.ops[0]);
+        }
+    });
+
+});
+    
 
 //Usuarios
 

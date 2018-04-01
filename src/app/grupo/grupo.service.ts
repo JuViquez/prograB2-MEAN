@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Grupo } from './grupo';
+import { Topic } from '../models/topic';
 
 @Injectable()
 export class GrupoService {
@@ -69,6 +70,23 @@ export class GrupoService {
                  .then(response => response.json() as string)
                  .catch(this.handleError);
     }
+
+    getForumTopics(grupoId: string): Promise<void | Topic[]> {
+      var url = this.GrupoUrl + '/topics/' + grupoId;
+      return this.http.get(url)
+                 .toPromise()
+                 .then(response => response.json() as Topic[])
+                 .catch(this.handleError);
+    }
+    
+
+    postTopic(newTopic: Topic): Promise<void | Topic> {
+      return this.http.post(this.GrupoUrl + '/topics', newTopic)
+            .toPromise()
+            .then(response => response.json() as Topic)
+            .catch(this.handleError);
+    }
+    
   
     pushEvaluacion(evaluacion: JSON, id_grupo : string): Promise<void | JSON> {
       var putUrl = this.GrupoUrl + '/evaluacion/'+id_grupo;

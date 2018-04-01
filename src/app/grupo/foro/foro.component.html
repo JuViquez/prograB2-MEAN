@@ -9,23 +9,30 @@
         <th>Publicado</th>
         <th>Comentarios</th>
       </tr>
-      <tr>
-          <td>Cerrado</td>  
-          <td>Topic1</td>
-          <td>Julito</td>
-          <td>22/02/2018</td>
-          <td>5</td>
-      </tr>
-      <tr>
-          <td>Cerrado</td>  
-          <td>Topic1</td>
-          <td>Julito</td>
-          <td>22/02/2018</td>
-          <td>6</td>
+      <tr *ngFor="let topic of topics" [ngClass]="{ 'info' : topic.autor.tipo === 'profesor' }"  >
+          <td>{{topic.estado}}</td>  
+          <td>{{topic.titulo}}</td>
+          <td>{{topic.autor.nombre}}</td>
+          <td>{{topic.fecha | date: 'dd/MM/yyyy'}}</td>
+          <td>{{topic.comentarios.length}}</td>
       </tr>
     </tbody>
   </table> 
-  <button class="btn btn-success">Confirmar Matricula</button>
+</div>
+<div class="container">
+  <form  #form="ngForm">
+    <div class="form-group">
+      <label for="titulo">Titulo:</label>
+      <input class="form-control" type="text" name="titulo" id="titulo" placeholder="titulo" ngModel/>
+    </div>
+    <div class="form-group">
+      <label for="txt">Texto:</label>
+      <textarea class="form-control" rows="5" id="txt" name="txt" ngModel></textarea>
+    </div>
+    <div class="form-group">
+      <button type="submit" (click)="crearTopic(form)" class="btn btn-success">Comenzar Topic</button>
+    </div>
+  </form>
 </div>
 
 

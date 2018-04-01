@@ -36,7 +36,9 @@ export class FormUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.usuarioService.getEscuelas2().then((data:any)=>{
+      console.log(data);
+    })
   }
 
 }

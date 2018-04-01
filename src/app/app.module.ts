@@ -25,9 +25,19 @@ import { AsistenciaComponent } from './grupo/asistencia/asistencia/asistencia.co
 import { FormEvaluacionesComponent } from './evaluaciones/form-evaluaciones/form-evaluaciones.component';
 import { ForoComponent } from './grupo/foro/foro.component';
 import { TopicComponent } from './grupo/topic/topic.component';
+import { CalificacionComponent } from './evaluaciones/calificacion/calificacion.component';
+import { TablaCalificacionesComponent } from './evaluaciones/tabla-calificaciones/tabla-calificaciones.component';
 
 
 const appRoutes: Routes = [
+  {
+    path:'evaluaciones/tabla',
+    component : TablaCalificacionesComponent
+  },
+  {
+    path: 'evaluaciones/calificar',
+    component: CalificacionComponent,
+  },
   {
     path: 'evaluaciones',
     component: FormEvaluacionesComponent,
@@ -114,12 +124,11 @@ const appRoutes: Routes = [
     MatriculaComponent,
     LoginBarComponent,
     AsistenciaComponent,
-<<<<<<< HEAD
-    FormEvaluacionesComponent
-=======
+    FormEvaluacionesComponent,
     ForoComponent,
-    TopicComponent
->>>>>>> abd4628be35e06a12b707d07f2b8ba9f036ca892
+    TopicComponent,
+    CalificacionComponent,
+    TablaCalificacionesComponent
   ],
   imports: [
     BrowserModule,

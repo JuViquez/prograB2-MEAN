@@ -1,0 +1,32 @@
+
+<div class = "container" >
+  <h3>Seleccione la evaluación</h3>
+  <table class="table table-hover">
+    <thead>
+      <th> Nombre </th>
+      <th> Fecha </th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of listaEvaluaciones"  [ngClass]= "{ 'info' : e === selectedEvaluacion}" (click)="setSelectedEvaluacion(e)" >
+        <td> {{e.nombre}} </td>
+        <td> {{e.fecha_entrega}} </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class = "container" >
+  <h3>Calificación:</h3>
+  <table class="table table-hover">
+    <thead>
+      <th> Nombre </th>
+      <th align="right" > Nota (0 a 100) </th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let x of listaCalificaciones" >
+        <td> {{x.nombre}} </td>
+        <td align="right"> <input type="number" min="0" max="100" [(ngModel)]= "x.nota"  > </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<button [disabled]="!guardar" class="btn btn-success" (click)="guardarNota()" >Guardar Cambios</button>

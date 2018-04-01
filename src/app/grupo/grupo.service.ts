@@ -70,7 +70,14 @@ export class GrupoService {
                  .catch(this.handleError);
     }
   
-  
+    pushEvaluacion(evaluacion: JSON, id_grupo : string): Promise<void | JSON> {
+      var putUrl = this.GrupoUrl + '/evaluacion/'+id_grupo;
+      return this.http.put(putUrl, evaluacion)
+                 .toPromise()
+                 .then(response => response.json() as JSON)
+                 .catch(this.handleError);
+    }
+
     private handleError (error: any) {
       let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';

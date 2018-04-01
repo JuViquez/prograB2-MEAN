@@ -199,7 +199,7 @@ app.get('/api/grupos/estudiante/:id', function(req, res){
 
 app.put('/api/grupos/:id', function(req, res){
   var updateDoc = req.body;
-
+  delete updateDoc._id;
   db.collection(GRUPOS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Fallo al actualizar grupo");
@@ -275,6 +275,17 @@ app.delete('/api/grupos/:id', function(req, res){
 
 
 //Usuarios
+
+app.get('/api/usuarios/agg', function(req, res){
+    db.collection(USUARIO_COLLECTION).aggregate([ { $group : { _id : {tipo : "$tipo"}, count: { $sum : 1 } } } ], function(err, docs) {
+        if (err) {
+            handleError(res, err.message, "No se pudo obtener escuelas.");
+          } else {
+            console.log("prueba de aggregate");
+            res.status(200).json(docs);
+          }      
+    })
+});
 
 app.get('/api/usuarios', function(req, res){
     db.collection(USUARIO_COLLECTION).find().toArray(function(err, docs) {
@@ -405,8 +416,8 @@ app.get('/login/:nombre/:password', (req, res) => {
     
     //Evaluaciones
 
-    app.get('/api/evaluaciones', function(req, res){
-        db.collection(EVALUACIONES_COLLECTION).find().toArray(function(err, docs) {
+    app.get('/api/evaluaciones/:id', function(req, res){
+        db.collection(EVALUACIONES_COLLECTION).find({id_grupo: req.params.id}).toArray(function(err, docs) {
             if (err) {
                 handleError(res, err.message, "No se pudo obtener Evaluaciones.");
               } else {

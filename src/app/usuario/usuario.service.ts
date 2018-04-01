@@ -46,7 +46,13 @@ export class UsuarioService {
                  .catch(this.handleError);
     }
   
-  
+    getEscuelas2(): Promise<void | any> {
+      return this.http.get(this.UsuarioUrl+'/agg')
+                 .toPromise()
+                 .then(response => response.json() as any)
+                 .catch(this.handleError);
+    }
+    
     private handleError (error: any) {
       let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';

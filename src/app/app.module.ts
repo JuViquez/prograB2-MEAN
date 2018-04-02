@@ -34,7 +34,11 @@ import { HomeGrupoComponent } from './navigation/home-grupo/home-grupo.component
 
 const appRoutes: Routes = [
   {
-    path:'/grupo/malla-curricular',
+    path:'grupo/home',
+    component : HomeGrupoComponent
+  },
+  {
+    path:'malla-curricular',
     component : MallaCurricularComponent
   },
   {

@@ -29,6 +29,8 @@ import { CalificacionComponent } from './evaluaciones/calificacion/calificacion.
 import { TablaCalificacionesComponent } from './evaluaciones/tabla-calificaciones/tabla-calificaciones.component';
 import { FormEvaluacionesComponent } from './evaluaciones/form-evaluaciones/form-evaluaciones.component';
 import { MisMensajesComponent } from './usuario/mis-mensajes/mis-mensajes.component';
+import { MallaCurricularComponent } from './usuario/malla-curricular/malla-curricular.component';
+import { HomeGrupoComponent } from './navigation/home-grupo/home-grupo.component';
 
 
 const appRoutes: Routes = [
@@ -38,6 +40,10 @@ const appRoutes: Routes = [
   },
   {
     path:'grupo/:grupo_id/evaluaciones/tabla',
+    component : MallaCurricularComponent
+  },
+  {
+    path:'evaluaciones/tabla',
     component : TablaCalificacionesComponent
   },
   {
@@ -137,7 +143,9 @@ const appRoutes: Routes = [
     TopicComponent,
     CalificacionComponent,
     TablaCalificacionesComponent,
-    MisMensajesComponent
+    MisMensajesComponent,
+    MallaCurricularComponent,
+    HomeGrupoComponent
   ],
   imports: [
     BrowserModule,

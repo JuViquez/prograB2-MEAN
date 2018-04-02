@@ -19,7 +19,6 @@ export class LoginService {
   }
 
   logOut(){
-    console.log("LOGOUT");
     localStorage.clear();
   }
 

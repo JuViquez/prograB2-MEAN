@@ -1,0 +1,19 @@
+<div class = "container" >
+  <h3>Seleccione el grupo</h3>
+  <table class="table table-hover">
+    <thead>
+      <th> Código </th>
+      <th> Nombre </th>
+      <th> Periodo </th>
+      <th> Nota </th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of usuario.historial_cursos"  [ngClass]= "{ 'active' : e.estado == 'Cursando', 'success' : e.estado == 'Aprobado', 'danger' : e.estado == 'Reprobado' }" >
+        <td> {{e.codigo_curso}} </td>
+        <td> {{e.nombre}} </td>
+        <td> {{e.periodo.semestre}} semestre {{e.periodo.ano}}</td>
+        <td> {{e.nota_final}} </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

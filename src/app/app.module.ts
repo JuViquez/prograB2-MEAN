@@ -28,31 +28,36 @@ import { DataService } from './services/data.service';
 import { CalificacionComponent } from './evaluaciones/calificacion/calificacion.component';
 import { TablaCalificacionesComponent } from './evaluaciones/tabla-calificaciones/tabla-calificaciones.component';
 import { FormEvaluacionesComponent } from './evaluaciones/form-evaluaciones/form-evaluaciones.component';
+import { MisMensajesComponent } from './usuario/mis-mensajes/mis-mensajes.component';
 
 
 const appRoutes: Routes = [
   {
-    path:'evaluaciones/tabla',
+    path:'mensajes',
+    component : MisMensajesComponent
+  },
+  {
+    path:'grupo/:grupo_id/evaluaciones/tabla',
     component : TablaCalificacionesComponent
   },
   {
-    path: 'evaluaciones/calificar',
+    path: 'grupo/:grupo_id/evaluaciones/calificar',
     component: CalificacionComponent,
   },
   {
-    path: 'evaluaciones',
+    path: 'grupo/:grupo_id/evaluaciones',
     component: FormEvaluacionesComponent,
   },
   {
-    path: 'grupo/asistencia',
+    path: 'grupo/:grupo_id/asistencia',
     component: AsistenciaComponent,
   },
   {
-    path: 'grupo/topic/:id',
+    path: 'grupo/grupo/:grupo_id/topic/:id',
     component: TopicComponent,
   },
   {
-    path: 'grupo/foro',
+    path: 'grupo/:grupo_id/foro',
     component: ForoComponent,
   },
   {
@@ -131,7 +136,8 @@ const appRoutes: Routes = [
     ForoComponent,
     TopicComponent,
     CalificacionComponent,
-    TablaCalificacionesComponent
+    TablaCalificacionesComponent,
+    MisMensajesComponent
   ],
   imports: [
     BrowserModule,

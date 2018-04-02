@@ -1,19 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../login/login.service'
 import { Usuario } from '../../usuario/usuario';
+import { Grupo } from '../../grupo/grupo';
+import { GrupoService } from '../../grupo/grupo.service';
 
 @Component({
   selector: 'nav-bar',
   templateUrl: './navigation-bar.component.html',
   styleUrls: ['./navigation-bar.component.css'],
-  providers : [LoginService]
+  providers : [LoginService, GrupoService]
 })
 export class NavigationBarComponent implements OnInit {
   usuario : Usuario;
   profesor: Boolean;
   nombre: string;
 
-  constructor(private loginService : LoginService) {}
+  grupos: Grupo[];
+
+  constructor(private loginService : LoginService,
+              private GrupoService: GrupoService) {}
 
   logOut(){
     this.loginService.logOut();
@@ -27,6 +32,7 @@ export class NavigationBarComponent implements OnInit {
     }else{
       this.profesor = false;
     }
+    this.GrupoService.
   }
 
 }

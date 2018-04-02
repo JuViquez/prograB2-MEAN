@@ -28,9 +28,15 @@ import { DataService } from './services/data.service';
 import { CalificacionComponent } from './evaluaciones/calificacion/calificacion.component';
 import { TablaCalificacionesComponent } from './evaluaciones/tabla-calificaciones/tabla-calificaciones.component';
 import { FormEvaluacionesComponent } from './evaluaciones/form-evaluaciones/form-evaluaciones.component';
+import { MallaCurricularComponent } from './usuario/malla-curricular/malla-curricular.component';
+import { HomeGrupoComponent } from './navigation/home-grupo/home-grupo.component';
 
 
 const appRoutes: Routes = [
+  {
+    path:'/grupo/malla-curricular',
+    component : MallaCurricularComponent
+  },
   {
     path:'evaluaciones/tabla',
     component : TablaCalificacionesComponent
@@ -131,7 +137,9 @@ const appRoutes: Routes = [
     ForoComponent,
     TopicComponent,
     CalificacionComponent,
-    TablaCalificacionesComponent
+    TablaCalificacionesComponent,
+    MallaCurricularComponent,
+    HomeGrupoComponent
   ],
   imports: [
     BrowserModule,

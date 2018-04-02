@@ -4,6 +4,8 @@ import { Topic } from '../../models/topic';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { LoginService } from '../../login/login.service';
 import { DataService } from '../../services/data.service';
+import { Router } from '@angular/router';
+import { GrupoBarComponent } from '../../navigation/grupo-bar/grupo-bar.component'
 
 @Component({
   selector: 'app-foro',
@@ -17,10 +19,11 @@ export class ForoComponent implements OnInit {
 
   constructor(private grupoService: GrupoService, 
               private loginService: LoginService,
-              private dataService: DataService) { }
+              private dataService: DataService,
+            ) { }
 
   ngOnInit() {
-    this.grupoService.getForumTopics( "5aa7526784df143ac06a0105").then((topics: Topic[])=>{
+    this.grupoService.getForumTopics( this.loginService.consultarGrupo()._id).then((topics: Topic[])=>{
        this.topics = topics;
     });
   }
@@ -35,7 +38,7 @@ export class ForoComponent implements OnInit {
     newTopic.comentarios = [];
     newTopic.estado = 'Abierto';
     newTopic.fecha = new Date();
-    newTopic.id_grupo = "5aa7526784df143ac06a0105";
+    newTopic.id_grupo = this.loginService.consultarGrupo()._id;
     newTopic.texto = form.value.txt;
     newTopic.titulo = form.value.titulo;
 

@@ -1,0 +1,26 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="/mantenimiento/usuario">Home</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li> <a routerLink="/mantenimiento/usuario"> Inicio </a> </li>
+      <li [ngClass]="{ 'hidden': !profesor}" class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">Evaluaciones
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a routerLink="'/grupo/evaluaciones" >Mantenimiento</a></li>
+          <li><a routerLink="/grupo/evaluaciones/calificar">Calificar</a></li>
+          <li><a routerLink="/grupo/evaluaciones/tabla">Registro de Notas</a></li>
+        </ul>
+      </li>
+      <li [ngClass]="{ 'hidden': !profesor}" >
+          <a routerLink="/grupo/asistencia"> Asistencia </a>
+      </li>
+      <li> <a routerLink="grupo/foro"> Foro </a> </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <a href="#" (click)="logOut()" class="btn btn-danger navbar-btn" >LogOut</a>
+    </ul>
+  </div>
+</nav>

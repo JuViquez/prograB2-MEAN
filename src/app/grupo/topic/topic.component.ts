@@ -7,6 +7,7 @@ import { LoginService } from '../../login/login.service';
 import { GrupoService } from '../grupo.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { GrupoBarComponent } from '../../navigation/grupo-bar/grupo-bar.component'
 
 @Component({
   selector: 'app-topic',

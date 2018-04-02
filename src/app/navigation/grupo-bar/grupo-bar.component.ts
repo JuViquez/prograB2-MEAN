@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../../login/login.service'
-import { Usuario } from '../../usuario/usuario';
-import { Grupo } from '../../grupo/grupo';
 import { GrupoService } from '../../grupo/grupo.service';
+import { LoginService } from '../../login/login.service';
+import { Usuario } from '../../usuario/usuario';
 
 @Component({
-  selector: 'nav-bar',
-  templateUrl: './navigation-bar.component.html',
-  styleUrls: ['./navigation-bar.component.css'],
-  providers : [LoginService, GrupoService]
+  selector: 'grupo-bar',
+  templateUrl: './grupo-bar.component.html',
+  styleUrls: ['./grupo-bar.component.css'],
+  providers: [LoginService, GrupoService]
 })
-export class NavigationBarComponent implements OnInit {
+export class GrupoBarComponent implements OnInit {
+
   usuario : Usuario;
   profesor: Boolean;
   nombre: string;
-
-
 
   constructor(private loginService : LoginService,
               private GrupoService: GrupoService) {}

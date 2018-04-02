@@ -31,6 +31,7 @@ import { FormEvaluacionesComponent } from './evaluaciones/form-evaluaciones/form
 import { MisMensajesComponent } from './usuario/mis-mensajes/mis-mensajes.component';
 import { MallaCurricularComponent } from './usuario/malla-curricular/malla-curricular.component';
 import { HomeGrupoComponent } from './navigation/home-grupo/home-grupo.component';
+import { GrupoBarComponent } from './navigation/grupo-bar/grupo-bar.component';
 
 
 const appRoutes: Routes = [
@@ -39,31 +40,31 @@ const appRoutes: Routes = [
     component : MisMensajesComponent
   },
   {
-    path:'grupo/:grupo_id/evaluaciones/tabla',
+    path:'malla-curricular',
     component : MallaCurricularComponent
   },
   {
-    path:'evaluaciones/tabla',
+    path:'grupo/evaluaciones/tabla',
     component : TablaCalificacionesComponent
   },
   {
-    path: 'grupo/:grupo_id/evaluaciones/calificar',
+    path: 'grupo/evaluaciones/calificar',
     component: CalificacionComponent,
   },
   {
-    path: 'grupo/:grupo_id/evaluaciones',
+    path: 'grupo/evaluaciones',
     component: FormEvaluacionesComponent,
   },
   {
-    path: 'grupo/:grupo_id/asistencia',
+    path: 'grupo/asistencia',
     component: AsistenciaComponent,
   },
   {
-    path: 'grupo/grupo/:grupo_id/topic/:id',
+    path: 'grupo/topic/:id',
     component: TopicComponent,
   },
   {
-    path: 'grupo/:grupo_id/foro',
+    path: 'grupo/foro',
     component: ForoComponent,
   },
   {
@@ -145,7 +146,8 @@ const appRoutes: Routes = [
     TablaCalificacionesComponent,
     MisMensajesComponent,
     MallaCurricularComponent,
-    HomeGrupoComponent
+    HomeGrupoComponent,
+    GrupoBarComponent
   ],
   imports: [
     BrowserModule,

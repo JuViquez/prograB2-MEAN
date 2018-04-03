@@ -3,12 +3,15 @@ import { GrupoService } from '../../grupo.service';
 import { Grupo } from '../../grupo';
 import { ListaAsistencia } from '../../../models/lista-asistencia';
 import { AsistenciaService } from '../asistencia.service';
+import { GrupoBarComponent } from '../../../navigation/grupo-bar/grupo-bar.component'
+import { LoginService } from '../../../login/login.service';
+
 
 @Component({
   selector: 'app-asistencia',
   templateUrl: './asistencia.component.html',
   styleUrls: ['./asistencia.component.css'],
-  providers: [GrupoService,AsistenciaService]
+  providers: [GrupoService,AsistenciaService,LoginService]
 })
 export class AsistenciaComponent implements OnInit {
   grupo: Grupo;
@@ -41,7 +44,7 @@ export class AsistenciaComponent implements OnInit {
 
   setAsistencia(){
     if(typeof(this.listaAsistencia.id_grupo) == 'undefined'){
-      this.grupoService.getGrupo("5aa7526784df143ac06a0105").then((data: Grupo) => { 
+      this.grupoService.getGrupo(this.loginService.consultarGrupo()._id).then((data: Grupo) => { 
         this.grupo = data;
         console.log("GRUPO:"+ this.grupo.numero);
         this.generarLista();
@@ -53,8 +56,7 @@ export class AsistenciaComponent implements OnInit {
 
   guardarCambios(){
     if (typeof(this.listaAsistencia.id_grupo) == 'undefined'){
-      this.listaAsistencia.fecha = new Date();
-      this.listaAsistencia.id_grupo = "5aa7526784df143ac06a0105";
+      this.listaAsistencia.id_grupo = this.loginService.consultarGrupo()._id;
       this.asistenciaService.createAsistencia(this.listaAsistencia).then((data:ListaAsistencia)=>{});
     }else{
       console.log("ID: "+this.listaAsistencia._id);
@@ -62,17 +64,16 @@ export class AsistenciaComponent implements OnInit {
     }
   }
 
-  constructor(private grupoService: GrupoService, private asistenciaService : AsistenciaService) { 
+  constructor(private loginService : LoginService, private grupoService: GrupoService, private asistenciaService : AsistenciaService) { 
     this.listaGrupo = new Array();
     this.listaAsistencia = new ListaAsistencia;
     this.listaAsistencia.asistencia = [];
+    this.listaAsistencia.fecha = new Date();
   }
 
   ngOnInit() {
-    this.asistenciaService.getAsistenciasGrupo("5aa7526784df143ac06a0105").then((data: ListaAsistencia[]) => {
-      console.log("Data length "+data.length);
+    this.asistenciaService.getAsistenciasGrupo(this.loginService.consultarGrupo()._id).then((data: ListaAsistencia[]) => {
       this.listaGrupo = data;
     } )
   }
-
 }

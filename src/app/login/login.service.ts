@@ -3,6 +3,7 @@ import { LoginComponent } from './login.component';
 import { Http, RequestOptions, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Usuario } from '../usuario/usuario';
+import { Grupo } from '../grupo/grupo';
 
 @Injectable()
 export class LoginService {
@@ -24,6 +25,14 @@ export class LoginService {
 
   consultarDatos(){
     return JSON.parse(localStorage.getItem('usuario')) as Usuario ;
+  }
+
+  guardarGrupo(grupo: Grupo){
+    localStorage.setItem('grupo', JSON.stringify(grupo));
+  }
+
+  consultarGrupo(){
+    return JSON.parse(localStorage.getItem('grupo')) as Grupo ;
   }
 
   private handleError (error: any) {

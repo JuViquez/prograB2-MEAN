@@ -12,6 +12,7 @@ const USUARIO_COLLECTION = 'usuarios';
 const ASISTENCIA_COLLECTION =  'asistencia';
 const TOPICS_COLLECTION = 'topics';
 const EVALUACIONES_COLLECTION = 'evaluaciones';
+const MENSAJES_COLLECTION = 'mensajes';
 
 
 mongodb.connectToServer( function( err ) {
@@ -167,6 +168,7 @@ app.get('/api/grupos/:id', function(req, res){
           }      
     })
 });
+
 
 app.get('/api/grupos/escuela/:id', function(req, res){
     db.collection(GRUPOS_COLLECTION).find({id_escuela : req.params.id}).toArray(function(err, docs) {
@@ -538,3 +540,29 @@ app.get('/login/:nombre/:password', (req, res) => {
             }
             });
     });
+
+    //MENSAJES
+
+    app.get('/api/mensajes/:id_usuario/:id_destinatario', function(req, res){
+        db.collection(MENSAJES_COLLECTION).find({ $or: [ {id_usuario: req.params.id_usuario, id_destinatario: req.params.id_destinatario}, {id_usuario: req.params.id_destinatario, id_destinatario: req.params.id_usuario }] }).toArray(function(err, docs) {
+            if (err) {
+                handleError(res, err.message, "No se pudo obtener Mensajes.");
+              } else {
+                res.status(200).json(docs);
+              }      
+        })
+    });
+
+    app.post('/api/mensajes', function(req, res){
+        var newDoc = req.body;
+    
+        db.collection(MENSAJES_COLLECTION).insertOne(newDoc, function(err, doc) {
+            if (err) {
+            handleError(res, err.message, "Fallo al crear Mensaje.");
+            } else {
+            res.status(201).json(doc.ops[0]);
+            }
+        });
+    
+    }); 
+    

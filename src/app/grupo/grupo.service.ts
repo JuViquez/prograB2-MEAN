@@ -17,6 +17,13 @@ export class GrupoService {
                .catch(this.handleError);
   }
 
+  getGruposByProfesor(id_profesor: string): Promise<void | Grupo[]> {
+    return this.http.get(this.GrupoUrl + '/profesor/' + id_profesor)
+               .toPromise()
+               .then(response => response.json() as Grupo[])
+               .catch(this.handleError);
+  }
+
     getGruposByEscuela(id_escuela: string): Promise<void | Grupo[]> {
       return this.http.get(this.GrupoUrl + '/escuela/' + id_escuela)
                  .toPromise()

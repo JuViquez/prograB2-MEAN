@@ -1,0 +1,36 @@
+<nav-bar></nav-bar>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="container-fluid">
+      <div class="page-header">
+          <h4>Contactos</h4>
+      </div>
+      <ul class="list-group">
+        <a class="list-group-item" *ngFor="let contacto of contactos"  [ngClass]= "{ 'active' : currentReceiver === contacto, 'hidden': currentUserId === contacto._id}"  (click)="contactoSelected(contacto)">
+          {{contacto.nombre}}  {{contacto.email}}
+        </a>
+      </ul>
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <ng-container *ngIf="currentReceiver" >
+      <div class="page-header">
+          <h4>{{currentReceiver.nombre}} <a><span class="glyphicon glyphicon-refresh"></span></a></h4> 
+      </div>
+      <div class="container-fluid">
+        <ul class="list-group">
+          <ng-container *ngFor="let msg of chat" >
+            <li  class="list-group-item" [ngClass]="{'list-group-item-success align-right': msg.id_usuario === currentUserId}" >{{msg.mensaje}}</li>
+            <br>
+          </ng-container>
+        </ul>
+      </div>
+      <div class="container-fluid">
+        <label for="msj">Mensaje</label>
+        <textarea #msg class="form-control" id="msj" name="msj" placeholder="Mensaje"></textarea>
+        <br>
+        <button  class="btn btn-success" (click)="sendMsg(msg.value)">Enviar</button>
+      </div>
+    </ng-container>
+  </div>
+</div>

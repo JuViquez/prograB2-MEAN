@@ -10,6 +10,8 @@ import { LoginService } from '../../login/login.service';
 import { Asistencia } from '../../models/asistencia';
 import {AsistenciaService} from '../../grupo/asistencia/asistencia.service';
 import { ListaAsistencia } from '../../models/lista-asistencia';
+import { GrupoBarComponent } from '../grupo-bar/grupo-bar.component';
+
 @Component({
   selector: 'app-home-grupo',
   templateUrl: './home-grupo.component.html',
@@ -62,7 +64,8 @@ export class HomeGrupoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.grupoService.getGrupo("5abff382d1058d1754c806fc").then((data : Grupo)=>{
+    this.grupo = this.loginService.consultarGrupo();
+    this.grupoService.getGrupo(this.grupo._id).then((data : Grupo)=>{
       this.grupo = data;
       this.visible = false;
       this.asistencia = [];

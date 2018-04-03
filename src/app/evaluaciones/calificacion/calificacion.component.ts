@@ -3,12 +3,15 @@ import { Grupo } from '../../grupo/grupo';
 import { GrupoService } from '../../grupo/grupo.service';
 import { evaluaciones } from '../evaluaciones';
 import { EvaluacionesService } from '../evaluaciones.service'
+import { GrupoBarComponent } from '../../navigation/grupo-bar/grupo-bar.component';
+import { LoginService } from '../../login/login.service';
+
 
 @Component({
   selector: 'app-calificacion',
   templateUrl: './calificacion.component.html',
   styleUrls: ['./calificacion.component.css'],
-  providers : [GrupoService,EvaluacionesService]
+  providers : [GrupoService,EvaluacionesService,LoginService]
 })
 export class CalificacionComponent implements OnInit {
 
@@ -43,12 +46,12 @@ export class CalificacionComponent implements OnInit {
     this.grupoService.updateGrupo(this.grupo).then((resultado:Grupo)=>{this.guardar = true;})
   }
 
-  constructor(private grupoService : GrupoService, private evaluacionService : EvaluacionesService) { }
+  constructor(private loginService : LoginService, private grupoService : GrupoService, private evaluacionService : EvaluacionesService) { }
 
   ngOnInit() {
     this.guardar = false;
     this.listaCalificaciones=[];
-    this.grupoService.getGrupo("5abff382d1058d1754c806fc").then((data:Grupo)=>{
+    this.grupoService.getGrupo(this.loginService.consultarGrupo()._id).then((data:Grupo)=>{
       this.grupo = data;
       this.evaluacionService.getEvaluaciones(this.grupo._id).then((evaluacionArray:evaluaciones[])=>{this.listaEvaluaciones = evaluacionArray})
     })

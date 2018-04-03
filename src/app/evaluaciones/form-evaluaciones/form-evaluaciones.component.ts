@@ -7,12 +7,14 @@ import { EvaluacionesService } from '../evaluaciones.service';
 import { GrupoService } from '../../grupo/grupo.service'
 import { Grupo } from '../../grupo/grupo';
 import { ListaEstudiantes } from '../../models/lista-estudiantes';
+import { GrupoBarComponent } from '../../navigation/grupo-bar/grupo-bar.component';
+import { LoginService } from '../../login/login.service';
 
 @Component({
   selector: 'app-form-evaluaciones',
   templateUrl: './form-evaluaciones.component.html',
   styleUrls: ['./form-evaluaciones.component.css'],
-  providers: [EvaluacionesService,GrupoService]
+  providers: [EvaluacionesService,GrupoService,LoginService]
 })
 export class FormEvaluacionesComponent implements OnInit {
   selectedEvaluacion: evaluaciones; 
@@ -33,7 +35,7 @@ export class FormEvaluacionesComponent implements OnInit {
   }
 
   actualizarListaEvaluaciones(){
-    this.evaluacionesService.getEvaluaciones("5abff382d1058d1754c806fc").then((data: evaluaciones[]) => {
+    this.evaluacionesService.getEvaluaciones(this.selectedEvaluacion._id).then((data: evaluaciones[]) => {
       this.listaEvaluaciones = data;
     } )
   }
@@ -69,7 +71,7 @@ export class FormEvaluacionesComponent implements OnInit {
   }
 
   submitAgregar(){
-    this.selectedEvaluacion.id_grupo = "5abff382d1058d1754c806fc";
+    this.selectedEvaluacion.id_grupo = this.loginService.consultarGrupo()._id;
     this.evaluacionesService.createEvaluaciones(this.selectedEvaluacion).then((data: evaluaciones)=>{ this.actualizarListaEvaluaciones();
       this.grupoService.getGrupo(this.selectedEvaluacion.id_grupo).then((grupo:Grupo)=>{
         for(var e in grupo.lista_estudiantes){ grupo.lista_estudiantes[e].evaluaciones.push({id_evaluacion:data._id,porcentaje:data.porcentaje,nota:0})}
@@ -78,7 +80,7 @@ export class FormEvaluacionesComponent implements OnInit {
     })
   }
 
-  constructor(private formBuilder: FormBuilder, private grupoService : GrupoService, private evaluacionesService : EvaluacionesService) {  this.createForm();}
+  constructor(private loginService : LoginService, private formBuilder: FormBuilder, private grupoService : GrupoService, private evaluacionesService : EvaluacionesService) {  this.createForm();}
 
   ngOnInit() {
     this.selectedEvaluacion = new evaluaciones();

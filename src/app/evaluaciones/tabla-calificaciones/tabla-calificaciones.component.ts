@@ -5,12 +5,15 @@ import { evaluaciones } from '../evaluaciones';
 import { EvaluacionesService } from '../evaluaciones.service';
 import { Usuario } from '../../usuario/usuario';
 import { UsuarioService } from '../../usuario/usuario.service'
+import { GrupoBarComponent } from '../../navigation/grupo-bar/grupo-bar.component';
+import { LoginService } from '../../login/login.service'
+
 
 @Component({
   selector: 'app-tabla-calificaciones',
   templateUrl: './tabla-calificaciones.component.html',
   styleUrls: ['./tabla-calificaciones.component.css'],
-  providers : [GrupoService,EvaluacionesService,UsuarioService]
+  providers : [GrupoService,EvaluacionesService,UsuarioService,LoginService]
 })
 export class TablaCalificacionesComponent implements OnInit {
 
@@ -30,7 +33,6 @@ export class TablaCalificacionesComponent implements OnInit {
         calificaciones.push(calificacion);
       }
       nota = calificaciones.reduce(function(a, b) { return a + b; }, 0);
-      console.log(this.grupo.lista_estudiantes[e].nombre+" NOTA" +nota);
       this.filas.push({id_estudiante:this.grupo.lista_estudiantes[e].id_estudiante,nombre:this.grupo.lista_estudiantes[e].nombre,calificaciones:calificaciones,nota:nota})
     }
     this.available = true;
@@ -50,10 +52,10 @@ export class TablaCalificacionesComponent implements OnInit {
     this.available = true;
   }
 
-  constructor(private usuarioService: UsuarioService, private grupoService : GrupoService, private evaluacionesService : EvaluacionesService) { }
+  constructor(private loginService : LoginService, private usuarioService: UsuarioService, private grupoService : GrupoService, private evaluacionesService : EvaluacionesService) { }
 
   ngOnInit() {
-    this.grupoService.getGrupo("5abff382d1058d1754c806fc").then((data:Grupo)=>{
+    this.grupoService.getGrupo(this.loginService.consultarGrupo()._id).then((data:Grupo)=>{
       this.grupo = data;
       this.evaluacionesService.getEvaluaciones(this.grupo._id).then((data2:evaluaciones[])=>{
         this.available = false;

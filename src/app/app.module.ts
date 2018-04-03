@@ -28,11 +28,17 @@ import { DataService } from './services/data.service';
 import { CalificacionComponent } from './evaluaciones/calificacion/calificacion.component';
 import { TablaCalificacionesComponent } from './evaluaciones/tabla-calificaciones/tabla-calificaciones.component';
 import { FormEvaluacionesComponent } from './evaluaciones/form-evaluaciones/form-evaluaciones.component';
+import { MisMensajesComponent } from './usuario/mis-mensajes/mis-mensajes.component';
 import { MallaCurricularComponent } from './usuario/malla-curricular/malla-curricular.component';
 import { HomeGrupoComponent } from './navigation/home-grupo/home-grupo.component';
+import { GrupoBarComponent } from './navigation/grupo-bar/grupo-bar.component';
 
 
 const appRoutes: Routes = [
+  {
+    path:'mensajes',
+    component : MisMensajesComponent
+  },
   {
     path:'grupo/home',
     component : HomeGrupoComponent
@@ -42,15 +48,15 @@ const appRoutes: Routes = [
     component : MallaCurricularComponent
   },
   {
-    path:'evaluaciones/tabla',
+    path:'grupo/evaluaciones/tabla',
     component : TablaCalificacionesComponent
   },
   {
-    path: 'evaluaciones/calificar',
+    path: 'grupo/evaluaciones/calificar',
     component: CalificacionComponent,
   },
   {
-    path: 'evaluaciones',
+    path: 'grupo/evaluaciones',
     component: FormEvaluacionesComponent,
   },
   {
@@ -142,8 +148,10 @@ const appRoutes: Routes = [
     TopicComponent,
     CalificacionComponent,
     TablaCalificacionesComponent,
+    MisMensajesComponent,
     MallaCurricularComponent,
-    HomeGrupoComponent
+    HomeGrupoComponent,
+    GrupoBarComponent
   ],
   imports: [
     BrowserModule,

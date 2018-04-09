@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GrupoService } from '../../grupo/grupo.service';
+import { Grupo } from '../../grupo/grupo';
 import { LoginService } from '../../login/login.service';
 import { Usuario } from '../../usuario/usuario';
 
@@ -14,6 +15,7 @@ export class GrupoBarComponent implements OnInit {
   usuario : Usuario;
   profesor: Boolean;
   nombre: string;
+  grupo : Grupo;
 
   constructor(private loginService : LoginService,
               private GrupoService: GrupoService) {}
@@ -23,6 +25,7 @@ export class GrupoBarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.grupo = this.loginService.consultarGrupo();
     this.usuario =this.loginService.consultarDatos();
     this.nombre = this.usuario.nombre;
     if(this.usuario.tipo == "profesor"){

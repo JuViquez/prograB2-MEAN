@@ -14,6 +14,7 @@ const TOPICS_COLLECTION = 'topics';
 const EVALUACIONES_COLLECTION = 'evaluaciones';
 const MENSAJES_COLLECTION = 'mensajes';
 
+// Connect to the database before starting the application server.
 
 mongodb.connectToServer( function( err ) {
     app.listen(4000, function() {
@@ -21,6 +22,8 @@ mongodb.connectToServer( function( err ) {
        db = mongodb.getDb();
  })
 });
+
+// Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 
 var distDir = __dirname + "/dist/";
 app.use(express.static(distDir)); 
@@ -34,6 +37,10 @@ function handleError(res, reason, message, code) {
 
 //INSTITUCIONES
 
+/*  "/api/instituciones"
+ *    GET: Busca todas las instituciones
+ */
+
 app.get('/api/instituciones', function(req, res){
     db.collection(INSTITUCIONES_COLLECTION).find().toArray(function(err, docs) {
         if (err) {
@@ -43,6 +50,10 @@ app.get('/api/instituciones', function(req, res){
           }      
     })
 });
+
+/*  "/api/instituciones/:id"
+ *    GET: Busca todas las instituciones por id
+ */
 
 app.get('/api/instituciones/:id', function(req, res){
     db.collection(INSTITUCIONES_COLLECTION).findOne({_id: new ObjectID(req.params.id)}, function(err, result) {
@@ -54,6 +65,10 @@ app.get('/api/instituciones/:id', function(req, res){
         });
 });
 
+
+/*  "/api/instituciones"
+ *    POST: Inserta una nueva institucion
+ */
 
 app.post('/api/instituciones', function(req, res){
     var newDoc = req.body;
@@ -72,6 +87,10 @@ app.post('/api/instituciones', function(req, res){
 
 });
 
+/*  "/api/instituciones/:id"
+ *    PUT: Actualiza una institucion
+ */
+
 app.put('/api/instituciones/:id', function(req, res){
     var updateDoc = req.body;
   delete updateDoc._id;
@@ -86,6 +105,10 @@ app.put('/api/instituciones/:id', function(req, res){
   });
 });
 
+/*  "/api/instituciones/:id"
+ *    DELETE: Borra institución por ID
+ */
+
 app.delete('/api/instituciones/:id', function(req, res){
     db.collection(INSTITUCIONES_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
         if (err) {
@@ -97,6 +120,10 @@ app.delete('/api/instituciones/:id', function(req, res){
 });
 
 //ESCUELAS
+
+/*  "/api/escuelas"
+ *    GET: Obtiene todas las escuelas
+ */
 
 app.get('/api/escuelas', function(req, res){
 var arr = [];
@@ -111,6 +138,10 @@ for(var x in req.query){arr.push(new ObjectID(req.query[x]));};
     })
 });
 
+/*  "/api/escuelas/:id"
+ *    GET: Obtiene escuela por ID
+ */
+
 app.get('/api/escuelas/:id', function(req, res){
         db.collection(ESCUELAS_COLLECTION).findOne({_id: new ObjectID(req.params.id)}, function(err, docs) {
             if (err) {
@@ -120,6 +151,10 @@ app.get('/api/escuelas/:id', function(req, res){
               }      
         })
     });
+
+/*  "/api/escuelas"
+ *    POST: Inserta una nueva escuela
+ */
 
 app.post('/api/escuelas', function(req, res){
     var newDoc = req.body;
@@ -132,6 +167,10 @@ app.post('/api/escuelas', function(req, res){
     });
 
 0});
+
+/*  "/api/escuelas/:id"
+ *    PUT: Actualiza una escuela
+ */
 
 app.put('/api/escuelas/:id', function(req, res){
     var updateDoc = req.body;
@@ -147,6 +186,10 @@ app.put('/api/escuelas/:id', function(req, res){
   });
 });
 
+/*  "/api/escuelas/:id"
+ *    DELETE: Borra escuela por ID
+ */
+
 app.delete('/api/escuelas/:id', function(req, res){
     db.collection(ESCUELAS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
         if (err) {
@@ -159,6 +202,10 @@ app.delete('/api/escuelas/:id', function(req, res){
 
 //GRUPOS
 
+/*  "/api/grupos/:id"
+ *    GET: Obtiene un grupo por ID
+ */
+
 app.get('/api/grupos/:id', function(req, res){
     db.collection(GRUPOS_COLLECTION).findOne({_id : new ObjectID(req.params.id)}, function(err, docs) {
         if (err) {
@@ -169,6 +216,9 @@ app.get('/api/grupos/:id', function(req, res){
     })
 });
 
+/*  "/api/grupos/escuela/:id"
+ *    GET: Obtiene grupo por ID de escuela
+ */
 
 app.get('/api/grupos/escuela/:id', function(req, res){
     db.collection(GRUPOS_COLLECTION).find({id_escuela : req.params.id}).toArray(function(err, docs) {
@@ -180,6 +230,10 @@ app.get('/api/grupos/escuela/:id', function(req, res){
     })
 });
 
+/*  "/api/grupos/profesor/:id"
+ *    GET: Obtiene grupo por ID de profesor
+ */
+
 app.get('/api/grupos/profesor/:id', function(req, res){
     db.collection(GRUPOS_COLLECTION).find({id_profesor : req.params.id}).toArray(function(err, docs) {
         if (err) {
@@ -190,6 +244,10 @@ app.get('/api/grupos/profesor/:id', function(req, res){
     })
 });
 
+/*  "/api/grupos/estudiante/:id"
+ *    GET: Obtiene grupo por ID de estudiante
+ */
+
 app.get('/api/grupos/estudiante/:id', function(req, res){
     db.collection(GRUPOS_COLLECTION).find({"lista_estudiantes.id_estudiante" : req.params.id }).toArray(function(err, docs) {
         if (err) {
@@ -199,6 +257,10 @@ app.get('/api/grupos/estudiante/:id', function(req, res){
           }      
     })
 });
+
+/*  "/api/grupos/:id"
+ *    PUT: Actualiza grupo por ID
+ */
 
 app.put('/api/grupos/:id', function(req, res){
   var updateDoc = req.body;
@@ -213,6 +275,10 @@ app.put('/api/grupos/:id', function(req, res){
   });
 });
 
+/*  "/api/grupos/cursos/:ano/:semestre/:programa"
+ *    GET: Obtiene cursos por periodo
+ */
+
 app.get('/api/grupos/cursos/:ano/:semestre/:programa', function(req, res){
     var arr = [];
     for(var x in req.query){arr.push(req.query[x]);};
@@ -224,6 +290,10 @@ app.get('/api/grupos/cursos/:ano/:semestre/:programa', function(req, res){
           }      
     })
 });
+
+/*  "/api/grupos/cursos/:ano/:semestre/:programa"
+ *    POST: Inserta grupo
+ */
 
 app.post('/api/grupos', function(req, res){
     var newDoc = req.body;
@@ -238,6 +308,10 @@ app.post('/api/grupos', function(req, res){
 
 });
 
+/*  "/api/grupos/cursos/:ano/:semestre/:programa"
+ *    PUT: Actualiza grupos masivamente
+ */
+
 app.put('/api/grupos/update/many', function(req, res){
     var newDocs = JSON.parse(req.body.array);
     newDocs.forEach(function(element) {
@@ -251,6 +325,9 @@ app.put('/api/grupos/update/many', function(req, res){
     res.status(201).json(newDocs);
 });
 
+/*  "/api/grupos/cursos/:ano/:semestre/:programa"
+ *    PUT: Actualiza grupos para matricular estudiantes
+ */
 
 app.put('/api/grupos/matricula/:id', function(req, res){
     var arr = [];
@@ -265,6 +342,10 @@ app.put('/api/grupos/matricula/:id', function(req, res){
     });
   });
 
+/*  "/api/grupos/:id"
+ *    DELETE: Borra grupo por ID
+ */
+
 app.delete('/api/grupos/:id', function(req, res){
     db.collection(GRUPOS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
         if (err) {
@@ -274,6 +355,10 @@ app.delete('/api/grupos/:id', function(req, res){
         }
         });
 });
+
+/*  "/api/grupos/topics/:id"
+ *    GET: Obtiene los temas del grupo
+ */
 
 app.get('/api/grupos/topics/:id', function(req, res){
     var arr = [];
@@ -287,6 +372,10 @@ app.get('/api/grupos/topics/:id', function(req, res){
         })
     });
 
+/*  "/api/grupos/topics"
+ *    POST: Crea nuevo topic
+ */
+
 app.post('/api/grupos/topics', function(req, res){
     var newDoc = req.body;
 
@@ -299,6 +388,10 @@ app.post('/api/grupos/topics', function(req, res){
     });
 
 });
+
+/*  "/api/grupos/topics/:id"
+ *    PUT: Actualiza el topic de un grupo
+ */
 
 app.put('/api/grupos/topics/:id', function(req, res){
     var updateDoc = req.body;
@@ -314,6 +407,10 @@ app.put('/api/grupos/topics/:id', function(req, res){
     });
   });
 
+/*  "/api/grupos/topic/:id"
+ *    GET: Obtiene un topic por ID
+ */
+
 app.get('/api/grupos/topic/:id', function(req, res){
     db.collection(TOPICS_COLLECTION).findOne({_id: new ObjectID(req.params.id)}, function(err, docs) {
         if (err) {
@@ -323,6 +420,10 @@ app.get('/api/grupos/topic/:id', function(req, res){
           }      
     })
 });
+
+/*  "/api/grupos/topic/:id"
+ *    DELETE: Borra un topic por ID
+ */
 
 app.delete('/api/grupos/topic/:id', function(req, res){
     db.collection(TOPICS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
@@ -338,6 +439,10 @@ app.delete('/api/grupos/topic/:id', function(req, res){
 
 //Usuarios
 
+/*  "/api/usuarios/agg"
+ *    GET: Aggregation Framework para obtener usuarios por tipos
+ */
+
 app.get('/api/usuarios/agg', function(req, res){
     db.collection(USUARIO_COLLECTION).aggregate([ { $group : { _id : {tipo : "$tipo"}, count: { $sum : 1 } } } ], function(err, docs) {
         if (err) {
@@ -349,6 +454,10 @@ app.get('/api/usuarios/agg', function(req, res){
     })
 });
 
+/*  "/api/usuarios"
+ *    GET: Obtiene usuarios del sistema
+ */
+
 app.get('/api/usuarios', function(req, res){
     db.collection(USUARIO_COLLECTION).find().toArray(function(err, docs) {
         if (err) {
@@ -359,6 +468,11 @@ app.get('/api/usuarios', function(req, res){
     })
 });
 
+/*  "/api/usuarios/:id"
+ *    GET: Obtiene usuario por ID
+ */
+
+
 app.get('/api/usuarios/:id', function(req, res){
     db.collection(USUARIO_COLLECTION).findOne({_id : new ObjectID(req.params.id)}, function(err, doc) {
         if (err) {
@@ -368,6 +482,10 @@ app.get('/api/usuarios/:id', function(req, res){
           }      
     })
 });
+
+/*  "/api/usuarios"
+ *    POST: Inserta un nuevo usuario en el sistema
+ */
 
 app.post('/api/usuarios', function(req, res){
     var newDoc = req.body;
@@ -381,6 +499,10 @@ app.post('/api/usuarios', function(req, res){
     });
 
 });
+
+/*  "/api/usuarios/:id"
+ *    PUT: Actualiza un usuario por ID
+ */
 
 app.put('/api/usuarios/:id', function(req, res){
     var updateDoc = req.body;
@@ -396,6 +518,10 @@ app.put('/api/usuarios/:id', function(req, res){
   });
 });
 
+/*  "/api/usuarios/:id"
+ *    DELETE: Borra un usuario del sistema
+ */
+
 app.delete('/api/usuarios/:id', function(req, res){
     db.collection(USUARIO_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
         if (err) {
@@ -405,6 +531,10 @@ app.delete('/api/usuarios/:id', function(req, res){
         }
         });
 });
+
+/*  "/login/:nombre/:password"
+ *    GET: Obtiene la sesión de un usuario de acuerdo a su contraseña y email
+ */
 
 app.get('/login/:nombre/:password', (req, res) => {
     if (!req.params.nombre) {
@@ -438,6 +568,10 @@ app.get('/login/:nombre/:password', (req, res) => {
     }   
 );
 
+/*  "/api/usuarios/nota/:idU/:idG"
+ *    PUT: Genera las notas finales de un grupo
+ */
+
     app.put('/api/usuarios/nota/:idU/:idG', function(req, res){
     var notaFinal = req.body.nota;
     var estatus = req.body.estatus;
@@ -453,6 +587,10 @@ app.get('/login/:nombre/:password', (req, res) => {
 
     //Asistencia
 
+    /*  "/api/asistencia"
+    *    POST: Publica lista de asistencia
+    */
+
     app.post('/api/asistencia', function(req, res){
         var newDoc = req.body;
         newDoc._id = new ObjectID(req.params.id)
@@ -464,6 +602,10 @@ app.get('/login/:nombre/:password', (req, res) => {
             }
         });
     });
+
+    /*  "/api/asistencia/:id"
+    *    PUT: Actualiza lista de asistencia
+    */
 
     app.put('/api/asistencia/:id', function(req, res){
       var updateDoc = req.body;
@@ -478,6 +620,10 @@ app.get('/login/:nombre/:password', (req, res) => {
       });
     });
 
+    /*  "/api/asistencia/:id"
+    *    GET: Obtiene lista de asistencia
+    */
+
     app.get('/api/asistencia/:id', function(req, res){
         db.collection(ASISTENCIA_COLLECTION).find({id_grupo : req.params.id}).toArray(function(err, docs) {
             if (err) {
@@ -491,6 +637,10 @@ app.get('/login/:nombre/:password', (req, res) => {
     
     //Evaluaciones
 
+    /*  "/api/evaluaciones/:id"
+    *    GET: Obtiene las evaluaciones de un grupo
+    */
+
     app.get('/api/evaluaciones/:id', function(req, res){
         db.collection(EVALUACIONES_COLLECTION).find({id_grupo: req.params.id}).toArray(function(err, docs) {
             if (err) {
@@ -501,21 +651,29 @@ app.get('/login/:nombre/:password', (req, res) => {
         })
     });
 
+    /*  "/api/evaluaciones"
+    *    POST: Inserta una nueva evaluación
+    */
+
     app.post('/api/evaluaciones', function(req, res){
         var newDoc = req.body;
     
         if (!req.body.nombre) {
-            handleError(res, "Entrada de usuario invalidad", "Se debe proveer un nombre.", 400);
+            handleError(res, "Entrada de usuario invalida", "Se debe proveer un nombre.", 400);
         }
     
         db.collection(EVALUACIONES_COLLECTION).insertOne(newDoc, function(err, doc) {
             if (err) {
-            handleError(res, err.message, "Fallo al crear Institucion.");
+            handleError(res, err.message, "Fallo al crear Evaluacion");
             } else {
             res.status(201).json(doc.ops[0]);
             }
         });
     });
+
+    /*  "/api/evaluaciones/:id"
+    *    PUT: Se actualiza evaluacion por ID
+    */
 
     app.put('/api/evaluaciones/:id', function(req, res){
         var updateDoc = req.body;
@@ -530,6 +688,10 @@ app.get('/login/:nombre/:password', (req, res) => {
         }
       });
     });
+
+    /*  "/api/evaluaciones/:id"
+    *    DELETE: Borra evaluacion por ID
+    */
     
     app.delete('/api/evaluaciones/:id', function(req, res){
         db.collection(EVALUACIONES_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
@@ -543,6 +705,10 @@ app.get('/login/:nombre/:password', (req, res) => {
 
     //MENSAJES
 
+    /*  "/api/mensajes/:id_usuario/:id_destinatario"
+    *    GET: Obtiene los mensajes por destinatario y emisor
+    */
+
     app.get('/api/mensajes/:id_usuario/:id_destinatario', function(req, res){
         db.collection(MENSAJES_COLLECTION).find({ $or: [ {id_usuario: req.params.id_usuario, id_destinatario: req.params.id_destinatario}, {id_usuario: req.params.id_destinatario, id_destinatario: req.params.id_usuario }] }).toArray(function(err, docs) {
             if (err) {
@@ -552,6 +718,10 @@ app.get('/login/:nombre/:password', (req, res) => {
               }      
         })
     });
+
+    /*  "/api/mensajes"
+    *    POST: Inserta un mensaje a la discución
+    */
 
     app.post('/api/mensajes', function(req, res){
         var newDoc = req.body;

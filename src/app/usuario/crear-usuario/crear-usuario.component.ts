@@ -31,6 +31,7 @@ export class CrearUsuarioComponent implements OnInit {
   emptyForm : Boolean;
   createdEstudiante : Usuario;
   success : Boolean;
+  errMessage: number;
   
 
   createForm() {
@@ -53,7 +54,7 @@ export class CrearUsuarioComponent implements OnInit {
     this.createdEstudiante.tipo = "estudiante";
     this.createdEstudiante.programa.nombre = this.selectedPrograma.nombre;
     this.createdEstudiante.programa.codigo_programa = this.selectedPrograma.codigo_programa;
-    this.usuarioService.createUsuario(this.createdEstudiante).then((usuario: Usuario) =>{ this.success = false; })
+    this.usuarioService.createUsuario(this.createdEstudiante).then((usuario: Usuario) =>{ if(typeof(usuario.nombre) != 'undefined'){this.errMessage = 1;}else{this.errMessage=2;} })
   }
 
   setSedes(){
@@ -76,6 +77,7 @@ export class CrearUsuarioComponent implements OnInit {
 
   ngOnInit() {
     this.success = true;
+    this.errMessage=0;
     this.createdEstudiante = new Usuario();
     this.createdEstudiante.institucion = { id_institucion: "" ,sede: ""};
     this.createdEstudiante.programa = {nombre: "",codigo_programa: ""};

@@ -5,7 +5,7 @@
     </div>
     <ul class="nav navbar-nav">
       <li> <a routerLink="/grupo/home"> <span class = "glyphicon glyphicon-home"></span> Inicio </a> </li>
-      <li [ngClass]="{ 'hidden': !profesor}" class="dropdown"><span class = "glyphicon glyphicon-ok-sign"></span>
+      <li [ngClass]="{ 'hidden': !profesor}" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown">Evaluaciones
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -19,6 +19,9 @@
       </li>
       <li> <a routerLink="/grupo/foro"> <span class = "glyphicon glyphicon-align-left"></span> Foro </a> </li>
     </ul>
+    <span class="navbar-text" style="color:red">
+      {{grupo.curso.nombre}}({{grupo.numero}})
+    </span>
     <ul class="nav navbar-nav navbar-right">
         <a href="#" (click)="logOut()" class="btn btn-danger navbar-btn" >LogOut</a>
     </ul>

@@ -15,6 +15,8 @@ import { NavigationBarComponent } from "../../navigation/navigation-bar/navigati
   styleUrls: ['./form-curso.component.css'],
   providers: [EscuelaService, InstitucionService]
 })
+
+//ventanaCurso
 export class FormCursoComponent implements OnInit {
 
   instituciones: Institucion[];
@@ -28,10 +30,11 @@ export class FormCursoComponent implements OnInit {
 
   programas: Programa[];
   selectedPrograma: Programa;
-
+//aalmacena cursos
   cursos: Curso[];
   selectedCurso: Curso;
-
+  
+//constructor de una escuela 
  constructor(private escuelaService: EscuelaService, 
              private institucionService: InstitucionService) { 
                
@@ -45,11 +48,12 @@ export class FormCursoComponent implements OnInit {
      this.instituciones = data;
    })
  }
-
+ 
+//setea sedes
  setSedes(sedes: Sede[]){
    this.sedes = sedes;
  }
-
+//obtiene las escuelas
  getEscuelas(){
    this.escuelaService.getEscuelas(this.selectedSede.id_escuelas).then((escuelas: Escuela[]) =>{
      this.escuelas = escuelas;
@@ -87,7 +91,7 @@ setSelectedCurso(curso: Curso){
  }
    
  }
-
+//realiza el POST de los cursos, programas, escuelas
  postClicked(form: NgForm){
    var newCurso = new Curso();
    newCurso.nombre = form.value.nombre;
@@ -114,6 +118,8 @@ setSelectedCurso(curso: Curso){
    })
  }
 
+ //realiza el PUT de los cursos, programas, escuelas
+ 
  putClicked(form: NgForm){
  if(form.value.nombre != '' && form.value.codigo_curso !=''){
    
@@ -142,6 +148,10 @@ setSelectedCurso(curso: Curso){
 
  }
 
+ //elimina de la base
+ //programa
+ //cursos
+ //escuelas
  deleteClicked(){
   var putProgramas = this.programas;
   var putPrograma = this.selectedPrograma;

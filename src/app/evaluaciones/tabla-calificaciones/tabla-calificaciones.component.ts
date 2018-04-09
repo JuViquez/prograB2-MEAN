@@ -15,13 +15,14 @@ import { LoginService } from '../../login/login.service'
   styleUrls: ['./tabla-calificaciones.component.css'],
   providers : [GrupoService,EvaluacionesService,UsuarioService,LoginService]
 })
+//componente que muestra la tabla de calificaciones de un grupo 
 export class TablaCalificacionesComponent implements OnInit {
 
   listaEvaluaciones : evaluaciones[];
   grupo : Grupo;
   filas : any[];
   available : Boolean;
-
+//llena la tabla de las calificaciones
   rellenarTabla(){
     var calificaciones : number[];
     var calificacion;
@@ -37,7 +38,7 @@ export class TablaCalificacionesComponent implements OnInit {
     }
     this.available = true;
   }
-
+//al generar la nota final, se le asigna si fue aprobado o reprobado
   generarNotaFinal(){
     this.available = false;
     var estatus;

@@ -83,11 +83,11 @@ export class InstitucionesListComponent implements OnInit {
     this.periodo.ano = today.getFullYear().toString();
     console.log(this.periodo.ano);
   }
-
+//obtiene todas las escuelas creadas
   getNombreEscuelas(arreglo: string[]){
     this.escuelasService.getEscuelas(arreglo).then((data:Escuela[]) => { 
       this.escuelas = data; console.log("arreglo: "+this.escuelas[0].nombre);})}
-
+//envia el documento a la base 
   EnviarDocumento(){
     var InstitucionOutput = new Institucion;
     var escuelaCreada: Escuela;

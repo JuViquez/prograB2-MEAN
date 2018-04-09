@@ -18,6 +18,8 @@ import { NavigationBarComponent } from "../../navigation/navigation-bar/navigati
   styleUrls: ['./form-tema.component.css'],
   providers: [EscuelaService, InstitucionService]
 })
+
+//componente de los temas 
 export class FormTemaComponent implements OnInit {
 
   instituciones: Institucion[];
@@ -115,7 +117,7 @@ addSubtema(subtema: string){
  }
    
  }
-
+//postear un nuevo tema y subtemas asociados a un grupo
  postClicked(form: NgForm){
   
     var newTema = new Tema();
@@ -149,7 +151,7 @@ addSubtema(subtema: string){
     this.selectedTema = newTema;
    })
  }
-
+//PUT
  putClicked(nombre: string, subtemas: string[]){
  if(nombre){
    
@@ -185,7 +187,7 @@ addSubtema(subtema: string){
  }
 
  }
-
+//DELETE
  deleteClicked(){
   var putTemas = this.temas;
   putTemas.splice(putTemas.indexOf(this.selectedTema),1);

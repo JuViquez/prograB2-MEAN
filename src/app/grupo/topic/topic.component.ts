@@ -41,7 +41,7 @@ export class TopicComponent implements OnInit {
     this.id_usuario = this.loginService.consultarDatos()._id;
    
   }
-
+//crea un comentario en un tema de un foro
   crearComentario(form: NgForm){
     var comentario = new Comentario;
     var usuario = this.loginService.consultarDatos();
@@ -62,7 +62,7 @@ export class TopicComponent implements OnInit {
   
   }
 
-    
+//edita el texto ya almacenado, modifica    
   changeTextEditable(text: String){
     if(this.isTextEditable){
       this.isTextEditable = false;
@@ -91,7 +91,7 @@ export class TopicComponent implements OnInit {
       this.editComments[i] = true;
     }
   }
-
+//elimina un comentario de un topic asociado
   deleteComment(comentario: any, i:number){
     var putTopic = this.topic;
     putTopic.comentarios.splice(putTopic.comentarios.indexOf(comentario),1);
@@ -101,14 +101,14 @@ export class TopicComponent implements OnInit {
       this.editComments.splice(i,1);
     })
   }
-
+//borra un topic, lo cierra
   deleteTopic(){
     this.grupoService.deleteTopic(this.topic._id).then((id_topic: string) =>{
       this.router.navigate(['/grupo/foro']);
     })
     
   }
-
+//abre un tema de discucion, se crea un nuevo tema en un foro
   abrirTopic(){
     var putTopic = this.topic;
     putTopic.estado = 'Abierto';

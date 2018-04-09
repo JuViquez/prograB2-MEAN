@@ -14,6 +14,8 @@ import { NavigationBarComponent } from '../../navigation/navigation-bar/navigati
   styleUrls: ['./form-escuela.component.css'],
   providers: [EscuelaService, InstitucionService]
 })
+
+//modelo para el mantenimiento de las escuelas
 export class FormEscuelaComponent implements OnInit {
   
 
@@ -23,7 +25,7 @@ export class FormEscuelaComponent implements OnInit {
    selectedInstitucion: Institucion;
    escuelas: Escuela[];
    selectedEscuela: Escuela;
-
+//constructor de una escuela
   constructor(private escuelaService: EscuelaService, 
               private institucionService: InstitucionService) { 
                 
@@ -64,6 +66,7 @@ export class FormEscuelaComponent implements OnInit {
     
   }
 
+  //realiza el POST
   postClicked(form: NgForm){
     var newEscuela = new Escuela();
     newEscuela.nombre = form.value.nombre;
@@ -76,6 +79,7 @@ export class FormEscuelaComponent implements OnInit {
     })
   }
 
+  //Realiza el PUT
   putClicked(form: NgForm){
   if(form.value.nombre != ''){
     var putEscuela = new Escuela();
@@ -88,6 +92,7 @@ export class FormEscuelaComponent implements OnInit {
 
   }
 
+  //Realiza el Deletee
   deleteClicked(){
     var itemId = this.selectedEscuela._id;
     this.escuelaService.DeleteEscuela(itemId).then((id: string) => {

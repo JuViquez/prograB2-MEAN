@@ -1,3 +1,5 @@
+//modelo de comentario
+//almacena los comentarios del foro
 export class Comentario {
     autor: {
         id_usuario: String;

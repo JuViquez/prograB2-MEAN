@@ -33,17 +33,17 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required] 
     });
   }
-
+//deshabilita el campo del usuario y contraseña
   disableForm() {
     this.form.controls['username'].disable();
     this.form.controls['password'].disable();
   }
-
+//habilita el campo de usuario y contraseña
   enableForm() {
     this.form.controls['username'].enable();
     this.form.controls['password'].enable();
   }
-
+//si el usuario es valido inicia sesion y muestra la ventana de mantenimiento de usuario
   onLoginSubmit() {
     this.processing = true; 
     this.disableForm(); 

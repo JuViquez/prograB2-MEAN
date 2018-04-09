@@ -16,6 +16,7 @@ import { LoginService } from '../../login/login.service';
   styleUrls: ['./form-evaluaciones.component.css'],
   providers: [EvaluacionesService,GrupoService,LoginService]
 })
+
 export class FormEvaluacionesComponent implements OnInit {
   selectedEvaluacion: evaluaciones; 
   listaEvaluaciones : evaluaciones[];
@@ -33,7 +34,7 @@ export class FormEvaluacionesComponent implements OnInit {
   setSelectedEvaluacion(e:evaluaciones){
     this.selectedEvaluacion = e;
   }
-
+//actualiza la lista de evaluaciones
   actualizarListaEvaluaciones(){
     this.evaluacionesService.getEvaluaciones(this.selectedEvaluacion._id).then((data: evaluaciones[]) => {
       this.listaEvaluaciones = data;
@@ -56,7 +57,7 @@ export class FormEvaluacionesComponent implements OnInit {
       })
       this.actualizarListaEvaluaciones()})
   }
-
+//modifica la lista de evaluaciones
   submitModificar(){
     this.evaluacionesService.updateEvaluaciones(this.selectedEvaluacion).then((data : evaluaciones)=>{
       this.grupoService.getGrupo(this.selectedEvaluacion.id_grupo).then((grupo:Grupo)=>{

@@ -13,6 +13,8 @@ import { NavigationBarComponent } from "../../navigation/navigation-bar/navigati
   styleUrls: ['./form-programa.component.css'],
   providers: [EscuelaService, InstitucionService]
 })
+
+//Modelo para el mantenimiento de los programas
 export class FormProgramaComponent implements OnInit {
 
   instituciones: Institucion[];
@@ -26,7 +28,7 @@ export class FormProgramaComponent implements OnInit {
 
   programas: Programa[];
   selectedPrograma: Programa;
-
+//constructor de un programa en una escuela e institucion asociada
  constructor(private escuelaService: EscuelaService, 
              private institucionService: InstitucionService) { 
                
@@ -75,7 +77,7 @@ export class FormProgramaComponent implements OnInit {
  }
    
  }
-
+//Realiza el POST de un programa
  postClicked(form: NgForm){
    var newPrograma= new Programa();
    newPrograma.nombre = form.value.nombre;
@@ -90,6 +92,7 @@ export class FormProgramaComponent implements OnInit {
    })
  }
 
+ //Realiza el PUT de un programa
  putClicked(form: NgForm){
  if(form.value.nombre != '' && form.value.codigo_programa !=''){
    var putPrograma = this.selectedPrograma;
@@ -110,6 +113,7 @@ export class FormProgramaComponent implements OnInit {
 
  }
 
+ //Realiza el DELETE de un programa
  deleteClicked(){
   var putEscuela = new Escuela();
   putEscuela = this.selectedEscuela;

@@ -1,7 +1,10 @@
 import { Rubro } from "./rubro";
 import { ListaEstudiantes } from "../models/lista-estudiantes";
 import { ListaAsistencia } from "../models/lista-asistencia";
-
+//modelo para almacenar un grupo
+//se importan los modelos Rubro, ListaAsistencia,ListaEstudiantes
+//se almacenan los rubros, lista de estudiantes,  lista-asistencia como arreglos con sus respectivos tipos de datos
+//periodo, horario, curso son modelos incrustados, cada uno con los atributos necesarios
 export class Grupo {
     _id?: string;
     numero: number;

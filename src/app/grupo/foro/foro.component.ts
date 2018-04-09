@@ -15,7 +15,7 @@ import { GrupoBarComponent } from '../../navigation/grupo-bar/grupo-bar.componen
 })
 export class ForoComponent implements OnInit {
 
-  topics: Topic[];
+  topics: Topic[]; //arreglo de todos los temas de foros
 
   constructor(private grupoService: GrupoService, 
               private loginService: LoginService,
@@ -27,7 +27,7 @@ export class ForoComponent implements OnInit {
        this.topics = topics;
     });
   }
-
+//crea un nuevo tema en los foros
   crearTopic(form: NgForm){
     var user = this.loginService.consultarDatos();
     var newTopic = new Topic();

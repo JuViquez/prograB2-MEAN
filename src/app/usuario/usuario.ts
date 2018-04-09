@@ -1,6 +1,6 @@
 
 import { HistorialCurso } from "../models/historial-curso";
-
+//modelo de usuario, utiliza HistorialCurso
 export class Usuario {
     _id?: string;
     nombre: string;

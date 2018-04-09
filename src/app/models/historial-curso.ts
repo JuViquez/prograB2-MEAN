@@ -1,3 +1,5 @@
+//modelo de Historial del curso
+//almacena todos los datos de un curso 
 export class HistorialCurso {  
     periodo:{
         ano: string;

@@ -1,5 +1,7 @@
 import { Comentario } from "./comentario";
-
+//modelo de los topics de un foro
+//utiliza el modelo Comentario
+//guarda los comentarios en un arreglo de forma Comentario
 export class Topic {
     _id?: String;
     id_grupo: String;

@@ -33,7 +33,7 @@ export class CalificacionComponent implements OnInit {
     }
     this.guardar = true;
   }
-
+//guarda la nota de un estudiante 
   guardarNota(){
     this.guardar = false;
     var estudiante;

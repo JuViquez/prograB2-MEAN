@@ -19,6 +19,7 @@ import { NavigationBarComponent } from "../../navigation/navigation-bar/navigati
   styleUrls: ['./form-grupo.component.css'],
   providers: [LoginService,EscuelaService,GrupoService]
 })
+//mantenimiento de un grupo
 export class FormGrupoComponent implements OnInit {
   datos : any;
   periodo : any;
@@ -33,7 +34,7 @@ export class FormGrupoComponent implements OnInit {
   horarios : any;
   selectedHorario: any;
   createdGrupos : Grupo[]
-
+//crea un nuevo grupo 
   createGrupo(){
     this.createdGrupo.profesor = this.datos.nombre;
     this.createdGrupo.id_profesor = this.datos._id;
@@ -45,7 +46,7 @@ export class FormGrupoComponent implements OnInit {
     this.createdGrupo.horario = this.horarios;
     this.grupoService.createGrupo(this.createdGrupo).then((data : Grupo)=>{ this.createdGrupos.push(data); })
   }
-
+//modifica valores
   setSelectedGrupo(c: Grupo){
     this.createdGrupo = c;
     this.createdGrupo.cupos = c.cupos
@@ -53,18 +54,18 @@ export class FormGrupoComponent implements OnInit {
     this.selectedCurso.codigo_curso = c.curso.codigo_curso;
     this.selectedCurso.nombre = c.curso.nombre;
   }
-
+//edita un grupo ya creado
   editGrupo(){
     this.createdGrupo.curso = { codigo_programa: this.selectedPrograma.codigo_programa , codigo_curso: this.selectedCurso.codigo_curso, nombre: this.selectedCurso.nombre};
     this.createdGrupo.horario = this.horarios;
     this.grupoService.updateGrupo(this.createdGrupo).then((data : Grupo) => { } )
   }
-
+//elimina un grupo
   deleteGrupo(){
     this.grupoService.DeleteGrupo(this.createdGrupo._id).then((data: string)=> {this.actualizarGrupos();})
 
   }
-
+//actualiza los grupos
   actualizarGrupos(){
     this.grupoService.getGruposByEscuela(this.datos.escuela).then((data : Grupo[]) => {this.createdGrupos = data; if(this.createdGrupos.length){this.conHorarios=true;}});
   }
@@ -81,7 +82,7 @@ export class FormGrupoComponent implements OnInit {
     this.periodo = {ano:"",semestre:""};
     if(today.getMonth() > 5){ this.periodo.semestre = "2"}else{ this.periodo.semestre = "1" };
     this.periodo.ano = today.getFullYear().toString();}
-
+//borra el horario de un grupo seleccionado
   BorrarHorario(){
     var index = this.horarios.indexOf(this.selectedHorario);
     if (index !== -1) {this.horarios.splice(index, 1)};

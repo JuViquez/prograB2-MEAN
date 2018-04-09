@@ -53,7 +53,7 @@ export class AsistenciaComponent implements OnInit {
       console.log("Seleccionado");
     }
   }
-
+//guarda los cambios realizados por el usuario 
   guardarCambios(){
     if (typeof(this.listaAsistencia.id_grupo) == 'undefined'){
       this.listaAsistencia.id_grupo = this.loginService.consultarGrupo()._id;
